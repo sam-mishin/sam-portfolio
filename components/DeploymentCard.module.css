@@ -1,0 +1,173 @@
+/* DeploymentCard.module.css — Deployments grid cards. */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- Featured: wide, text left, screenshot right ------------------------- */
+.featured {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-card-lg);
+}
+
+.featured .body {
+  flex: 999 1 480px;
+  min-width: 0;
+  padding: 36px;
+  gap: 14px;
+}
+
+.featureShot {
+  flex: 1 1 400px;
+  display: flex;
+  padding: 24px;
+  border-left: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.featured .title {
+  font-size: 30px;
+}
+
+/* ---- Pieces -------------------------------------------------------------- */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+}
+
+.pill,
+.pillAccent {
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.pill {
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.pillAccent {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}
+
+.customer {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+}
+
+.title {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+}
+
+.fields {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+}
+
+.fieldLabel {
+  padding-top: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+}
+
+.fieldValue {
+  margin: 0;
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+.stack {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+}
+
+.tag {
+  padding: 3px 9px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tag);
+  background: var(--bg);
+  color: var(--value);
+}
+
+.cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--touch);
+  margin-top: auto;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .card {
+    padding: 18px;
+  }
+
+  .featured {
+    padding: 0;
+  }
+
+  .featured .body {
+    padding: 18px;
+    flex-basis: 100%;
+  }
+
+  /* Phones: screenshot on top, like the other cards. */
+  .featureShot {
+    order: -1;
+    flex-basis: 100%;
+    padding: 18px 18px 0;
+    border-left: 0;
+    background: transparent;
+  }
+
+  .featured .title {
+    font-size: 24px;
+  }
+
+  .field {
+    grid-template-columns: 64px 1fr;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,94 @@
+/* SkillsEducation.module.css — skills (JSON) and education cards. */
+
+.section {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 56px var(--gutter) 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.skills {
+  flex: 999 1 560px;
+  min-width: 0;
+}
+
+.education {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.heading {
+  font-size: 26px;
+}
+
+.json {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  line-height: 1.7;
+}
+
+.key {
+  color: var(--key);
+}
+
+.punct {
+  color: var(--muted);
+}
+
+.value {
+  color: var(--value);
+}
+
+.schools {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.school {
+  font-weight: 600;
+}
+
+.detail {
+  margin-top: 2px;
+  font-size: var(--fs-label);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding-top: 40px;
+    gap: 16px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .json {
+    font-size: 13px;
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+}

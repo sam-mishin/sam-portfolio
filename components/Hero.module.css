@@ -1,0 +1,81 @@
+/* Hero.module.css — headline block at the top of the home page. */
+
+.hero {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 72px var(--gutter) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.prompt {
+  font-size: var(--fs-small);
+}
+
+.headline {
+  max-width: 900px;
+  font-size: var(--fs-h1);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.intro {
+  max-width: 760px;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 40px;
+    padding-bottom: 28px;
+    gap: 18px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta {
+    width: 100%;
+  }
+
+  .status {
+    margin: 4px 0 0;
+    font-size: var(--fs-mono-sm);
+  }
+
+  /* The phone mockup drops the location line. */
+  .location {
+    display: none;
+  }
+}

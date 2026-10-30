@@ -42,6 +42,9 @@ export const sections = {
     intro: "Short write-ups of real problems from these deployments, with private details removed.",
   },
   contact: { id: "contact" },
+  /** Accessible names for sections that have no visible heading. */
+  profileCard: { label: "Profile summary" },
+  impact: { label: "Impact" },
 } as const;
 
 /** Labels for the deployment card fields. */
@@ -51,4 +54,6 @@ export const deploymentLabels = {
   shipped: "Shipped",
   result: "Result",
   build: "Built",
+  stack: "Stack",
+  featured: "Featured",
 } as const;

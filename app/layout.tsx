@@ -1,13 +1,16 @@
 /**
  * app/layout.tsx — the root layout wrapped around every page.
  *
- * It loads the two fonts, sets page metadata, and renders the skip link and
- * the <main> landmark. Later milestones add the tab-bar navigation, the
- * footer, the command palette and the no-flash theme script here.
+ * It loads the two fonts, sets page metadata, and renders the frame every
+ * page shares: skip link → tab-bar header → <main> → contact footer.
+ * Milestone 6 adds the command palette, theme toggle and the no-flash
+ * theme script here.
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { IBM_Plex_Sans } from "next/font/google";
+import { SiteFooter } from "@/components/SiteFooter";
+import { TabNav } from "@/components/TabNav";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -55,9 +58,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a className="skip-link" href="#main">
           {site.skipLink}
         </a>
+        <TabNav />
         <main id="main" tabIndex={-1}>
           {children}
         </main>
+        <SiteFooter />
       </body>
     </html>
   );

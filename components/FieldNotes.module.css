@@ -1,0 +1,42 @@
+/* FieldNotes.module.css — field-note cards. */
+
+.grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-card);
+}
+
+.status {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.summary {
+  font-size: var(--fs-label);
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+@media (max-width: 720px) {
+  .card {
+    padding: 18px;
+  }
+}

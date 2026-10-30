@@ -1,19 +1,33 @@
 /**
- * app/page.tsx — the home page.
- *
- * Milestone 1 placeholder: it only proves that the tokens and both fonts
- * load (Cascadia Code for the mono line, Segoe UI / IBM Plex Sans for the
- * rest). Milestone 4 replaces it with the full home page.
+ * app/page.tsx — the home page. Order: hero → winfetch card → impact strip
+ * → Deployments → career timeline → skills & education → How I work →
+ * field notes. (The contact footer comes from the layout.) Each section is
+ * its own component; all text lives in content/.
  */
-import { site } from "@/content/site";
+import { FieldNotes } from "@/components/FieldNotes";
+import { Hero } from "@/components/Hero";
+import { HowIWork } from "@/components/HowIWork";
+import { ImpactStrip } from "@/components/ImpactStrip";
+import { SkillsEducation } from "@/components/SkillsEducation";
+import { Timeline } from "@/components/Timeline";
+import { Winfetch } from "@/components/Winfetch";
+import { Work } from "@/components/Work";
+import { sections } from "@/content/home";
 import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
-    <div className={styles.wrap}>
-      <p className={styles.mono}>{site.name}</p>
-      <h1 className={styles.title}>{site.title}</h1>
-      <p className={styles.body}>{site.description}</p>
-    </div>
+    <>
+      <Hero />
+      <section aria-label={sections.profileCard.label} className={styles.profile}>
+        <Winfetch />
+      </section>
+      <ImpactStrip />
+      <Work />
+      <Timeline />
+      <SkillsEducation />
+      <HowIWork />
+      <FieldNotes />
+    </>
   );
 }

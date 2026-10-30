@@ -93,6 +93,10 @@ export const profile = {
     email: "sammishin2@gmail.com",
     /** Shown after the email is copied. */
     copied: "✓ copied to clipboard",
+    /** Read by screen readers after the address on the copy button. */
+    copyHint: "copy to clipboard",
+    /** The small link next to the button that opens a mail app instead. */
+    mailLink: "or open in your mail app",
     links: [
       { label: "LinkedIn", href: "https://www.linkedin.com/in/samuel-mishin/" },
       { label: "GitHub", href: "https://github.com/sam-mishin" },

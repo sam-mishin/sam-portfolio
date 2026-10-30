@@ -1,0 +1,146 @@
+/* TabNav.module.css — the Windows Terminal tab strip used as site header. */
+
+.header {
+  background: var(--chrome);
+}
+
+.nav {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 8px var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.tabs {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  align-self: flex-end;
+  gap: 2px;
+  /* Pull the tabs down over the strip's bottom padding so the active tab
+     meets the page edge and looks attached to it. */
+  margin: 0 0 -8px;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+
+.tabItem {
+  display: flex;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--touch);
+  padding: 0 14px;
+  border-radius: 8px 8px 0 0;
+  color: var(--text-body);
+  text-decoration: none;
+}
+
+.tab:hover {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.tab:focus-visible {
+  outline-offset: -2px;
+}
+
+/* The tab for the page you're on: page background, wider, with a ✕. */
+.current,
+.current:hover {
+  min-width: 190px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.label {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.close {
+  flex: none;
+  color: var(--muted);
+}
+
+.close path,
+.newTab path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+.newTab {
+  display: flex;
+  align-items: center;
+  min-height: var(--touch);
+  padding: 0 10px;
+  color: var(--text-body);
+}
+
+.actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Phones get the résumé button in the hero instead, as in the mockup. */
+@media (max-width: 720px) {
+  .resume {
+    display: none;
+  }
+}
+
+/* ---- Phones: the active tab fills the bar; the rest move to the menu ---- */
+@media (max-width: 1000px) {
+  .nav {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .tabs {
+    flex-wrap: nowrap;
+    align-self: center;
+    margin: 0;
+  }
+
+  .secondary,
+  .newTab {
+    display: none;
+  }
+
+  .tabItem {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tab,
+  .current,
+  .current:hover {
+    flex: 1;
+    min-width: 0;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 0 12px;
+  }
+
+  .label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .close {
+    display: none;
+  }
+}

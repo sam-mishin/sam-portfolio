@@ -1,0 +1,52 @@
+/* HowIWork.module.css — the six-step process grid. */
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 16px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--key);
+}
+
+.arrow {
+  color: var(--dots);
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.body {
+  flex-grow: 1;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.artifact {
+  font-size: var(--fs-label);
+}
+
+@media (max-width: 720px) {
+  .step {
+    padding: 18px;
+  }
+}

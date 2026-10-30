@@ -1,0 +1,59 @@
+/* ImpactStrip.module.css — the band of impact numbers. */
+
+.band {
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--band);
+}
+
+.list {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 36px var(--gutter);
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 28px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.label {
+  font-size: var(--fs-label);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* Phones: a 2-column grid; an odd last item spans both columns. */
+@media (max-width: 720px) {
+  .list {
+    padding: 24px var(--gutter);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+  }
+
+  .item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .value {
+    font-size: 24px;
+  }
+
+  .label {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}

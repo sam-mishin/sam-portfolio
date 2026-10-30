@@ -63,7 +63,8 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 | `content/skills.ts` | Skills (`skills.json`) and education |
 | `content/how-i-work.ts` | The six "How I work" steps and their artifact links |
 | `content/field-notes.ts` | Field notes cards |
-| `content/home.ts` | Section commands, headings and intro lines |
+| `content/home.ts` | Section commands, headings, intro lines and card labels |
+| `content/nav.ts` | Tab bar tabs, résumé button, phone menu labels |
 | `content/ascii-*.txt` | The ASCII portrait (generated — see below) |
 
 Use curly quotes (’ “ ”) and real dashes (– —). Every number should match the résumé.
@@ -102,9 +103,9 @@ The card sizes the font to fit whatever width the art comes out at, so no code c
 ## Milestones
 
 1. ✅ Scaffold, design tokens and fonts
-2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, `Cursor`) — preview them at <http://localhost:3000/lab> (temporary page, removed in milestone 4)
+2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, `Cursor`)
 3. ✅ Content files, uptime math, ASCII portrait and the `winfetch` card
-4. Home page
+4. ✅ Home page: tab-bar navigation, hero, winfetch, impact strip, Deployments, timeline, skills/education, How I work, field notes, contact footer with copy-to-clipboard email
 5. Case studies (MDX) and View Transitions
 6. Command palette and light/dark theme
 7. 404, metadata, Open Graph image, sitemap, final docs and audits

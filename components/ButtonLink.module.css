@@ -1,0 +1,53 @@
+/* ButtonLink.module.css — filled and outlined link buttons. */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.primary:hover {
+  background: color-mix(in srgb, var(--accent) 88%, var(--text));
+}
+
+.secondary {
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.secondary:hover {
+  border-color: var(--muted);
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+}
+
+.md {
+  min-height: 48px;
+  padding: 0 22px;
+  font-size: 16px;
+}
+
+.sm {
+  min-height: var(--touch);
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  padding: 0 18px;
+}

@@ -1,0 +1,42 @@
+/* Placeholder.module.css — visible styling for content still to be added. */
+
+.text {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--muted);
+  border-bottom: 1px dashed var(--dots);
+}
+
+.shot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-button);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+  text-align: center;
+}
+
+.card {
+  height: 168px;
+}
+
+/* Fills its column; the parent flexbox stretches it to full height. */
+.feature {
+  flex: 1;
+  min-height: 290px;
+}
+
+@media (max-width: 720px) {
+  .card {
+    height: 150px;
+  }
+
+  .feature {
+    min-height: 180px;
+  }
+}
