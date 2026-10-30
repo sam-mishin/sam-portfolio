@@ -29,7 +29,8 @@
  * blurs the way a scaled image would.
  * ------------------------------------------------------------------------- */
 .art {
-  flex: 0 1 380px;
+  /* ~320px keeps the 56-column portrait about as tall as the rows beside it. */
+  flex: 0 1 320px;
   min-width: 0;
   container-type: inline-size;
 }

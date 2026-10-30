@@ -76,10 +76,15 @@ The **Uptime** row on the winfetch card is counted from `codingSince` in `conten
 
 ```powershell
 pip install pillow
-python scripts\make_ascii.py docs\photo.jpg --cols 40 --rows 26 --flat-bg --out content
+python scripts\make_ascii.py docs\photo.jpg --flat-bg --crop 0.22,0.07,0.79,0.88 --cols 56 --rows 40 --out content
 ```
 
-`--flat-bg` removes a plain light studio backdrop. For a photo with a busy background, `pip install rembg` and drop `--flat-bg`; rembg cuts the person out (it downloads a model the first time). The card sizes the font to fit whatever width the art comes out at, so no code changes are needed.
+- `--flat-bg` removes a plain light studio backdrop. For a photo with a busy background, `pip install rembg` and drop `--flat-bg`; rembg cuts the person out (it downloads a model the first time).
+- `--crop` is left, top, right, bottom as fractions of the photo. Crop to head and collar so the face gets most of the characters; adjust it for a new photo.
+- 56 columns is enough to show glasses and a smile; 40 mostly shows a head shape.
+- The characters come from a ramp measured against Cascadia Code's actual ink coverage (see the comment at the top of the script).
+
+The card sizes the font to fit whatever width the art comes out at, so no code changes are needed.
 
 ## Fonts
 

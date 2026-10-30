@@ -45,3 +45,6 @@ next-env.d.ts
 
 # files the Claude desktop app drops into this folder
 /Claude outputs/
+
+# python
+__pycache__/
