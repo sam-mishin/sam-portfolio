@@ -45,8 +45,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${cascadia.variable} ${plex.variable}`}>
-      <body>
+    // suppressHydrationWarning on <html> and <body> only: browser extensions
+    // (ad blockers, antivirus, analytics opt-out) add attributes to these two
+    // elements before React hydrates, and the theme script (milestone 6)
+    // sets data-theme on <html>. It ignores attribute differences on these
+    // elements alone, not on anything inside them.
+    <html lang="en" className={`${cascadia.variable} ${plex.variable}`} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <a className="skip-link" href="#main">
           {site.skipLink}
         </a>
