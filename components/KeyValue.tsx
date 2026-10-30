@@ -40,12 +40,14 @@ export interface KeyValueProps {
   label: string;
   /** The value, shown in the --value color, e.g. "14 Acres Vineyard & Winery". */
   value: ReactNode;
+  /** Optional class on the row, e.g. to hide it on phones. */
+  className?: string;
 }
 
 /** One `Key: ........ value` row. Must be placed inside a {@link KeyValueList}. */
-export function KeyValue({ label, value }: KeyValueProps) {
+export function KeyValue({ label, value, className }: KeyValueProps) {
   return (
-    <div className={styles.row}>
+    <div className={className ? `${styles.row} ${className}` : styles.row}>
       <dt className={styles.key}>{label}:</dt>
       <dd className={styles.value}>{value}</dd>
     </div>

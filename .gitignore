@@ -42,3 +42,6 @@ next-env.d.ts
 
 # local git history hand-off from the build session
 *.bundle
+
+# files the Claude desktop app drops into this folder
+/Claude outputs/

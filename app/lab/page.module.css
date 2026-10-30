@@ -39,22 +39,10 @@
   gap: 6px;
 }
 
-.sizes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  align-items: flex-start;
-}
-
-.sizes > :first-child {
-  flex: 1 1 520px;
-  min-width: 0;
-}
-
 /* 390px phone minus 16px gutters on each side. */
 .phone {
-  flex: 0 1 358px;
-  min-width: 0;
+  width: 100%;
+  max-width: 358px;
   margin: 0;
 }
 
@@ -65,42 +53,8 @@
   color: var(--muted);
 }
 
-.command {
-  padding: 22px 32px 0;
-}
-
-.command:last-child {
-  padding: 0 32px 26px;
-}
-
-.rows {
-  padding: 24px 32px;
-  font-size: var(--fs-label);
-  line-height: 1.45;
-}
-
-.user {
-  margin-bottom: 6px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--text);
-}
-
 @media (max-width: 720px) {
   .panel {
     padding: 16px;
-  }
-
-  .command {
-    padding: 14px 16px 0;
-  }
-
-  .command:last-child {
-    padding: 0 16px 18px;
-  }
-
-  .rows {
-    padding: 12px 16px 18px;
-    font-size: 12.5px;
   }
 }

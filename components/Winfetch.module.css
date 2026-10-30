@@ -1,0 +1,144 @@
+/* Winfetch.module.css — layout of the winfetch card and ASCII scaling. */
+
+.command {
+  padding: 22px 32px 0;
+}
+
+.command:last-child {
+  padding: 0 32px 26px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 32px 48px;
+  padding: 32px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  line-height: 1.45;
+}
+
+/* ---- ASCII portrait ------------------------------------------------------
+ * The art is a fixed grid of characters, so its width is
+ * (characters per line) × (character width). Cascadia Code characters
+ * are ~0.6em wide, so the font size that makes the widest line exactly
+ * fill the box is: box width ÷ --cols ÷ 0.6. The box is a size container,
+ * so 100cqi is its width; min() caps the size at 12.5px on desktop. This
+ * way the art always fits (no sideways scrolling on phones) and never
+ * blurs the way a scaled image would.
+ * ------------------------------------------------------------------------- */
+.art {
+  flex: 0 1 380px;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: min(12.5px, 100cqi / var(--cols) / 0.6);
+  /* 1.25 keeps character cells at the aspect ratio make_ascii.py assumes
+     (CHAR_ASPECT), so the face isn't stretched or squashed. */
+  line-height: 1.25;
+  color: var(--text-body);
+  white-space: pre;
+  overflow: hidden;
+  /* Cascadia Code joins "->", "..." etc. into ligatures; the art needs
+     every character drawn separately. */
+  font-variant-ligatures: none;
+  font-feature-settings: "calt" 0, "liga" 0;
+}
+
+/* Show the version drawn for the active palette. */
+.artLight {
+  display: none;
+}
+
+:global([data-theme="light"]) .artDark {
+  display: none;
+}
+
+:global([data-theme="light"]) .artLight {
+  display: block;
+}
+
+/* ---- Rows ---------------------------------------------------------------- */
+.info {
+  flex: 999 1 520px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-body);
+}
+
+.user {
+  color: var(--text);
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ---- Phones: art on top, a shorter list, smaller type -------------------- */
+@media (max-width: 720px) {
+  .command {
+    padding: 14px 16px 0;
+    font-size: var(--fs-mono-sm);
+  }
+
+  .command:last-child {
+    padding: 0 16px 18px;
+  }
+
+  .content {
+    /* nowrap: a wrapping column flexbox mis-sizes its items in Chrome. */
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px 16px 18px;
+    font-size: 12.5px;
+  }
+
+  .art {
+    flex: none;
+    width: 100%;
+  }
+
+  .pre {
+    /* Phones: leave a little air on each side and center the portrait. */
+    font-size: min(9px, 90cqi / var(--cols) / 0.6);
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .info {
+    flex: none;
+    gap: 10px;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  /* A group with no phone rows (Impact) is hidden entirely, heading too. */
+  .group:not(:has(dl > :not(.desktopOnly))) {
+    display: none;
+  }
+}

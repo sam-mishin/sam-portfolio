@@ -44,10 +44,42 @@ Other commands:
 app/            routes, root layout, global CSS (tokens live only in globals.css)
 components/     reusable UI pieces, each with its own .module.css
 content/        all site text and data — edit these to change copy
-lib/            small pure helpers (and their *.test.ts files)
+lib/            small helpers (and their *.test.ts files)
 public/fonts/   Cascadia Code .woff2 files + OFL license
+scripts/        make_ascii.py (photo → ASCII portrait)
 docs/           design spec, mockups, résumé, build notes, photo for the ASCII portrait
 ```
+
+## Editing content
+
+All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comment.
+
+| File | What it holds |
+|---|---|
+| `content/site.ts` | Page title, description, prompt text (`PS C:\sam>`), terminal tab title |
+| `content/profile.ts` | Hero, winfetch rows, impact numbers, contact links, footer |
+| `content/projects.ts` | Deployment cards, hand-written projects, the `ls .\work --more` list |
+| `content/jobs.ts` | Career timeline (`git log --career`) |
+| `content/skills.ts` | Skills (`skills.json`) and education |
+| `content/how-i-work.ts` | The six "How I work" steps and their artifact links |
+| `content/field-notes.ts` | Field notes cards |
+| `content/home.ts` | Section commands, headings and intro lines |
+| `content/ascii-*.txt` | The ASCII portrait (generated — see below) |
+
+Use curly quotes (’ “ ”) and real dashes (– —). Every number should match the résumé.
+
+The **Uptime** row on the winfetch card is counted from `codingSince` in `content/profile.ts` (`lib/uptime.ts`, tested in `lib/uptime.test.ts`). It's cached for a day at a time, so the live site updates itself roughly daily without a redeploy.
+
+## Regenerating the ASCII portrait
+
+`content/ascii-dark.txt` and `content/ascii-light.txt` are made from `docs/photo.jpg`:
+
+```powershell
+pip install pillow
+python scripts\make_ascii.py docs\photo.jpg --cols 40 --rows 26 --flat-bg --out content
+```
+
+`--flat-bg` removes a plain light studio backdrop. For a photo with a busy background, `pip install rembg` and drop `--flat-bg`; rembg cuts the person out (it downloads a model the first time). The card sizes the font to fit whatever width the art comes out at, so no code changes are needed.
 
 ## Fonts
 
@@ -66,7 +98,7 @@ docs/           design spec, mockups, résumé, build notes, photo for the ASCII
 
 1. ✅ Scaffold, design tokens and fonts
 2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, `Cursor`) — preview them at <http://localhost:3000/lab> (temporary page, removed in milestone 4)
-3. Content files, uptime math, ASCII portrait and the `winfetch` card
+3. ✅ Content files, uptime math, ASCII portrait and the `winfetch` card
 4. Home page
 5. Case studies (MDX) and View Transitions
 6. Command palette and light/dark theme
@@ -76,4 +108,19 @@ docs/           design spec, mockups, résumé, build notes, photo for the ASCII
 
 Everything Sam still needs to supply. Each item shows up on the site as visible `[bracketed]` text until it's filled in.
 
-- _(filled in from milestone 3 onward)_
+Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
+
+- [ ] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there). Note: the résumé still lists mishinsam2@gmail.com; the site uses sammishin2@gmail.com.
+- [ ] **Screenshots** (WebP, ≤1920px long edge, <400 KB, in `public/shots/`), then swap the `shot` text in `content/projects.ts` for the image:
+  - [ ] Trellis member billing dashboard
+  - [ ] Spend tracker dashboard
+  - [ ] Cash drawer count screen
+  - [ ] AI receptionist call flow
+  - [ ] New Adventure Homes booking site
+  - [ ] Royal Service Cleaning inquiry automation
+  - [ ] Chess Variant GIF (a square sliding mid-game)
+  - [ ] Crypto Telegram bot alert message
+- [ ] **New Adventure Homes card** (`content/projects.ts`): the problem they needed solved; hand-written or AI-assisted
+- [ ] **Royal Service Cleaning card**: a result (inquiries delivered, response time…)
+- [ ] **How I work artifacts** (`content/how-i-work.ts`): links for discovery note, prototype, rollout plan, training notes, results write-up, field note
+- [ ] **Field notes** (`content/field-notes.ts`): summaries and links for the duplicate-customer/webhook note, the Trellis migration, receptionist evals
