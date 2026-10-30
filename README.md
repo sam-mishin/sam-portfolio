@@ -65,7 +65,7 @@ docs/           design spec, mockups, résumé, build notes, photo for the ASCII
 ## Milestones
 
 1. ✅ Scaffold, design tokens and fonts
-2. Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, cursor)
+2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, `Cursor`) — preview them at <http://localhost:3000/lab> (temporary page, removed in milestone 4)
 3. Content files, uptime math, ASCII portrait and the `winfetch` card
 4. Home page
 5. Case studies (MDX) and View Transitions

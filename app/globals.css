@@ -15,7 +15,9 @@
  * Color tokens
  * Dark is the default. The inline theme script in app/layout.tsx sets
  * data-theme="light" on <html> before first paint when the visitor's system
- * (or their saved choice) prefers light.
+ * (or their saved choice) prefers light. The light selector isn't limited
+ * to :root, so any element with data-theme="light" (a preview panel, the
+ * share image) gets the light palette for itself and its children.
  * ------------------------------------------------------------------------- */
 :root {
   --bg: #0c0c0c;
@@ -41,7 +43,7 @@
   color-scheme: dark;
 }
 
-:root[data-theme="light"] {
+[data-theme="light"] {
   --bg: #ffffff;
   --band: #f6f8fa;
   --surface: #f6f8fa;

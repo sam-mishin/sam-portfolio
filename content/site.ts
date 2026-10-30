@@ -18,4 +18,8 @@ export const site = {
   name: "Sam Mishin",
   /** Text of the keyboard "skip to content" link. */
   skipLink: "Skip to content",
+  /** The PowerShell prompt shown before every command, e.g. "PS C:\sam> whoami". */
+  promptPath: "PS C:\\sam>",
+  /** Title on the terminal tabs (home tab, winfetch window). */
+  terminalTitle: "sam@mishin: ~",
 } as const;

@@ -1,0 +1,70 @@
+/* KeyValue.module.css — `Key: ........ value` rows with a dot leader. */
+
+.list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  container: kv / inline-size;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.key {
+  flex: none;
+  color: var(--key);
+}
+
+/*
+ * The dot leader. It sits between <dt> and <dd> visually (flex `order`)
+ * and fills the leftover width; overflow hides the extra dots. The
+ * `/ ""` after the content string gives it empty alternative text, so
+ * assistive tech doesn't announce eighty periods.
+ */
+.row::after {
+  content: "................................................................................................" / "";
+  order: 1;
+  flex: 1 1 0;
+  min-width: 2ch;
+  overflow: hidden;
+  color: var(--dots);
+}
+
+.value {
+  order: 2;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--value);
+}
+
+/* Narrow list (phone): key on one line, value below, no dots. */
+@container kv (max-width: 30rem) {
+  /* (A container can't query itself, so spacing goes on the rows.) */
+  .row + .row {
+    margin-top: 6px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    white-space: normal;
+  }
+
+  .row::after {
+    display: none;
+  }
+
+  .value {
+    overflow: visible;
+  }
+}

@@ -1,0 +1,106 @@
+/* lab/page.module.css — layout for the temporary /lab workbench. */
+
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 48px var(--gutter) 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heading {
+  font-size: var(--fs-h2);
+}
+
+.intro {
+  color: var(--text-body);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card-lg);
+  /* Each panel paints its own palette's background and text color. */
+  background: var(--bg);
+  color: var(--text);
+}
+
+.panelHeading {
+  font-size: var(--fs-h3);
+}
+
+.eyebrows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.sizes > :first-child {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+
+/* 390px phone minus 16px gutters on each side. */
+.phone {
+  flex: 0 1 358px;
+  min-width: 0;
+  margin: 0;
+}
+
+.caption {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+}
+
+.command {
+  padding: 22px 32px 0;
+}
+
+.command:last-child {
+  padding: 0 32px 26px;
+}
+
+.rows {
+  padding: 24px 32px;
+  font-size: var(--fs-label);
+  line-height: 1.45;
+}
+
+.user {
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .panel {
+    padding: 16px;
+  }
+
+  .command {
+    padding: 14px 16px 0;
+  }
+
+  .command:last-child {
+    padding: 0 16px 18px;
+  }
+
+  .rows {
+    padding: 12px 16px 18px;
+    font-size: 12.5px;
+  }
+}

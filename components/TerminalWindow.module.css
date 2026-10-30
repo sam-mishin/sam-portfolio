@@ -1,0 +1,129 @@
+/* TerminalWindow.module.css — Windows Terminal window frame. */
+
+.window {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-window);
+  background: var(--bg);
+  overflow: hidden;
+  box-shadow: var(--shadow-window);
+}
+
+/* ---- Tab strip ---------------------------------------------------------- */
+
+.titlebar {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 8px 0 0 8px;
+  background: var(--chrome);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-body);
+  user-select: none;
+}
+
+/* The active tab shares the window background so it looks attached. */
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* 200px like Windows Terminal, but allowed to shrink in narrow windows. */
+  flex: 0 1 200px;
+  min-width: 0;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 8px 8px 0 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.tabTitle {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tabClose path,
+.chromeButton path,
+.control path,
+.control rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+}
+
+.tabClose {
+  flex: none;
+  color: var(--muted);
+}
+
+.chromeButton {
+  display: flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 9px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* Minimize / maximize / close: 46px-wide boxes, full title-bar height. */
+.controls {
+  display: flex;
+  align-self: stretch;
+  margin-top: -8px;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+}
+
+.body {
+  min-width: 0;
+}
+
+/* ---- Phones: a smaller frame, as in the phone mockup -------------------- */
+
+@media (max-width: 720px) {
+  .titlebar {
+    padding: 6px 0 0 6px;
+    font-size: 11px;
+  }
+
+  .tab {
+    gap: 6px;
+    flex-basis: auto;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .tabClose,
+  .dropdown {
+    display: none;
+  }
+
+  .chromeButton {
+    height: 28px;
+    padding: 0 8px;
+  }
+
+  .controls {
+    margin-top: -6px;
+  }
+
+  .control {
+    width: 32px;
+  }
+
+  .control svg {
+    width: 9px;
+    height: 9px;
+  }
+}
