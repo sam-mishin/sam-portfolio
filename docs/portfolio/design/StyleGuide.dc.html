@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Style guide and light mode</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Cascadia+Code:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#0969da;text-decoration:none}a:hover{color:#0550ae}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1300px; box-sizing: border-box; display: flex; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', system-ui, sans-serif;">
+
+<!-- LEFT: tokens on dark -->
+<div style="width: 720px; box-sizing: border-box; background: #0c0c0c; color: #f2f2f2; padding: 56px; display: flex; flex-direction: column; gap: 40px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> cat tokens.css</p>
+<h1 style="margin: 0; font-size: 36px; font-weight: 700;">Style guide</h1>
+<p style="margin: 0; font-size: 15px; color: #9d9d9d;">Windows Terminal’s look: Campbell colors, Cascadia Code and the Windows 11 accent blue.</p>
+</div>
+
+<section aria-label="Colors" style="display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; color: #9d9d9d;">COLOR · DARK / LIGHT</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px;">
+<sc-for list="{{swatches}}" as="s" hint-placeholder-count="8">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; height: 56px; border-radius: 8px; overflow: hidden; border: 1px solid #3a3a3a;"><span style="flex: 1; background: {{s.d}};"></span><span style="flex: 1; background: {{s.l}};"></span></div>
+<span style="color: #f2f2f2;">{{s.name}}</span>
+<span style="color: #9d9d9d;">{{s.d}} / {{s.l}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section aria-label="Type" style="display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; color: #9d9d9d;">TYPE</h2>
+<p style="margin: 0; font-size: 44px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1;">Segoe UI Variable — headings</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #cccccc;">Segoe UI Variable 17/1.6 for body copy, falling back to IBM Plex Sans on Mac. Plain sentences, real numbers.</p>
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 15px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> Cascadia Code — prompts, labels, tags, code</p>
+</section>
+
+<section aria-label="Components" style="display: flex; flex-direction: column; gap: 16px;">
+<h2 style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; color: #9d9d9d;">COMPONENTS</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+<a href="#" style="min-height: 48px; display: flex; align-items: center; padding: 0 22px; border-radius: 8px; background: #60cdff; color: #0c0c0c; font-weight: 600;">Primary</a>
+<a href="#" style="min-height: 48px; display: flex; align-items: center; padding: 0 22px; border-radius: 8px; border: 1px solid #3a3a3a; color: #f2f2f2; font-weight: 600;">Secondary</a>
+<a href="#" style="min-height: 44px; display: flex; align-items: center; color: #60cdff; font-weight: 600;">Text link →</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px;">
+<span style="padding: 4px 10px; border-radius: 6px; background: #1c1c1c; border: 1px solid #2b2b2b; color: #61d6d6;">Next.js</span>
+<span style="padding: 4px 10px; border-radius: 999px; background: rgba(96,205,255,0.14); color: #60cdff;">Featured</span>
+<span style="padding: 4px 10px; border-radius: 999px; border: 1px solid #3a3a3a; color: #9d9d9d;">hand-written</span>
+<span style="display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid #3a3a3a; color: #9d9d9d;"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #16c60c;"></span>Open to roles</span>
+</div>
+<div style="display: flex; gap: 8px; white-space: nowrap; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; border: 1px solid #3a3a3a; border-radius: 8px; padding: 14px 16px; background: #1c1c1c;"><span style="color: #f9f1a5;">Host:</span><span aria-hidden="true" style="flex: 1; overflow: hidden; color: #4a4a4a;">..........................................................</span><span style="color: #61d6d6;">14 Acres Vineyard &amp; Winery</span></div>
+</section>
+</div>
+
+<!-- RIGHT: light mode hero sample -->
+<div style="width: 720px; box-sizing: border-box; background: #ffffff; color: #1f2328; padding: 56px; display: flex; flex-direction: column; gap: 28px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #59636e;"><span style="color: #1f2328;">PS C:\sam&gt;</span> theme --light</p>
+<div style="display: flex; align-items: center; gap: 16px; border-bottom: 1px solid #d1d9e0; padding-bottom: 16px;">
+<span style="flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', sans-serif; font-size: 14px;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>sam@mishin: ~</span>
+<span style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #59636e;">./work ./experience ./contact</span>
+</div>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em;">I build software that real businesses run on.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3d444d;">Full-stack web developer at a working winery, plus about 12 client sites since 2023.</p>
+<div style="display: flex; gap: 12px;">
+<a href="#" style="min-height: 48px; display: flex; align-items: center; padding: 0 22px; border-radius: 8px; background: #005fb8; color: #ffffff; font-weight: 600;">See my work</a>
+<a href="#" style="min-height: 48px; display: flex; align-items: center; padding: 0 22px; border-radius: 8px; border: 1px solid #d1d9e0; color: #1f2328; font-weight: 600;">Download résumé</a>
+</div>
+<div style="border: 1px solid #d1d9e0; border-radius: 8px; background: #fafafa; overflow: hidden; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; box-shadow: 0 12px 32px rgba(0,0,0,0.12);">
+<div style="display: flex; align-items: flex-end; gap: 2px; padding: 6px 0 0 6px; background: #ebebeb; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', sans-serif; font-size: 12px; color: #1f2328;">
+<span style="display: flex; align-items: center; gap: 8px; height: 30px; min-width: 170px; padding: 0 12px; border-radius: 6px 6px 0 0; background: #fafafa;"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="flex: 1;">sam@mishin: ~</span><span aria-hidden="true" style="font-size: 10px; color: #59636e;">✕</span></span>
+<span aria-hidden="true" style="height: 30px; display: flex; align-items: center; padding: 0 10px; font-size: 15px;">+</span>
+<span style="flex: 1;"></span>
+<span aria-hidden="true" style="display: flex; align-self: stretch; margin-top: -6px;"><span style="width: 40px; display: flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5.5h10" stroke="#1f2328"></path></svg></span><span style="width: 40px; display: flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#1f2328"></rect></svg></span><span style="width: 40px; display: flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 0l10 10M10 0L0 10" stroke="#1f2328"></path></svg></span></span>
+</div>
+<p style="margin: 0; padding: 16px 22px 0; font-size: 13px; color: #953800;"><span style="color: #1f2328;">PS C:\sam&gt;</span> winfetch</p>
+<div style="display: flex; gap: 24px; padding: 22px; align-items: center;">
+<pre aria-hidden="true" style="margin: 0; font-family: inherit; font-size: 7px; line-height: 1.2; color: #1f2328;">{{art}}</pre>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; font-size: 13px;">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+<div style="display: flex; gap: 6px; white-space: nowrap;"><span style="color: #953800;">{{r.k}}:</span><span aria-hidden="true" style="flex: 1; overflow: hidden; color: #c2cfde;">..............................</span><span style="color: #0a3069;">{{r.v}}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+<p style="margin: 0; font-size: 13px; color: #59636e;">Light mode follows Windows Terminal’s light theme: Windows 11 light accent (#005fb8) for buttons, darker key and value colors so everything stays above 4.5:1 on white.</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+renderVals() {
+const swatches = [
+{ name: "Ground", d: "#0c0c0c", l: "#ffffff" },
+{ name: "Surface", d: "#1c1c1c", l: "#f6f8fa" },
+{ name: "Accent", d: "#60cdff", l: "#005fb8" },
+{ name: "Text", d: "#f2f2f2", l: "#1f2328" },
+{ name: "Muted", d: "#9d9d9d", l: "#59636e" },
+{ name: "Keys / commands", d: "#f9f1a5", l: "#953800" },
+{ name: "Values / links", d: "#61d6d6", l: "#0a3069" },
+{ name: "Status", d: "#16c60c", l: "#1a7f37" }
+];
+const art = [
+"        / kddppppddd",
+"      jfo$*okbkhho8b",
+" nzXz ucXz uvntxomcnnnYkZvxru",
+"U*@$$Wfc#@$$Wfc#B$Bw[tOo%&m(fOo$$8v",
+"z*$$$B)x*$$$B)x*$$$B1r*$$$B{r*$$$$r",
+"$$$$Q[m$$$$Q[m$$$$Q[m$$$$Q[m$$$$w",
+" f0#$8Z?)0M$8Z?)0M$8Z?)0M$8w[",
+" OB$$$$(n#$$$$(n#$$$$(n#$$$$r",
+"   -XdBBhx<vdBBhx<vdBBav",
+"   fM$$$$O}w$$$$O}w$$$$a",
+"      /Qo@#Q-{Qo@#0]",
+"      mB$$$$(uW$$$$j",
+"        ?vm8&bj<bu",
+"         (Jh%aQ}",
+"         m8$$$$c"
+].join("\n");
+const rows = [
+{ k: "Host", v: "14 Acres" },
+{ k: "Kernel", v: "Mktg & Tech Lead" },
+{ k: "IDE", v: "VS Code" },
+{ k: "Languages", v: "JS, TS, Python, SQL" },
+{ k: "Building", v: "Trellis" },
+{ k: "Education", v: "WGU CS ’27" }
+];
+return { swatches, art, rows };
+}
+}
+</script>
+</body>
+</html>

@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# sam-portfolio
 
-## Getting Started
+The developer portfolio of **Sam Mishin**: full-stack web developer and Marketing & Technology Lead at 14 Acres Vineyard & Winery. The site is styled like Windows Terminal (tab-bar navigation, a `winfetch` profile card, a `/` command palette) on top of plain, scannable sections a recruiter can read in 30 seconds.
 
-First, run the development server:
+> **Status:** in progress, built milestone by milestone (see [Milestones](#milestones)). This README grows with each one.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech stack
+
+| Piece | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router), TypeScript, React 19 |
+| Styling | Plain CSS: design tokens as custom properties in `app/globals.css`, CSS Modules per component. No Tailwind, no UI library. |
+| Content | TypeScript data files in `content/`, MDX for case studies (milestone 5) |
+| Fonts | Cascadia Code self-hosted with `next/font/local`; IBM Plex Sans via `next/font/google` (fallback after Segoe UI) |
+| Tests | Vitest |
+| Hosting | Vercel |
+
+## Run it locally (Windows)
+
+1. Install **Node.js 22 LTS or newer** from <https://nodejs.org> (the installer adds `node` and `npm` to PATH).
+2. Open PowerShell in the project folder:
+
+   ```powershell
+   cd C:\Users\mishi\Desktop\Code\sam-portfolio
+   npm install
+   npm run dev
+   ```
+
+3. Open <http://localhost:3000>. Edits to files reload the page automatically.
+
+Other commands:
+
+| Command | What it does |
+|---|---|
+| `npm run lint` | ESLint |
+| `npm run typecheck` | Generates route types, then runs `tsc --noEmit` |
+| `npm test` | Runs the Vitest unit tests once (`npm run test:watch` to keep watching) |
+| `npm run build` | Production build (what Vercel runs) |
+| `npm run check` | All four of the above, in order |
+
+## Project structure
+
+```
+app/            routes, root layout, global CSS (tokens live only in globals.css)
+components/     reusable UI pieces, each with its own .module.css
+content/        all site text and data — edit these to change copy
+lib/            small pure helpers (and their *.test.ts files)
+public/fonts/   Cascadia Code .woff2 files + OFL license
+docs/           design spec, mockups, résumé, build notes, photo for the ASCII portrait
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Fonts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Cascadia Code** (Microsoft, SIL Open Font License; license in `public/fonts/OFL.txt`). `public/fonts/CascadiaCode-Regular.woff2` and `-Bold.woff2` are the official Cascadia Code 2407.024 regular and bold, **subset** to Latin, punctuation, arrows, box drawing and geometric shapes, which brings each file down to about 40 KB. They were made with [fontTools](https://github.com/fonttools/fonttools):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  ```bash
+  pyftsubset CascadiaCode-Regular.ttf --flavor=woff2 --layout-features='*' \
+    --unicodes="U+0000-024F,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-21FF,U+2212,U+2215,U+2500-25FF,U+2713,U+FFFD" \
+    --output-file=CascadiaCode-Regular.woff2
+  ```
 
-## Learn More
+  To use the full, unsubset font instead, download the release zip from <https://github.com/microsoft/cascadia-code/releases>, copy `woff2/static/CascadiaCode-Regular.woff2` and `CascadiaCode-Bold.woff2` over these two files, and rebuild.
+- **IBM Plex Sans** is fetched from Google Fonts by `next/font/google` **at build time** and served from this site. The build machine needs internet access (Vercel and a normal PC both do).
 
-To learn more about Next.js, take a look at the following resources:
+## Milestones
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. ✅ Scaffold, design tokens and fonts
+2. Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, cursor)
+3. Content files, uptime math, ASCII portrait and the `winfetch` card
+4. Home page
+5. Case studies (MDX) and View Transitions
+6. Command palette and light/dark theme
+7. 404, metadata, Open Graph image, sitemap, final docs and audits
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Placeholder TODO
 
-## Deploy on Vercel
+Everything Sam still needs to supply. Each item shows up on the site as visible `[bracketed]` text until it's filled in.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- _(filled in from milestone 3 onward)_

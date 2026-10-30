@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sam Mishin — Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Cascadia+Code:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0c0c0c}
+.cursor{animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}
+a{color:#61d6d6;text-decoration:none}a:hover{color:#9ae6e6;text-decoration:underline}
+</style>
+</helmet>
+<div style="background: #0c0c0c; color: #f2f2f2; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', system-ui, sans-serif; min-height: 100%;">
+
+<!-- NAV -->
+<header style="background: #202020;">
+<nav aria-label="Main" style="max-width: 1200px; margin: 0 auto; padding: 8px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 2px; flex-grow: 1; align-self: flex-end; margin-bottom: -8px; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', sans-serif; font-size: 13px;">
+<a href="Main.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 40px; min-width: 190px; padding: 0 14px; border-radius: 8px 8px 0 0; background: #0c0c0c; color: #f2f2f2;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="flex: 1;">sam@mishin: ~</span><span aria-hidden="true" style="color: #9d9d9d; font-size: 10px;">✕</span></a>
+<a href="#work" style="display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px; border-radius: 8px 8px 0 0; color: #cccccc;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>work</a>
+<a href="#experience" style="display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px; border-radius: 8px 8px 0 0; color: #cccccc;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>experience</a>
+<a href="#skills" style="display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px; border-radius: 8px 8px 0 0; color: #cccccc;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>skills</a>
+<a href="#contact" style="display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px; border-radius: 8px 8px 0 0; color: #cccccc;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>contact</a>
+<span aria-hidden="true" style="min-height: 40px; display: flex; align-items: center; padding: 0 10px; color: #cccccc; font-size: 18px;">+</span>
+</div>
+<div style="display: flex; gap: 10px; align-items: center;">
+<a href="CommandBar.dc.html" aria-label="Open command bar" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border: 1px solid #3a3a3a; border-radius: 8px; color: #9d9d9d; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px;">Search <kbd style="font-family: inherit; border: 1px solid #3a3a3a; border-radius: 4px; padding: 1px 6px; color: #f2f2f2;">/</kbd></a>
+<button type="button" aria-label="Switch to light mode" style="width: 44px; height: 40px; border: 1px solid #3a3a3a; border-radius: 8px; background: transparent; color: #f2f2f2; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></button>
+<a href="#resume" style="min-height: 40px; display: flex; align-items: center; padding: 0 16px; border-radius: 8px; background: {{accent}}; color: #0c0c0c; font-weight: 600; font-size: 14px;">Résumé</a>
+</div>
+</nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section aria-labelledby="hero-h" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 40px; display: flex; flex-direction: column; gap: 28px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 15px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> whoami</p>
+<h1 id="hero-h" style="margin: 0; font-size: 56px; line-height: 1.08; font-weight: 700; letter-spacing: -0.02em; max-width: 900px;">I build software that real businesses run on.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #cccccc; max-width: 760px;">Full-stack web developer. I write the billing platform, POS integrations and staff tools at a working winery, and I’ve shipped about 12 client websites since 2023.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+<a href="#work" style="min-height: 48px; display: flex; align-items: center; padding: 0 22px; border-radius: 8px; background: {{accent}}; color: #0c0c0c; font-weight: 600; font-size: 16px;">See my work</a>
+<a href="#resume" style="min-height: 48px; display: flex; align-items: center; padding: 0 22px; border-radius: 8px; border: 1px solid #3a3a3a; color: #f2f2f2; font-weight: 600; font-size: 16px;">Download résumé</a>
+<span style="display: flex; align-items: center; gap: 8px; margin-left: 8px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #9d9d9d;"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #16c60c;"></span>Open to junior full-stack roles · Vancouver WA / Portland / remote</span>
+</div>
+</section>
+
+<!-- NEOFETCH CARD -->
+<section aria-label="Profile summary" style="max-width: 1200px; margin: 0 auto; padding: 0 32px 64px;">
+<div style="border: 1px solid #3a3a3a; border-radius: 8px; background: #0c0c0c; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.5);">
+<div style="display: flex; align-items: flex-end; gap: 2px; padding: 8px 0 0 8px; background: #202020; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', sans-serif; font-size: 12px; color: #cccccc;">
+<span style="display: flex; align-items: center; gap: 8px; height: 34px; min-width: 200px; padding: 0 12px; border-radius: 8px 8px 0 0; background: #0c0c0c; color: #f2f2f2;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="flex: 1;">sam@mishin: ~</span><span aria-hidden="true" style="color: #9d9d9d; font-size: 10px;">✕</span></span>
+<span aria-hidden="true" style="height: 34px; display: flex; align-items: center; padding: 0 10px; font-size: 16px;">+</span>
+<span aria-hidden="true" style="height: 34px; display: flex; align-items: center; padding: 0 6px; font-size: 12px;">⌄</span>
+<span style="flex: 1;"></span>
+<span aria-hidden="true" style="display: flex; align-self: stretch; margin-top: -8px;"><span style="width: 46px; display: flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 5.5h10" stroke="#cccccc"></path></svg></span><span style="width: 46px; display: flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 10 10"><rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="#cccccc"></rect></svg></span><span style="width: 46px; display: flex; align-items: center; justify-content: center;"><svg width="10" height="10" viewBox="0 0 10 10"><path d="M0 0l10 10M10 0L0 10" stroke="#cccccc"></path></svg></span></span>
+</div>
+<p style="margin: 0; padding: 22px 32px 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> winfetch</p>
+<div style="display: flex; flex-wrap: wrap; gap: 32px 48px; padding: 32px; align-items: center; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.45;">
+<figure style="margin: 0; flex: 0 1 380px; display: flex; flex-direction: column; gap: 10px;">
+<pre aria-hidden="true" style="margin: 0; font-family: inherit; font-size: 12.5px; line-height: 1.25; color: #cccccc; white-space: pre; overflow: hidden;">{{art}}</pre>
+<figcaption style="font-size: 12px; color: #9d9d9d;">[ASCII portrait generated from your photo]</figcaption>
+</figure>
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 6px;"><strong style="color: #f2f2f2;">sam@mishin</strong><span aria-hidden="true" style="flex: 1; height: 1px; background: #3a3a3a;"></span></div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="12">
+<sc-if value="{{r.gap}}" hint-placeholder-val="{{false}}"><div style="height: 14px;"></div></sc-if>
+<sc-if value="{{r.head}}" hint-placeholder-val="{{false}}"><div style="display: flex; gap: 10px; align-items: center; margin: 4px 0;"><span style="color: #cccccc;">- {{r.k}}</span><span aria-hidden="true" style="flex: 1; height: 1px; background: #3a3a3a;"></span></div></sc-if>
+<sc-if value="{{r.kv}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; gap: 8px; white-space: nowrap;"><span style="color: #f9f1a5;">{{r.k}}:</span><span aria-hidden="true" style="flex: 1; overflow: hidden; color: #4a4a4a;">............................................................................</span><span style="color: #61d6d6; overflow: hidden; text-overflow: ellipsis;">{{r.v}}</span></div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+<p style="margin: 0; padding: 0 32px 26px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #cccccc;">PS C:\sam&gt; <span class="cursor" aria-hidden="true" style="display: inline-block; width: 9px; height: 17px; vertical-align: text-bottom; background: #cccccc;"></span></p>
+</div>
+</section>
+
+<!-- IMPACT STRIP -->
+<section aria-label="Impact" style="border-top: 1px solid #2b2b2b; border-bottom: 1px solid #2b2b2b; background: #141414;">
+<ul style="list-style: none; margin: 0 auto; max-width: 1200px; padding: 36px 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px;">
+<sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+<li style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 32px; font-weight: 700; color: #f2f2f2;">{{s.n}}</span><span style="font-size: 14px; line-height: 1.45; color: #9d9d9d;">{{s.label}}</span></li>
+</sc-for>
+</ul>
+</section>
+
+<!-- WORK -->
+<section id="work" aria-labelledby="work-h" style="max-width: 1200px; margin: 0 auto; padding: 88px 32px 40px; display: flex; flex-direction: column; gap: 32px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> ls ./work --featured</p>
+<h2 id="work-h" style="margin: 0; font-size: 36px; font-weight: 700; letter-spacing: -0.01em;">Selected work</h2>
+<p style="margin: 0; font-size: 16px; color: #9d9d9d; max-width: 680px;">Each project says how it was built: <span style="color: #f2f2f2;">hand-written</span>, or <span style="color: #f2f2f2;">AI-assisted</span> with me reviewing and testing every change.</p>
+</div>
+
+<!-- featured Trellis -->
+<article style="border: 1px solid #3a3a3a; border-radius: 14px; background: #1c1c1c; display: flex; flex-wrap: wrap; overflow: hidden;">
+<div style="flex: 999 1 480px; min-width: 0; padding: 36px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px;">
+<span style="padding: 4px 10px; border-radius: 999px; background: rgba(96,205,255,0.14); color: #60cdff;">Featured</span>
+<span style="padding: 4px 10px; border-radius: 999px; border: 1px solid #3a3a3a; color: #9d9d9d;">In development · first live charges Jan 2027</span>
+</div>
+<h3 style="margin: 0; font-size: 30px; font-weight: 700;">Trellis</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #cccccc;">A multi-tenant wine club billing platform replacing a discontinued vendor for about 800 club members. Idempotency keys prevent double charges through the Clover API, and Postgres row-level security keeps each winery’s data separate.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #61d6d6;">
+<span style="padding: 4px 10px; border-radius: 6px; background: #0c0c0c; border: 1px solid #2b2b2b;">Next.js</span>
+<span style="padding: 4px 10px; border-radius: 6px; background: #0c0c0c; border: 1px solid #2b2b2b;">TypeScript</span>
+<span style="padding: 4px 10px; border-radius: 6px; background: #0c0c0c; border: 1px solid #2b2b2b;">PostgreSQL</span>
+<span style="padding: 4px 10px; border-radius: 6px; background: #0c0c0c; border: 1px solid #2b2b2b;">Render workers</span>
+<span style="padding: 4px 10px; border-radius: 6px; background: #0c0c0c; border: 1px solid #2b2b2b;">Clover API</span>
+<span style="padding: 4px 10px; border-radius: 6px; background: #0c0c0c; border: 1px solid #2b2b2b;">GitHub Actions</span>
+</div>
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">AI-assisted · reviewed and tested by me</p>
+<a href="Project.dc.html" style="align-self: flex-start; min-height: 44px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; color: {{accent}};">Read the case study →</a>
+</div>
+<div style="flex: 1 1 420px; min-height: 340px; background: #0c0c0c; border-left: 1px solid #3a3a3a; display: flex; align-items: center; justify-content: center; padding: 24px;">
+<div style="width: 100%; height: 100%; min-height: 290px; border: 1px dashed #3a3a3a; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #9d9d9d; text-align: center; padding: 16px; box-sizing: border-box;">[Screenshot: Trellis member billing dashboard]</div>
+</div>
+</article>
+
+<!-- grid -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px;">
+<sc-for list="{{projects}}" as="p" hint-placeholder-count="5">
+<article style="border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<div style="height: 168px; border: 1px dashed #3a3a3a; border-radius: 8px; background: #0c0c0c; display: flex; align-items: center; justify-content: center; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d; text-align: center; padding: 12px;">{{p.shot}}</div>
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">{{p.meta}}</p>
+<h3 style="margin: 0; font-size: 21px; font-weight: 600;">{{p.title}}</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #cccccc; flex-grow: 1;">{{p.body}}</p>
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #61d6d6;">{{p.stack}}</p>
+<a href="{{p.href}}" style="min-height: 44px; display: flex; align-items: center; font-weight: 600; font-size: 14px; color: {{accent}};">{{p.cta}} →</a>
+</article>
+</sc-for>
+</div>
+
+<!-- more -->
+<div style="border: 1px solid #3a3a3a; border-radius: 12px; padding: 24px 28px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; display: flex; flex-direction: column; gap: 10px;">
+<p style="margin: 0; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> ls ./work --more</p>
+<sc-for list="{{more}}" as="m" hint-placeholder-count="4">
+<div style="display: flex; flex-wrap: wrap; gap: 4px 16px;"><span style="color: #f2f2f2; min-width: 280px;">{{m.name}}</span><span style="color: #9d9d9d;">{{m.desc}}</span></div>
+</sc-for>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" aria-labelledby="exp-h" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 40px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> git log --career</p>
+<h2 id="exp-h" style="margin: 0; font-size: 36px; font-weight: 700;">From the dish pit to the tech lead</h2>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column;">
+<sc-for list="{{jobs}}" as="j" hint-placeholder-count="5">
+<li style="display: flex; gap: 20px;">
+<div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; width: 16px;"><span style="width: 12px; height: 12px; border-radius: 50%; border: 2px solid {{j.dot}}; background: #0c0c0c; margin-top: 6px;"></span><span style="flex: 1; width: 2px; background: #2b2b2b;"></span></div>
+<div style="padding-bottom: 32px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #9d9d9d;"><span style="color: #c19c00;">{{j.hash}}</span> · {{j.dates}}</p>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600;">{{j.role}} <span style="color: #9d9d9d; font-weight: 400;">— {{j.org}}</span></h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #cccccc; max-width: 760px;">{{j.desc}}</p>
+</div>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<!-- SKILLS + EDUCATION -->
+<section id="skills" aria-labelledby="skills-h" style="max-width: 1200px; margin: 0 auto; padding: 40px 32px 72px; display: flex; flex-wrap: wrap; gap: 24px;">
+<div style="flex: 999 1 560px; min-width: 0; border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 28px; display: flex; flex-direction: column; gap: 18px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> cat skills.json</p>
+<h2 id="skills-h" style="margin: 0; font-size: 26px; font-weight: 700;">Skills</h2>
+<div style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; line-height: 1.7;">
+<sc-for list="{{skills}}" as="sk" hint-placeholder-count="5">
+<div><span style="color: #f9f1a5;">"{{sk.k}}"</span><span style="color: #9d9d9d;">: [</span><span style="color: #61d6d6;">{{sk.v}}</span><span style="color: #9d9d9d;">]</span></div>
+</sc-for>
+</div>
+</div>
+<div style="flex: 1 1 320px; border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 28px; display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> cat education.md</p>
+<h2 style="margin: 0; font-size: 26px; font-weight: 700;">Education</h2>
+<div><p style="margin: 0; font-weight: 600;">B.S. Computer Science</p><p style="margin: 2px 0 0; font-size: 14px; color: #9d9d9d;">Western Governors University · expected Dec 2027</p></div>
+<div><p style="margin: 0; font-weight: 600;">Clark College</p><p style="margin: 2px 0 0; font-size: 14px; color: #9d9d9d;">Fall 2024 – Spring 2025 · Calculus, Digital Logic Design</p></div>
+<div><p style="margin: 0; font-weight: 600;">Webflow certification</p><p style="margin: 2px 0 0; font-size: 14px; color: #9d9d9d;">Apr 2026</p></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.55; color: #9d9d9d;">In progress: AWS Developer – Associate, Linux Essentials, Java, Back-End and AI Optimization Developer certs.</p>
+</div>
+</section>
+</main>
+
+<!-- CONTACT -->
+<footer id="contact" style="border-top: 1px solid #2b2b2b; background: #141414;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 40px; display: flex; flex-direction: column; gap: 24px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> contact --sam</p>
+<h2 style="margin: 0; font-size: 40px; font-weight: 700;">Let’s talk.</h2>
+<p style="margin: 0; font-size: 17px; color: #cccccc; max-width: 640px;">Looking for a junior full-stack, web or product engineering role. Wine, hospitality and point-of-sale software especially.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px;">
+<a href="mailto:mishinsam2@gmail.com" style="min-height: 48px; display: flex; align-items: center; padding: 0 18px; border-radius: 8px; background: {{accent}}; color: #0c0c0c; font-weight: 700;">mishinsam2@gmail.com</a>
+<a href="https://www.linkedin.com/in/samuel-mishin/" style="min-height: 48px; display: flex; align-items: center; padding: 0 18px; border-radius: 8px; border: 1px solid #3a3a3a; color: #f2f2f2;">LinkedIn</a>
+<a href="https://github.com/sam-mishin" style="min-height: 48px; display: flex; align-items: center; padding: 0 18px; border-radius: 8px; border: 1px solid #3a3a3a; color: #f2f2f2;">GitHub</a>
+<a href="https://mishinwebsites.com" style="min-height: 48px; display: flex; align-items: center; padding: 0 18px; border-radius: 8px; border: 1px solid #3a3a3a; color: #f2f2f2;">Freelance site</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 32px; margin-top: 24px; border-top: 1px solid #2b2b2b; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">
+<span>© 2026 Sam Mishin · Ridgefield, WA</span>
+<span>Hand-written in Next.js · deployed on Vercel · press <kbd style="font-family: inherit; border: 1px solid #3a3a3a; border-radius: 4px; padding: 0 5px; color: #f2f2f2;">/</kbd> to search</span>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#60cdff","options":["#60cdff","#16c60c","#f9f1a5"]},"$preview":{"width":1440,"height":3900}}'>
+class Component extends DCLogic {
+renderVals() {
+const art = [
+"                    / kddppppddd",
+"                   jfo$*okbkhho8b",
+"   nzXz   ucXz   uvntxomcnnnYkZvxru",
+"  U*@$$Wfc#@$$Wfc#B$Bw[tOo%&m(fOo$$8v",
+"  z*$$$B)x*$$$B)x*$$$B1r*$$$B{r*$$$$r",
+"ju)/nOu(|)/nOu(|)/nOu(|)/nOu(|)/nOu)fcx",
+"o$$#n~Xk$$#n~Xk$$#n~Xk$$#n~Xk$$#n~Xk$$BY",
+"$$$$Q[m$$$$Q[m$$$$Q[m$$$$Q[m$$$$Q[m$$$$w",
+"XwLx1/)tQLx{/)tQLx{/)tQLx{/)tQLx{/)f0d0",
+"  f0#$8Z?)0M$8Z?)0M$8Z?)0M$8Z?)0M$8w[",
+"  OB$$$$(n#$$$$(n#$$$$(n#$$$$(n#$$$$r",
+"   JmpX|)1tvqX|)1tvqX|)1tvqX|)1tvkbz",
+"     -XdBBhx<vdBBhx<vdBBhx<vdBBav",
+"     fM$$$$O}w$$$$O}w$$$$O}w$$$$a",
+"      nQdOu{()rmOu{()rmOu{()rmhw",
+"         /Qo@#Q-{Qo@#Q-{Qo@#0]",
+"         mB$$$$(uW$$$$(uW$$$$j",
+"          CqaJ/1{fYbC/1{fYahU",
+"            ?vm8&bj<nm8&bu",
+"            jW$$$$Z{p$$$$#",
+"             vmhpc{ )nd#d",
+"                (Jh%aQ}",
+"                m8$$$$c",
+"                |cQpqv"
+].join("\n");
+const kv = (k, v) => ({ k, v, kv: true });
+const rows = [
+kv("OS", "Windows, Webflow, Vercel"),
+kv("Uptime", "3 years, 0 months, 28 days"),
+kv("Host", "14 Acres Vineyard & Winery"),
+kv("Kernel", "Marketing & Technology Lead"),
+kv("IDE", "VS Code"),
+{ gap: true },
+kv("Languages", "JavaScript, TypeScript, Python, SQL"),
+kv("Stack", "Next.js, React, Postgres, Supabase"),
+kv("Building", "Trellis — wine club billing"),
+kv("Education", "B.S. Computer Science, WGU ’27"),
+{ gap: true },
+{ k: "Impact", head: true },
+kv("Orders synced", "50,000+"),
+kv("Calls answered / day", "~50"),
+kv("Client sites shipped", "~12")
+];
+const stats = [
+{ n: "50,000+", label: "Clover POS orders synced nightly into Postgres" },
+{ n: "~800", label: "wine club members Trellis will bill" },
+{ n: "~50/day", label: "calls answered by the AI receptionist I maintain" },
+{ n: "~12", label: "client websites shipped since 2023" },
+{ n: "< $1", label: "every cash mismatch flagged since launch" }
+];
+const projects = [
+{ meta: "14 Acres · AI-assisted", title: "Customer spend tracker", body: "One view of revenue and top food and wine for the owner and GM, syncing Clover orders every night.", stack: "Supabase functions · Vercel Cron · Postgres", shot: "[Screenshot: spend dashboard]", cta: "Read more", href: "Project.dc.html" },
+{ meta: "14 Acres · AI-assisted", title: "Cash drawer counts", body: "Rebuilt a buggy prototype to end inaccurate paper counts. Checks every count against Clover cash sales for 8–10 staff.", stack: "Next.js · Supabase · Clover API", shot: "[Screenshot: drawer count screen]", cta: "Read more", href: "Project.dc.html" },
+{ meta: "14 Acres · no-code + API", title: "AI phone receptionist", body: "Answers about 50 calls a day with event info and routing, kept current from the website’s events.", stack: "Synthflow · Make.com · Twilio", shot: "[Screenshot: call flow]", cta: "Read more", href: "Project.dc.html" },
+{ meta: "Personal · hand-written · in progress", title: "Chess Variant", body: "A browser chess variant where the squares move as well as the pieces. Live WebSocket matches coming Jan 2027.", stack: "JavaScript · HTML · CSS · WebSockets", shot: "[GIF: a square sliding mid-game]", cta: "View on GitHub", href: "https://github.com/sam-mishin/Chess-Variant" },
+{ meta: "Personal · hand-written · 2022", title: "Crypto Telegram bot", body: "Replaced hours of scanning chats. Alerts me with DexScreener data when a coin is called repeatedly.", stack: "Python · SQLite · Telegram API", shot: "[Screenshot: alert message]", cta: "View on GitHub", href: "https://github.com/sam-mishin/Crypto-Telegram-Bot" }
+];
+const more = [
+{ name: "wine-inventory/", desc: "Tracks about 40 wines in one place for the winemaker" },
+{ name: "tv-events-display/", desc: "Turns the website’s events CMS into tasting room TV slides" },
+{ name: "14acres-webflow/", desc: "WordPress → Webflow rebuild, 100–300 daily users" },
+{ name: "identity-matcher/", desc: "Hand-written name matcher for duplicate Clover customers (Vitest)" }
+];
+const jobs = [
+{ hash: "a7f3e21", dates: "Jul 2026 – now", role: "Marketing & Technology Lead", org: "14 Acres Vineyard & Winery", desc: "Build and maintain the winery’s software, POS integrations and website (about two-thirds of the role); also run marketing.", dot: "#16c60c" },
+{ hash: "5c0d9b4", dates: "May 2026", role: "Freelance developer", org: "14 Acres Vineyard & Winery", desc: "Came back as a contractor before being hired full time.", dot: "#9d9d9d" },
+{ hash: "e19a6f0", dates: "Aug 2024 – Aug 2025", role: "Assistant Winemaker & Vineyard Manager", org: "14 Acres", desc: "Learned the business from the vineyard up, which is why I know what the software needs to do.", dot: "#9d9d9d" },
+{ hash: "2b84c3d", dates: "Feb 2024 – Aug 2024", role: "Dishwasher", org: "14 Acres", desc: "Where it started.", dot: "#9d9d9d" },
+{ hash: "0f1e7aa", dates: "Oct 2023 – now", role: "Freelance Web Developer", org: "Self-employed", desc: "About 12 client sites in Webflow and Next.js, from design through launch, plus Python image tooling and Make.com automations.", dot: "#f9f1a5" }
+];
+const skills = [
+{ k: "languages", v: "JavaScript, TypeScript, Python, SQL, HTML, CSS" },
+{ k: "frameworks", v: "React, Next.js, Vitest" },
+{ k: "data", v: "PostgreSQL, Supabase (RLS), SQLite" },
+{ k: "apis", v: "Clover, OwnerRez, Twilio, Telegram" },
+{ k: "tools", v: "Git, GitHub Actions, Vercel, Render, Webflow, Make.com" }
+];
+return { accent: this.props.accent ?? "#60cdff", art, rows, stats, projects, more, jobs, skills };
+}
+}
+</script>
+</body>
+</html>

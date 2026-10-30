@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Trellis — case study</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Cascadia+Code:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0c0c0c}
+a{color:#61d6d6;text-decoration:none}a:hover{color:#9ae6e6;text-decoration:underline}
+</style>
+</helmet>
+<div style="background: #0c0c0c; color: #f2f2f2; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', system-ui, sans-serif;">
+
+<header style="background: #202020;">
+<nav aria-label="Main" style="max-width: 1200px; margin: 0 auto; padding: 8px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px;">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 2px; flex-grow: 1; align-self: flex-end; margin-bottom: -8px; font-family: 'Segoe UI Variable Text', 'Segoe UI', 'IBM Plex Sans', sans-serif; font-size: 13px;">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 14px; border-radius: 8px 8px 0 0; color: #cccccc;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>sam@mishin: ~</a>
+<a href="Project.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 40px; min-width: 190px; padding: 0 14px; border-radius: 8px 8px 0 0; background: #0c0c0c; color: #f2f2f2;"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#2671be"></rect><path d="M4.5 5l3 3-3 3M8.5 11h3.5" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="flex: 1;">trellis</span><span aria-hidden="true" style="color: #9d9d9d; font-size: 10px;">✕</span></a>
+<span aria-hidden="true" style="min-height: 40px; display: flex; align-items: center; padding: 0 10px; color: #cccccc; font-size: 18px;">+</span>
+</div>
+<a href="CommandBar.dc.html" aria-label="Open command bar" style="display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border: 1px solid #3a3a3a; border-radius: 8px; color: #9d9d9d; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px;">Search <kbd style="font-family: inherit; border: 1px solid #3a3a3a; border-radius: 4px; padding: 1px 6px; color: #f2f2f2;">/</kbd></a>
+<a href="#resume" style="min-height: 40px; display: flex; align-items: center; padding: 0 16px; border-radius: 8px; background: #60cdff; color: #0c0c0c; font-weight: 600; font-size: 14px;">Résumé</a>
+</nav>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; display: flex; flex-direction: column; gap: 56px;">
+
+<!-- title -->
+<section aria-labelledby="t" style="display: flex; flex-direction: column; gap: 20px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #9d9d9d;"><a href="Main.dc.html#work" style="color: #9d9d9d;">~/work</a> <span style="color: #4a4a4a;">/</span> <span style="color: #f2f2f2;">trellis</span></p>
+<h1 id="t" style="margin: 0; font-size: 56px; font-weight: 700; letter-spacing: -0.02em;">Trellis</h1>
+<p style="margin: 0; font-size: 22px; line-height: 1.5; color: #cccccc; max-width: 820px;">A multi-tenant wine club billing platform, built to replace a discontinued vendor for about 800 club members at 14 Acres, and designed to sell to other wineries.</p>
+<dl style="margin: 8px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: #3a3a3a; border: 1px solid #3a3a3a; border-radius: 12px; overflow: hidden; font-size: 15px;">
+<div style="background: #1c1c1c; padding: 18px 20px;"><dt style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">ROLE</dt><dd style="margin: 6px 0 0;">Design, architecture, review &amp; testing</dd></div>
+<div style="background: #1c1c1c; padding: 18px 20px;"><dt style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">STATUS</dt><dd style="margin: 6px 0 0;">In development · first live charges Jan 2027</dd></div>
+<div style="background: #1c1c1c; padding: 18px 20px;"><dt style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">STACK</dt><dd style="margin: 6px 0 0;">Next.js, TypeScript, PostgreSQL, Render</dd></div>
+<div style="background: #1c1c1c; padding: 18px 20px;"><dt style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">HOW IT’S BUILT</dt><dd style="margin: 6px 0 0;">AI-assisted; I review and test every change</dd></div>
+</dl>
+</section>
+
+<!-- hero shot -->
+<div style="height: 520px; border: 1px dashed #3a3a3a; border-radius: 14px; background: #1c1c1c; display: flex; align-items: center; justify-content: center; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #9d9d9d; text-align: center; padding: 24px;">[Screenshot: Trellis admin — member list with next charge dates]</div>
+
+<!-- body: text + sticky-ish TOC (non-sticky so it stacks on phones) -->
+<div style="display: flex; flex-wrap: wrap; gap: 48px;">
+<aside aria-label="On this page" style="flex: 1 1 220px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; display: flex; flex-direction: column; gap: 10px;">
+<p style="margin: 0; color: #f9f1a5;"><span style="color: #cccccc;">PS C:\sam&gt;</span> cat toc</p>
+<a href="#problem" style="color: #cccccc;">01 The problem</a>
+<a href="#arch" style="color: #cccccc;">02 How it works</a>
+<a href="#decisions" style="color: #cccccc;">03 Key decisions</a>
+<a href="#ai" style="color: #cccccc;">04 Working with AI</a>
+<a href="#next" style="color: #cccccc;">05 What’s next</a>
+</aside>
+
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 56px; font-size: 17px; line-height: 1.7; color: #cccccc;">
+
+<section id="problem" aria-labelledby="h1" style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #f9f1a5;">01</p>
+<h2 id="h1" style="margin: 0; font-size: 30px; color: #f2f2f2;">The problem</h2>
+<p style="margin: 0;">The winery’s club billing vendor was discontinued. About 800 members are charged on a schedule, and every charge goes through the Clover POS the tasting room already uses. Whatever replaced it had to be trustworthy with money from day one.</p>
+<p style="margin: 0; color: #9d9d9d;">[Add: what happened with the old vendor, and what staff were doing by hand in the meantime]</p>
+</section>
+
+<section id="arch" aria-labelledby="h2" style="display: flex; flex-direction: column; gap: 18px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #f9f1a5;">02</p>
+<h2 id="h2" style="margin: 0; font-size: 30px; color: #f2f2f2;">How it works</h2>
+<figure aria-label="Architecture: Next.js app and Render workers share a Postgres database; workers charge cards through the Clover API" style="margin: 0; border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; line-height: 1.5;">
+<div style="flex: 1 1 150px; border: 1px solid #3a3a3a; border-radius: 8px; padding: 14px; background: #0c0c0c;"><strong style="color: #f2f2f2;">Next.js app</strong><br><span style="color: #9d9d9d;">staff admin + member pages</span></div>
+<span aria-hidden="true" style="color: #4a4a4a; font-size: 20px;">⇄</span>
+<div style="flex: 1 1 150px; border: 1px solid #f9f1a5; border-radius: 8px; padding: 14px; background: #0c0c0c;"><strong style="color: #f9f1a5;">PostgreSQL</strong><br><span style="color: #9d9d9d;">tenant_id on every table · RLS</span></div>
+<span aria-hidden="true" style="color: #4a4a4a; font-size: 20px;">⇄</span>
+<div style="flex: 1 1 150px; border: 1px solid #3a3a3a; border-radius: 8px; padding: 14px; background: #0c0c0c;"><strong style="color: #f2f2f2;">Render workers</strong><br><span style="color: #9d9d9d;">scheduled club charges</span></div>
+<span aria-hidden="true" style="color: #4a4a4a; font-size: 20px;">→</span>
+<div style="flex: 1 1 150px; border: 1px solid #3a3a3a; border-radius: 8px; padding: 14px; background: #0c0c0c;"><strong style="color: #f2f2f2;">Clover API</strong><br><span style="color: #9d9d9d;">charge + idempotency key</span></div>
+</figure>
+<p style="margin: 0;">Staff manage members in the Next.js app. Workers on Render run the charge schedule and call Clover. Every table carries a winery ID, and Postgres row-level security means one winery can never read another’s data.</p>
+</section>
+
+<section id="decisions" aria-labelledby="h3" style="display: flex; flex-direction: column; gap: 18px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #f9f1a5;">03</p>
+<h2 id="h3" style="margin: 0; font-size: 30px; color: #f2f2f2;">Key decisions</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+<div style="border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 22px; display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-size: 18px; color: #f2f2f2;">No double charges</h3><p style="margin: 0; font-size: 15px; line-height: 1.6;">Each Clover payment carries an idempotency key, so a retried job can’t bill a member twice.</p></div>
+<div style="border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 22px; display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-size: 18px; color: #f2f2f2;">Multi-tenant from day one</h3><p style="margin: 0; font-size: 15px; line-height: 1.6;">Tenant IDs and row-level security now, so selling to other wineries doesn’t mean a rewrite.</p></div>
+<div style="border: 1px solid #3a3a3a; border-radius: 12px; background: #1c1c1c; padding: 22px; display: flex; flex-direction: column; gap: 8px;"><h3 style="margin: 0; font-size: 18px; color: #f2f2f2;">CI on every push</h3><p style="margin: 0; font-size: 15px; line-height: 1.6;">GitHub Actions runs lint, tests and a secret scan before anything merges.</p></div>
+</div>
+<div style="border: 1px solid #3a3a3a; border-radius: 12px; background: #141414; overflow: hidden;">
+<div style="padding: 10px 16px; border-bottom: 1px solid #3a3a3a; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">charge.ts — excerpt</div>
+<pre style="margin: 0; padding: 18px 20px; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; line-height: 1.6; color: #cccccc; overflow-x: auto;">[Paste a short, real excerpt here, e.g. the idempotency-key charge call]</pre>
+</div>
+</section>
+
+<section id="ai" aria-labelledby="h4" style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #f9f1a5;">04</p>
+<h2 id="h4" style="margin: 0; font-size: 30px; color: #f2f2f2;">Working with AI</h2>
+<p style="margin: 0;">Trellis is AI-assisted. I own the design and the decisions above, and I read, review and test every change before it ships. My hand-written projects, like the chess variant and the Telegram bot, are listed separately so you can see both.</p>
+</section>
+
+<section id="next" aria-labelledby="h5" style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 13px; color: #f9f1a5;">05</p>
+<h2 id="h5" style="margin: 0; font-size: 30px; color: #f2f2f2;">What’s next</h2>
+<ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px;">
+<li>First live member charges, January 2027</li>
+<li>An Android app once the MVP is done</li>
+<li>Offering it to other wineries</li>
+</ul>
+</section>
+</div>
+</div>
+
+<!-- next project -->
+<nav aria-label="More projects" style="display: flex; flex-wrap: wrap; gap: 16px;">
+<a href="Main.dc.html#work" style="flex: 1 1 280px; min-height: 96px; border: 1px solid #3a3a3a; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 6px; color: #f2f2f2;"><span style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">← cd ..</span><span style="font-size: 18px; font-weight: 600;">All work</span></a>
+<a href="Main.dc.html#work" style="flex: 1 1 280px; min-height: 96px; border: 1px solid #3a3a3a; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; text-align: right; color: #f2f2f2;"><span style="font-family: 'Cascadia Code', Consolas, 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #9d9d9d;">next →</span><span style="font-size: 18px; font-weight: 600;">Customer spend tracker</span></a>
+</nav>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Keep LF line endings in the repo and on checkout (Windows included).
+* text=auto eol=lf
+*.woff2 binary
+*.jpg binary
+*.png binary
+*.ico binary
