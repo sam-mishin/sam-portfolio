@@ -33,6 +33,13 @@
   flex: 0 1 320px;
   min-width: 0;
   container-type: inline-size;
+  /* AsciiField lays a canvas over the text while the mouse plays with it. */
+  position: relative;
+}
+
+/* While the canvas copy is live, hide the real text underneath it. */
+.art[data-live] .pre {
+  visibility: hidden;
 }
 
 .pre {

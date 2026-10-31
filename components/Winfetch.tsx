@@ -11,6 +11,7 @@
 import type { CSSProperties } from "react";
 import { profile } from "@/content/profile";
 import { getUptime, readAsciiArt } from "@/lib/winfetch-data";
+import { AsciiField } from "./AsciiField";
 import { KeyValue, KeyValueList } from "./KeyValue";
 import { Prompt } from "./Prompt";
 import { TerminalPrompt } from "./TerminalPrompt";
@@ -37,11 +38,12 @@ export async function Winfetch({ className }: WinfetchProps) {
       <div className={styles.content}>
         {/* The portrait is decoration: both versions are hidden from screen
             readers, and CSS shows the one that suits the current theme.
-            --cols lets the CSS shrink the font until the widest line fits. */}
-        <div className={styles.art} style={{ "--cols": art.cols } as CSSProperties} aria-hidden="true">
+            --cols lets the CSS shrink the font until the widest line fits.
+            AsciiField makes the characters scatter away from the mouse. */}
+        <AsciiField className={styles.art} style={{ "--cols": art.cols } as CSSProperties}>
           <pre className={`${styles.pre} ${styles.artDark}`}>{art.dark}</pre>
           <pre className={`${styles.pre} ${styles.artLight}`}>{art.light}</pre>
-        </div>
+        </AsciiField>
 
         <div className={styles.info}>
           <p className={styles.rule}>

@@ -1,16 +1,16 @@
-/* PsIcon.module.css — colors for the PowerShell tab icon. */
+/* PromptIcon.module.css — colors for the `>_` tab icon. */
 
 .icon {
   flex: none;
 }
 
 .tile {
-  fill: var(--ps-icon);
+  fill: var(--icon-tile);
 }
 
 .glyph {
   fill: none;
-  stroke: var(--ps-icon-glyph);
+  stroke: var(--icon-glyph);
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;

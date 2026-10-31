@@ -125,6 +125,10 @@ python scripts\make_ascii.py docs\photo.jpg --flat-bg --crop 0.22,0.07,0.79,0.88
 
 The card sizes the font to fit whatever width the art comes out at, so no code changes are needed.
 
+## Trademarks
+
+The site is styled after Windows Terminal and PowerShell, but every visual is drawn from scratch: the `>_` tab icon (`components/PromptIcon.tsx`) is a generic terminal symbol, not Microsoft's PowerShell logo, and no Microsoft image files are used. Microsoft's [Trademark and Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks) say its logos and product icons can't be used without a license, while product *names* may be used in plain text to describe things truthfully (“the theme I use in VS Code”). Keep it that way: don't add official Microsoft logos or icons. PowerShell, Windows, Windows Terminal and VS Code are trademarks of the Microsoft group of companies; this site isn't affiliated with or endorsed by Microsoft.
+
 ## Fonts
 
 - **Cascadia Code** (Microsoft, SIL Open Font License; license in `public/fonts/OFL.txt`). `public/fonts/CascadiaCode-Regular.woff2` and `-Bold.woff2` are the official Cascadia Code 2407.024 regular and bold, **subset** to Latin, punctuation, arrows, box drawing and geometric shapes, which brings each file down to about 40 KB. They were made with [fontTools](https://github.com/fonttools/fonttools):

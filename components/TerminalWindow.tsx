@@ -1,6 +1,6 @@
 /**
  * components/TerminalWindow.tsx — a Windows Terminal window frame: the tab
- * strip (PowerShell icon, tab title, close ✕, new-tab +, dropdown ⌄), the
+ * strip (prompt icon, tab title, close ✕, new-tab +, dropdown ⌄), the
  * minimize / maximize / close controls on the right, and a body for
  * whatever runs "inside" the terminal (the winfetch card, the OG image…).
  *
@@ -11,7 +11,7 @@
  */
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
-import { PsIcon } from "./PsIcon";
+import { PromptIcon } from "./PromptIcon";
 import styles from "./TerminalWindow.module.css";
 
 /** Props for {@link TerminalWindow}. */
@@ -30,7 +30,7 @@ export function TerminalWindow({ children, title = site.terminalTitle, className
     <div className={className ? `${styles.window} ${className}` : styles.window}>
       <div className={styles.titlebar} aria-hidden="true">
         <span className={styles.tab}>
-          <PsIcon />
+          <PromptIcon />
           <span className={styles.tabTitle}>{title}</span>
           <svg className={styles.tabClose} viewBox="0 0 10 10" width="8" height="8">
             <path d="M1 1l8 8M9 1L1 9" />

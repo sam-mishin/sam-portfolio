@@ -30,7 +30,7 @@ import { directionFor } from "@/lib/transitions";
 import { ButtonLink } from "./ButtonLink";
 import { CommandPalette } from "./CommandPalette";
 import { MobileMenu } from "./MobileMenu";
-import { PsIcon } from "./PsIcon";
+import { PromptIcon } from "./PromptIcon";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./TabNav.module.css";
 
@@ -98,7 +98,7 @@ interface TabProps {
   from: string;
 }
 
-/** One tab: PowerShell icon, label and a decorative ✕ (always shown when active, on hover otherwise). */
+/** One tab: prompt icon, label and a decorative ✕ (always shown when active, on hover otherwise). */
 function Tab({ href, label, current, from }: TabProps) {
   return (
     <Link
@@ -107,7 +107,7 @@ function Tab({ href, label, current, from }: TabProps) {
       className={current ? `${styles.tab} ${styles.current}` : styles.tab}
       aria-current={current ? "page" : undefined}
     >
-      <PsIcon />
+      <PromptIcon />
       <span className={styles.label}>{label}</span>
       {/* Decorative ✕: always on the active tab, and on hover for the
           others, like Windows Terminal. */}

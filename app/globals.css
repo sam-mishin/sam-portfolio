@@ -43,8 +43,8 @@
   --value: #aad94c;
   --ok: #7fd962;
   --hash: #ffb454;
-  --ps-icon: #e6b450;
-  --ps-icon-glyph: #0b0e14;
+  --icon-tile: #e6b450;
+  --icon-glyph: #0b0e14;
   --selection: rgb(64 159 255 / 0.3);
   --line-highlight: #191e28; /* the editor's current-line highlight */
   --error: #f07178; /* Ayu's markup red, for terminal errors */
@@ -84,8 +84,8 @@
   --value: #4c6a00; /* darkened from #86b300 */
   --ok: #377011;
   --hash: #985a00;
-  --ps-icon: #ffaa33;
-  --ps-icon-glyph: #24282d;
+  --icon-tile: #ffaa33;
+  --icon-glyph: #24282d;
   --selection: rgb(3 91 214 / 0.16);
   --line-highlight: #eef0f3;
   --error: #c4352f; /* darkened from Ayu Light's #f07171 for contrast */
