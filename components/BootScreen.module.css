@@ -5,12 +5,6 @@
   display: none;
 }
 
-:global(html[data-boot]) {
-  /* The hero intro starts this much later (TypeIn, Hero). Keep in sync
-     with BOOT_MS in lib/typing.ts. */
-  --boot-offset: 1500ms;
-}
-
 :global(html[data-boot]) .boot {
   display: flex;
   position: fixed;

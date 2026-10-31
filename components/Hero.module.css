@@ -1,9 +1,6 @@
 /* Hero.module.css — headline block at the top of the home page. */
 
 .hero {
-  /* When the typing is done: its own length (--type-end, set inline by
-     Hero.tsx) plus the boot screen's, if that's playing too. */
-  --intro-end: calc(var(--type-end) + var(--boot-offset, 0ms));
   max-width: var(--page-max);
   margin: 0 auto;
   padding: 72px var(--gutter) 40px;
@@ -69,14 +66,30 @@
 }
 
 /* ---- First visit: wait for the typing, then select and fade in ----------
+   Same two stages as TypeIn.module.css: hidden while data-intro is set,
+   animating once data-intro-run says typing has started. --type-end (set
+   inline by Hero.tsx) is when the headline finishes, counted from then.
+
    One calm sequence rather than everything at once: the caret takes over
    from the typing, a beat later the marker sweeps across, and the intro
    and buttons drift in after it. */
-:global(html[data-intro]) .caret {
+:global(html[data-intro]:not([data-intro-run])) .caret,
+:global(html[data-intro]:not([data-intro-run])) .intro,
+:global(html[data-intro]:not([data-intro-run])) .actions {
+  opacity: 0;
+  /* Or the caret's own blink animation would override the opacity. */
+  animation: none;
+}
+
+:global(html[data-intro]:not([data-intro-run])) .highlight {
+  background-size: 0% 48%;
+}
+
+:global(html[data-intro][data-intro-run]) .caret {
   /* Hidden while the headline types (caret-wait), then blinking. */
   animation:
-    caret-wait var(--intro-end) linear,
-    caret-blink 1.06s step-end var(--intro-end) infinite;
+    caret-wait var(--type-end) linear,
+    caret-blink 1.06s step-end var(--type-end) infinite;
 }
 
 @keyframes caret-wait {
@@ -86,19 +99,19 @@
   }
 }
 
-:global(html[data-intro]) .highlight {
+:global(html[data-intro][data-intro-run]) .highlight {
   animation: mark-in 700ms cubic-bezier(0.65, 0, 0.35, 1) both;
-  animation-delay: calc(var(--intro-end) + 250ms);
+  animation-delay: calc(var(--type-end) + 250ms);
 }
 
-:global(html[data-intro]) .intro,
-:global(html[data-intro]) .actions {
+:global(html[data-intro][data-intro-run]) .intro,
+:global(html[data-intro][data-intro-run]) .actions {
   animation: fade-up 700ms var(--vt-ease-out) both;
-  animation-delay: calc(var(--intro-end) + 450ms);
+  animation-delay: calc(var(--type-end) + 450ms);
 }
 
-:global(html[data-intro]) .actions {
-  animation-delay: calc(var(--intro-end) + 600ms);
+:global(html[data-intro][data-intro-run]) .actions {
+  animation-delay: calc(var(--type-end) + 600ms);
 }
 
 @keyframes mark-in {

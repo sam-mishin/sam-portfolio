@@ -8,9 +8,10 @@
  */
 
 /**
- * How long the first-visit boot screen holds the page, in ms (lib/boot.ts).
- * When it plays, the hero intro starts this much later. Keep in sync with
- * --boot-offset in components/BootScreen.module.css.
+ * How long the first-visit boot screen holds the page, in ms after page
+ * load (lib/boot.ts). When it plays, the hero intro waits until then.
+ * Keep in sync with the boot-out animation delay + duration in
+ * components/BootScreen.module.css (1240ms + 260ms).
  */
 export const BOOT_MS = 1500;
 

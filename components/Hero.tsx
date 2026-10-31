@@ -41,7 +41,12 @@ export function Hero() {
         <TypeIn segments={[{ text: hero.command }]} timing={timing.command} />
       </Prompt>
       <h1 id="hero-heading" className={styles.headline}>
-        <TypeIn segments={headlineSegments(hero.headline, hero.headlineHighlight)} timing={timing.headline} />
+        <TypeIn
+          segments={headlineSegments(hero.headline, hero.headlineHighlight)}
+          timing={timing.headline}
+          // After the highlight sweep and the fade-in (Hero.module.css).
+          endIntroAfter={1500}
+        />
         {/* The zero-width space gives the inline caret a line box to fill. */}
         <span className={styles.caret} aria-hidden="true">
           {"\u200B"}

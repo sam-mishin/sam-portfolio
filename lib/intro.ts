@@ -10,12 +10,14 @@
  * that attribute, so everyone else (repeat views, reduced motion, no
  * JavaScript) sees the finished text immediately, with no flash.
  *
- * If the first-visit boot screen is also playing (lib/boot.ts, whose
- * script runs first), the intro waits for it via --boot-offset.
+ * Typing starts when TypeIn adds `data-intro-run`, once the page has
+ * hydrated and painted (and the boot screen, if any, is done), so a slow
+ * load delays the typing instead of making it skip ahead.
  *
- * The attribute is removed after a few seconds no matter what. If the page
- * is slow or something breaks, the text simply appears; it can never stay
- * hidden.
+ * Safety net: if typing hasn't started within a few seconds (JavaScript
+ * failed or is very slow), the attribute is removed and the text simply
+ * appears. It can never stay hidden. TypeIn removes both attributes when
+ * the intro finishes, so returning to the home page doesn't replay it.
  */
 
 import { BOOT_MS } from "./typing";
@@ -23,12 +25,28 @@ import { BOOT_MS } from "./typing";
 /** sessionStorage key marking that the intro already played. */
 export const INTRO_STORAGE_KEY = "intro-played";
 
-/** How long the attribute stays, in ms. Longer than the animation itself. */
-const INTRO_MAX_MS = 7000;
+/** How long to wait for typing to start before giving up and showing the text. */
+const INTRO_START_TIMEOUT_MS = 4000;
 
-export const introScript = `(function(){try{if(location.pathname!=="/"||matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("${INTRO_STORAGE_KEY}"))return;sessionStorage.setItem("${INTRO_STORAGE_KEY}","1");var d=document.documentElement;d.setAttribute("data-intro","");setTimeout(function(){d.removeAttribute("data-intro")},d.hasAttribute("data-boot")?${INTRO_MAX_MS + BOOT_MS}:${INTRO_MAX_MS})}catch(e){}})()`;
+export const introScript = `(function(){try{if(location.pathname!=="/"||matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("${INTRO_STORAGE_KEY}"))return;sessionStorage.setItem("${INTRO_STORAGE_KEY}","1");var d=document.documentElement;d.setAttribute("data-intro","");setTimeout(function(){if(!d.hasAttribute("data-intro-run"))d.removeAttribute("data-intro")},d.hasAttribute("data-boot")?${INTRO_START_TIMEOUT_MS + BOOT_MS}:${INTRO_START_TIMEOUT_MS})}catch(e){}})()`;
 
-/** True while the intro is playing. Browser only. */
+/** True while the intro is waiting or playing. Browser only. */
 export function introPlaying(): boolean {
   return document.documentElement.hasAttribute("data-intro");
+}
+
+/** True once typing has started (TypeIn set data-intro-run). Browser only. */
+export function introRunning(): boolean {
+  return document.documentElement.hasAttribute("data-intro-run");
+}
+
+/** Start the typing: everything timed from now. Browser only. */
+export function startIntro(): void {
+  document.documentElement.setAttribute("data-intro-run", "");
+}
+
+/** The intro is over: drop both attributes so it never replays this session. */
+export function endIntro(): void {
+  document.documentElement.removeAttribute("data-intro");
+  document.documentElement.removeAttribute("data-intro-run");
 }

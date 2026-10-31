@@ -1,15 +1,26 @@
-/* TypeIn.module.css — the per-character typing animation. Runs only while
-   <html> has data-intro (lib/intro.ts). */
+/* TypeIn.module.css — the per-character typing animation (first home-page
+   visit of the session only; see lib/intro.ts).
 
-/* Each character starts invisible and appears at its own delay. While it's
-   the newest character, a thin accent caret sits on its right edge. */
-:global(html[data-intro]) .char {
+   Two stages, both set on <html>:
+   - data-intro: the intro will play. Characters wait, hidden.
+   - data-intro-run: TypeIn says the page is ready (hydrated and painted),
+     so typing starts now. Timing from here, rather than from when the
+     HTML arrived, is what keeps it smooth: if the page is busy loading
+     for a second, the typing simply starts a second later instead of
+     skipping ahead to catch up. */
+
+:global(html[data-intro]:not([data-intro-run])) .char {
+  opacity: 0;
+}
+
+/* Each character appears at its own moment (--at, from lib/typing.ts).
+   While it's the newest character, a thin accent caret sits on its right
+   edge until the next one arrives (--gap). */
+:global(html[data-intro][data-intro-run]) .char {
   animation:
     type-in 1ms linear both,
     type-caret var(--gap) step-end;
-  /* --at: this character's moment (set inline from lib/typing.ts).
-     --boot-offset: waits for the first-visit boot screen (BootScreen). */
-  animation-delay: calc(var(--boot-offset, 0ms) + var(--at));
+  animation-delay: var(--at);
 }
 
 @keyframes type-in {
