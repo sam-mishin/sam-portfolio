@@ -49,7 +49,14 @@ export function TabNav() {
   return (
     // The view-transition name is set inline because CSS Modules would
     // rename it, and globals.css targets "site-header" by name.
-    <header className={styles.header} style={{ viewTransitionName: "site-header" }}>
+    // data-case-study lets the tab strip (and MobileMenu's button) switch to
+    // the compact layout at a wider breakpoint when the extra project tab
+    // wouldn't fit without cutting labels down to "w…".
+    <header
+      className={styles.header}
+      style={{ viewTransitionName: "site-header" }}
+      data-case-study={project ? "" : undefined}
+    >
       <nav aria-label={nav.label} className={styles.nav}>
         <ul className={styles.tabs}>
           {/* On phones the home tab is the one tab shown, except on a case
@@ -98,7 +105,7 @@ interface TabProps {
   from: string;
 }
 
-/** One tab: prompt icon, label and a decorative ✕ (always shown when active, on hover otherwise). */
+/** One tab: prompt icon, label and a decorative ✕ (the icon and ✕ show on the active tab only; see TabNav.module.css). */
 function Tab({ href, label, current, from }: TabProps) {
   return (
     <Link
@@ -109,8 +116,7 @@ function Tab({ href, label, current, from }: TabProps) {
     >
       <PromptIcon />
       <span className={styles.label}>{label}</span>
-      {/* Decorative ✕: always on the active tab, and on hover for the
-          others, like Windows Terminal. */}
+      {/* Decorative ✕, like Windows Terminal's (active tab only). */}
       <svg className={styles.close} viewBox="0 0 10 10" width="8" height="8" aria-hidden="true">
         <path d="M1 1l8 8M9 1L1 9" />
       </svg>

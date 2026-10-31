@@ -220,6 +220,10 @@
 .active {
   background: var(--overlay-active);
   color: var(--overlay-active-text);
+  /* Invisible normally; Windows high-contrast mode drops backgrounds but
+     draws outlines in the system color, so the highlight survives there. */
+  outline: 2px solid transparent;
+  outline-offset: -2px;
 }
 
 .icon {

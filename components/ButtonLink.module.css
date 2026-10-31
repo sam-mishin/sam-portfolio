@@ -17,6 +17,9 @@
 
 .primary {
   background: var(--accent);
+  /* Transparent normally; high-contrast mode draws it, so the button
+     still looks like a button once backgrounds are removed. */
+  border: 1px solid transparent;
   color: var(--on-accent);
 }
 

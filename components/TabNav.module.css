@@ -70,6 +70,15 @@
   box-shadow: inset 0 -2px 0 var(--accent);
 }
 
+/* High-contrast mode removes box-shadows, so draw the underline as a
+   border there instead. */
+@media (forced-colors: active) {
+  .current,
+  .current:hover {
+    border-bottom: 2px solid CanvasText;
+  }
+}
+
 .label {
   flex: 1;
   min-width: 0;
@@ -83,27 +92,16 @@
   color: var(--muted);
 }
 
-/* Inactive tabs show their ✕ only on hover or keyboard focus. It sits in
-   the tab's right padding so revealing it never changes the tab's width. */
-.tab {
-  position: relative;
-}
-
+/* Inactive tabs are just their label: no icon and no ✕, so all six fit
+   at laptop widths with their names whole, even with a reading extension
+   that widens letter and word spacing (WCAG 1.4.12). The active tab keeps
+   the icon and ✕, which also helps it stand out. */
 .tab:not(.current) {
-  padding-right: 24px;
+  padding: 0 12px;
 }
 
-.tab:not(.current) .close {
-  position: absolute;
-  right: 5px;
-  top: calc(50% - 4px);
-  opacity: 0;
-  transition: opacity 0.15s ease-out;
-}
-
-.tab:not(.current):hover .close,
-.tab:not(.current):focus-visible .close {
-  opacity: 1;
+.tab:not(.current) > svg {
+  display: none;
 }
 
 .close path,
@@ -113,8 +111,14 @@
   stroke-width: 1.2;
 }
 
+/* The decorative "+" gives up its space first when the strip is tight:
+   the huge shrink factor makes it absorb any shortfall before the tab
+   labels start to truncate. */
 .newTab {
   display: flex;
+  flex-shrink: 1000;
+  min-width: 0;
+  overflow: hidden;
   align-items: center;
   min-height: var(--touch);
   padding: 0 10px;
@@ -128,16 +132,24 @@
   gap: 10px;
 }
 
-/* Small laptops: drop the decorative "+" and narrow the active tab so a
-   case-study tab still fits with less truncation. */
-@media (max-width: 1279px) {
+/* Laptops: drop the decorative "+" so the tab labels have room. */
+@media (max-width: 1439px) {
   .newTab {
     display: none;
   }
+}
 
+/* On a case study there's a seventh tab. Below 1200px, where the strip
+   narrows, the section tabs move into the menu (MobileMenu shows its
+   button there too), leaving home and the project tab. */
+@media (max-width: 1199px) {
   .current,
   .current:hover {
     min-width: 150px;
+  }
+
+  [data-case-study] .secondary:not(:first-child) {
+    display: none;
   }
 }
 

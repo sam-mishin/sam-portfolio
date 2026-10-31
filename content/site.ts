@@ -13,7 +13,13 @@ export const site = {
   title: "Sam Mishin — Full-Stack Web Developer",
   /** Used for search results and link previews. */
   description:
-    "Sam Mishin embeds with businesses and ships the software they run on: a wine club billing platform, Clover POS integrations and daily-use staff tools at a working winery, plus about 12 client websites.",
+    "Sam Mishin embeds with businesses and ships the software they run on: a wine club billing platform, Clover POS integrations, daily-use staff tools and about 12 client websites.",
+  /** Alt text for the share image of the terminal card (app/opengraph-image.tsx). {stats} becomes the impact rows from content/profile.ts. */
+  shareImageAlt: "Sam Mishin’s terminal card: Full-Stack Web Developer. {stats}.",
+  /** Alt text for a case study's share image; {title} is replaced with the project name. */
+  caseStudyImageAlt: "{title}: a case study by Sam Mishin, shown as a terminal window.",
+  /** Browser tab title for case studies and other inner pages; %s is the page's own title. */
+  titleTemplate: "%s · Sam Mishin",
   /** Owner's name, used in metadata and the footer. */
   name: "Sam Mishin",
   /** Text of the keyboard "skip to content" link. */
@@ -33,6 +39,6 @@ export const site = {
     /** Used when the build doesn't know its commit (local builds). On Vercel, links point at the exact deployed commit. */
     branch: "main",
     /** {file} is replaced with the file name. */
-    label: "View the source of {file} on GitHub (opens in a new tab)",
+    label: "{file}: view source on GitHub (opens in a new tab)",
   },
 } as const;

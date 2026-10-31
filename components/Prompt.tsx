@@ -18,7 +18,7 @@ import styles from "./Prompt.module.css";
 export interface PromptProps {
   /** The command after the prompt. Leave empty for a bare prompt (e.g. one ending in a cursor). */
   children?: ReactNode;
-  /** Extra content after the command that should not be colored as a command, such as a {@link Cursor}. */
+  /** Extra content after the command that should not be colored as a command, such as a cursor. */
   after?: ReactNode;
   /** Element to render. Defaults to `p`; use `div` when the line sits inside another paragraph-like element. */
   as?: "p" | "div";

@@ -6,7 +6,7 @@
  * boot overlay (first visit only) → skip link → tab-bar header (with the
  * command palette and theme toggle) → <main> → contact footer.
  */
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { IBM_Plex_Sans } from "next/font/google";
 import { BootScreen } from "@/components/BootScreen";
@@ -17,6 +17,8 @@ import { TabNav } from "@/components/TabNav";
 import { site } from "@/content/site";
 import { bootScript } from "@/lib/boot";
 import { introScript } from "@/lib/intro";
+import { darkColors, lightColors } from "@/lib/literal-colors";
+import { siteUrl } from "@/lib/site-url";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -47,9 +49,47 @@ const plex = IBM_Plex_Sans({
   display: "swap",
 });
 
+/**
+ * Page metadata shared by every page. Case studies override the title,
+ * description and canonical URL (app/work/[slug]/page.tsx). The share
+ * image comes from app/opengraph-image.tsx, which Next.js links
+ * automatically. metadataBase turns relative URLs into absolute ones
+ * using the address from lib/site-url.ts.
+ */
 export const metadata: Metadata = {
-  title: site.title,
+  metadataBase: new URL(siteUrl()),
+  title: { default: site.title, template: site.titleTemplate },
   description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.name }],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    title: site.title,
+    description: site.description,
+    url: "/",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+  },
+};
+
+/**
+ * Viewport settings. The browser UI color (Android address bar, Safari tab
+ * bar) follows the visitor's system theme. Metadata can't read CSS
+ * variables, so the --bg values come from lib/literal-colors.ts (checked
+ * against globals.css by its test).
+ */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: darkColors.bg },
+    { media: "(prefers-color-scheme: light)", color: lightColors.bg },
+  ],
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

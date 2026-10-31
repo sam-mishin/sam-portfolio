@@ -2,7 +2,7 @@
 
 The developer portfolio of **Sam Mishin**: full-stack web developer and Marketing & Technology Lead at 14 Acres Vineyard & Winery. The site is styled like Windows Terminal (tab-bar navigation, a `winfetch` profile card, a `/` command palette) on top of plain, scannable sections a recruiter can read in 30 seconds.
 
-> **Status:** in progress, built milestone by milestone (see [Milestones](#milestones)). This README grows with each one.
+> **Status:** all seven milestones are built (see [Milestones](#milestones)). What's left is content Sam needs to supply, listed under [Placeholder TODO](#placeholder-todo), and the launch steps under [Deploying to Vercel](#deploying-to-vercel). How the pieces fit together: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Tech stack
 
@@ -13,6 +13,7 @@ The developer portfolio of **Sam Mishin**: full-stack web developer and Marketin
 | Content | TypeScript data files in `content/`, MDX for case studies (milestone 5) |
 | Fonts | Cascadia Code self-hosted with `next/font/local`; IBM Plex Sans via `next/font/google` (fallback after Segoe UI) |
 | Code highlighting | Shiki, at build time, colored by the Ayu tokens (`lib/highlight.ts`) |
+| Share images | `next/og` (`ImageResponse`), drawn at build time (`lib/og.tsx`) |
 | Tests | Vitest |
 | Hosting | Vercel |
 
@@ -42,13 +43,15 @@ Other commands:
 ## Project structure
 
 ```
-app/            routes, root layout, global CSS (tokens live only in globals.css)
+app/            routes, root layout, 404, sitemap/robots, share images, global CSS (tokens live only in globals.css)
 components/     reusable UI pieces, each with its own .module.css
 content/        all site text and data — edit these to change copy
 lib/            small helpers (and their *.test.ts files)
+proxy.ts        sends mistyped /work/<slug> URLs to a real 404 (see docs/ARCHITECTURE.md)
+assets/og/      subset Cascadia Code .ttf files used only to draw the share images
 public/fonts/   Cascadia Code .woff2 files + OFL license
 scripts/        make_ascii.py (photo → ASCII portrait)
-docs/           design spec, mockups, résumé, build notes, photo for the ASCII portrait
+docs/           ARCHITECTURE.md, design spec, mockups, résumé, build notes, photo for the ASCII portrait
 ```
 
 ## Editing content
@@ -57,7 +60,7 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 
 | File | What it holds |
 |---|---|
-| `content/site.ts` | Page title, description, prompt text (`PS C:\sam>`), terminal tab title |
+| `content/site.ts` | Page title and description (search results and link previews), share-image alt text, prompt text (`PS C:\sam>`), terminal tab title, view-source links |
 | `content/profile.ts` | Hero, winfetch rows, impact numbers, contact links, footer |
 | `content/projects.ts` | Deployment cards, hand-written projects, the `ls .\work --more` list |
 | `content/jobs.ts` | Career timeline (`git log --career`) |
@@ -69,6 +72,7 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 | `content/commands.ts` | Command palette commands, hints and messages |
 | `content/case-studies.ts` | Case-study summaries, facts grids, hero screenshots and the 8-section template |
 | `content/case-studies/*.mdx` | Case-study prose |
+| `content/not-found.ts` | The 404 page's PowerShell error and links |
 | `content/ascii-*.txt` | The ASCII portrait (generated — see below) |
 
 Use curly quotes (’ “ ”) and real dashes (– —). Every number should match the résumé.
@@ -105,10 +109,70 @@ Case studies live at `/work/<slug>` and are built as static pages.
 - **Palette.** Press `/` or `Ctrl+K` (`⌘K` on a Mac), or click **Search**. Commands come from `content/commands.ts`: a `link` goes to a page or `#section`, `external` opens a new tab, and the rest (`copy-email`, `download`, `toggle-theme`, `winfetch`, `hire`, `help`) are handled in `components/CommandPalette.tsx`. The **Shell** group prints into an output pane like a real terminal: `ls`, `pwd`, `whoami`, `cat resume.txt`, `git log --oneline`, `uptime`, `date`, `history`, `clear`, `reboot` (replays the boot screen), `rm -rf /` and `exit`. Their output is built from the other content files, so it never drifts. Best matches sort first (an exact name beats a word in a hint). Every case study gets an `open <slug>` command automatically. The filtering and arrow-key logic is in `lib/palette.ts`, tested in `lib/palette.test.ts`.
 - **View source.** Each home section, the winfetch card, the footer and every case study has a small `</> File.tsx` link (top right of its prompt line) that opens that file on GitHub, pinned to the deployed commit on Vercel. Configure or switch them off in `site.source` in `content/site.ts`. **The repository must be public for these links to work.** Component: `components/SourceLink.tsx`; add one to a new section with `<Section source="components/MySection.tsx">`.
 - **Live terminal.** The prompt at the bottom of the winfetch card is a real input: visitors type the same commands as the palette (`help`, `ls`, `whoami`, `cd ~/work`, `sudo hire sam`…) and the output prints in the card. Tab completes, ↑/↓ recall, Ctrl+C cancels, unknown commands get a PowerShell-style error, and common habits work (`cls`, `cd work`, `neofetch`; add more in `commandAliases` in `content/commands.ts`). Component: `components/TerminalPrompt.tsx`; matching and completion: `lib/shell.ts` (tested). Both surfaces run commands through `components/useCommandRunner.ts`.
-- **Intro.** On the first home-page visit of a browser session, `whoami` and the headline type themselves out, the end of the headline is "selected" like text in the editor, and the intro and buttons fade in. Each character has its own CSS delay, with a slightly uneven, human rhythm. The clock starts once the page has hydrated and painted (and the boot screen is done), so a slow load delays the typing rather than making it skip ahead; if JavaScript never starts it, the text appears after 4 seconds. It's skipped for repeat views and for visitors who turn on reduced motion. Timings: `lib/typing.ts`; on/off logic: `lib/intro.ts`; component: `components/TypeIn.tsx`. The highlighted words are `headlineHighlight` in `content/profile.ts`.
-- **Motion.** Scroll-driven (pure CSS, no scroll listeners): a reading-progress line across the top, cards and section headings that fade up as they enter, section prompts that type themselves out, and the career `git log` graph that draws itself. Pointer-driven: a soft glow and rim light that follow the cursor on cards (`components/PointerSpotlight.tsx` plus `[data-spotlight]` in `globals.css`), editor-style line highlights on the winfetch and `skills.json` rows, arrows that nudge on hover, and a ✕ on hovered tabs. Everything is skipped with reduced motion, and browsers without scroll-driven animations (Firefox) simply show the content. Add `className="reveal"` or `data-spotlight` to opt a new element in.
+- **Intro.** On the first home-page visit of a browser session, `whoami` and the headline type themselves out, the end of the headline is "selected" like text in the editor, and the intro and buttons fade in. Each character has its own CSS delay, with a slightly uneven, human rhythm. The clock starts once the page has hydrated and painted (and the boot screen is done), so a slow load delays the typing rather than making it skip ahead; if JavaScript never starts it, the text appears after 4 seconds. Afterwards the caret blinks five times and then holds still (anything that blinks on its own has to stop within five seconds). It's skipped for repeat views and for visitors who turn on reduced motion. Timings: `lib/typing.ts`; on/off logic: `lib/intro.ts`; component: `components/TypeIn.tsx`. The highlighted words are `headlineHighlight` in `content/profile.ts`.
+- **Motion.** Scroll-driven (pure CSS, no scroll listeners): a reading-progress line across the top, cards and section headings that fade up as they enter, section prompts that type themselves out, and the career `git log` graph that draws itself. Pointer-driven: a soft glow and rim light that follow the cursor on cards (`components/PointerSpotlight.tsx` plus `[data-spotlight]` in `globals.css`), editor-style line highlights on the winfetch and `skills.json` rows, and arrows that nudge on hover. Everything is skipped with reduced motion, and browsers without scroll-driven animations (Firefox) simply show the content. Add `className="reveal"` or `data-spotlight` to opt a new element in.
 - **Theme.** The site follows the visitor's system setting until they press the sun/moon button; then their choice is saved in `localStorage` under `theme`. A tiny inline script in `app/layout.tsx` sets `data-theme` on `<html>` before the first paint, so there's no flash of the wrong theme. Switching plays a circular reveal from the button (View Transitions; instant in browsers without them or with reduced motion). Colors for both themes are only in `app/globals.css`. Logic: `lib/theme.ts`.
 - **Boot screen.** A visitor's very first visit opens with a 1.5-second PowerShell-style boot (`components/BootScreen.tsx`, lines in `content/boot.ts`) showing the real page-load time, then the hero intro plays. It's shown once per browser, skipped with any key or click, never shown with reduced motion or without JavaScript, and removed after 2.6 s no matter what. Logic: `lib/boot.ts`. Type `reboot` in the palette to see it again.
+
+## SEO, sharing and the 404 page
+
+- **Metadata** is set in `app/layout.tsx` (site-wide) and `app/work/[slug]/page.tsx` (per case study): title, description, canonical URL, Open Graph and Twitter/X card tags. The wording comes from `content/site.ts` and `content/case-studies.ts`.
+- **Share images** (the picture LinkedIn, Slack or iMessage shows for a link) are terminal windows drawn at build time: the home one shows the name, title, headline and the three Impact rows from the winfetch card (`app/opengraph-image.tsx`); each case study gets its own with title, summary, status and stack (`app/work/[slug]/opengraph-image.tsx`; `[placeholder]` facts are left off). Drawing code: `lib/og.tsx`. Preview them at `/opengraph-image` and `/work/trellis/opengraph-image/card` while `npm run dev` is running.
+- **`/sitemap.xml`** lists the home page and every case study; **`/robots.txt`** allows everything and points at the sitemap. Both use the site address from `lib/site-url.ts`.
+- **404:** any unknown address shows `app/not-found.tsx`, styled as PowerShell's `Cannot find path … because it does not exist.` error with the path the visitor typed, two links out and a live prompt (`cd ~` works). Mistyped case studies (`/work/nope`) get a true 404 status too, thanks to `proxy.ts`. Wording: `content/not-found.ts`.
+
+## Deploying to Vercel
+
+1. Push the repo to GitHub (done: `sam-mishin/sam-portfolio`).
+2. In Vercel: **Add New → Project**, import the repo, keep the detected Next.js settings, **Deploy**. No environment variables are required.
+3. Every push to `main` deploys to production; every other branch gets a preview URL. (Vercel tells search engines not to index preview URLs.)
+
+| Environment variable | Needed? | What it does |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Once you have a custom domain | The site's public address, e.g. `https://sammishin.dev`. Used for canonical links, share-image URLs, the sitemap and robots.txt. Set it in **Project → Settings → Environment Variables** (Production), then redeploy. |
+| `VERCEL_PROJECT_PRODUCTION_URL` | Automatic | Set by Vercel to the project's `*.vercel.app` production domain; used until `NEXT_PUBLIC_SITE_URL` exists. |
+| `VERCEL_GIT_COMMIT_SHA` | Automatic | Pins the `</> File.tsx` view-source links to the deployed commit. |
+
+Locally, links fall back to `http://localhost:3000`.
+
+## Accessibility
+
+The site targets **WCAG 2.2 level AA**. What that means in practice:
+
+- **Keyboard:** everything works without a mouse. A "Skip to content" link comes first; every link, button and input shows a 2px accent focus ring; the palette (`/` or `Ctrl+K`) and phone menu are native `<dialog>`s that trap focus, close on Esc and hand focus back.
+- **Screen readers:** landmarks (`header`/`nav`, `main`, `footer`), one `h1` per page with no skipped levels, labelled inputs and dialogs, `aria-current` on the active tab, terminal decoration and ASCII art hidden, and command output announced through `role="log"` / `role="status"` regions.
+- **Color and contrast:** every text pair is at least 4.5:1 in both themes (a few Ayu Light colors are darkened for this). Nothing relies on color alone, and Windows high-contrast mode keeps focus, the active tab, the selected palette row and button shapes visible.
+- **Motion:** reduced motion turns off the boot screen, typing intro, scroll effects, page slides, theme reveal, cursor glow and particle portrait. Nothing blinks for more than about five seconds.
+- **Zoom and reflow:** no horizontal scrolling down to 320px wide (400% zoom), and text survives the WCAG text-spacing override without being cut off.
+- **Touch targets:** at least 24×24px everywhere, 44px for buttons and tabs.
+
+### How it was checked (Milestone 7)
+
+Against a production build, with Playwright + axe-core 4.14 and Lighthouse 12.8 (both run from a scratch folder, not project dependencies):
+
+| Check | Result |
+|---|---|
+| axe (WCAG 2.0/2.1/2.2 A + AA + best practices) on `/`, all three case studies and the 404, at 390px and 1440px, dark and light | **0 violations** (also 0 with the command palette open) |
+| Reflow at 320px on every page | No horizontal scroll |
+| Text spacing override (1.4.12) at 320px and 1280px | No clipped text (the decorative ASCII art loses a few pixels at 320px; it's hidden from assistive tech) |
+| Tab through every page at 390px and 1440px | Every stop has a visible focus ring, none hidden behind other content, none smaller than 24px |
+| Headings and landmarks | One `h1` per page, no skipped levels, one `main` |
+| Running animations after 9s; with reduced motion | Only scroll-linked effects (they move only when you scroll); none with reduced motion |
+| Forced colors (high contrast) | Palette selection, focused terminal and buttons all visible |
+
+| Lighthouse, mobile (simulated slow 4G, 4× CPU slowdown) | Performance | Accessibility | Best practices | SEO |
+|---|---|---|---|---|
+| `/` (first visit: boot screen + typing intro) | 81–89 | 100 | 96 | 100 |
+| `/work/trellis` | 89–97 | 100 | 100 | 100 |
+
+Three runs each against a local production build; performance moves a few points between runs (the ranges above), the other scores don't. Expect slightly better numbers on Vercel's CDN.
+
+Notes on the home page numbers:
+
+- **Performance 81–89** is mostly the cost of the first-visit boot screen and typing intro, which keep the main thread animating for a few seconds (Total Blocking Time 330–560 ms, LCP 2.4–2.9 s on the simulated phone). Lighthouse always measures a first visit. A repeat visit without the boot screen scored 87–90, once with LCP under 1 s. Options if this matters: shorten or drop the boot screen on phones, or start the typing sooner.
+- **Best practices 96** is Lighthouse's "legible font sizes" audit flagging the ASCII portrait, whose characters shrink to about 9px on a phone so the picture fits. It's decorative and hidden from screen readers; there's no real text that small.
+
+Automated tools catch roughly a third to half of accessibility problems. Still worth doing by hand before launch: a pass with a real screen reader (NVDA on Windows, VoiceOver on iPhone) through the home page, the palette, the live terminal and one case study.
 
 ## Regenerating the ASCII portrait
 
@@ -142,22 +206,38 @@ The site is styled after Windows Terminal and PowerShell, but every visual is dr
 
   To use the full, unsubset font instead, download the release zip from <https://github.com/microsoft/cascadia-code/releases>, copy `woff2/static/CascadiaCode-Regular.woff2` and `CascadiaCode-Bold.woff2` over these two files, and rebuild.
 - **IBM Plex Sans** is fetched from Google Fonts by `next/font/google` **at build time** and served from this site. The build machine needs internet access (Vercel and a normal PC both do).
+- **Share images** use `assets/og/CascadiaCode-Regular.ttf` and `-Bold.ttf` (same OFL license, copy in `assets/og/OFL.txt`): Cascadia Code subset to Latin, punctuation, arrows and box drawing as TTF, because the image renderer can't read woff2:
+
+  ```bash
+  pyftsubset CascadiaCode-Regular.ttf --layout-features='' --no-hinting \
+    --unicodes="U+0020-007E,U+00A0-00FF,U+2013-2014,U+2018-201D,U+2022,U+2026,U+2190-2193,U+2248,U+2500-257F,U+2713" \
+    --output-file=assets/og/CascadiaCode-Regular.ttf
+  ```
 
 ## Milestones
 
 1. ✅ Scaffold, design tokens and fonts
-2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, `Cursor`)
+2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`; the original `Cursor` was replaced by the live prompt's own cursor in M7)
 3. ✅ Content files, uptime math, ASCII portrait and the `winfetch` card
 4. ✅ Home page: tab-bar navigation, hero, winfetch, impact strip, Deployments, timeline, skills/education, How I work, field notes, contact footer with copy-to-clipboard email
 5. ✅ Case studies (MDX) and View Transitions
 6. ✅ Command palette and light/dark theme
-7. 404, metadata, Open Graph image, sitemap, final docs and audits
+7. ✅ PowerShell-style 404 (with real 404 status), metadata, share images, sitemap and robots, WCAG 2.2 AA pass, architecture doc, Lighthouse and axe audits
 
 ## Placeholder TODO
 
 Everything Sam still needs to supply. Each item shows up on the site as visible `[bracketed]` text until it's filled in.
 
 Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
+
+**Launch**
+
+- [ ] **Domain:** buy one, add it in Vercel (**Project → Settings → Domains**), then set `NEXT_PUBLIC_SITE_URL` (see [Deploying to Vercel](#deploying-to-vercel)). Put the link on the résumé, LinkedIn and the GitHub profile README.
+- [ ] **Analytics (optional):** the build guide suggests Vercel Web Analytics (cookie-free). It needs the `@vercel/analytics` package, which hasn't been added; say the word and it's a two-line change.
+- [ ] **Screen-reader pass** with NVDA and VoiceOver (see [Accessibility](#accessibility)).
+- [ ] **Public repo check:** the repo is public, so everything in `docs/` (résumé, career notes, design files, photo) and its git history is visible. Move anything private out, and know that removing a file now doesn't remove it from history.
+
+**Content**
 
 - [ ] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there). Note: the résumé still lists mishinsam2@gmail.com; the site uses sammishin2@gmail.com.
 - [ ] **Screenshots** (WebP, ≤1920px long edge, <400 KB, in `public/shots/`), then swap the `shot` text in `content/projects.ts` for the image:

@@ -1,0 +1,43 @@
+/* MissingPath.module.css — the PowerShell error on the 404 page. Long
+   paths wrap anywhere instead of scrolling sideways, so the block reflows
+   down to 320px wide and at 400% zoom. */
+
+.output {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  line-height: 1.6;
+}
+
+.output p {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.prompt {
+  color: var(--syn-tag);
+}
+
+.command {
+  color: var(--syn-func);
+}
+
+.echo {
+  margin-bottom: 4px;
+}
+
+.error {
+  color: var(--error);
+}
+
+/* PowerShell indents these; on phones the indent would waste a third of
+   the line, so the leading spaces collapse there. */
+@media (max-width: 720px) {
+  .output {
+    font-size: var(--fs-mono-sm);
+  }
+
+  .detail {
+    white-space: normal;
+  }
+}

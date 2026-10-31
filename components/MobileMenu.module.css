@@ -32,6 +32,14 @@
   }
 }
 
+/* On case studies the section tabs move into this menu below 1200px
+   (see TabNav.module.css), so the button appears there too. */
+@media (max-width: 1199px) {
+  :global([data-case-study]) .button {
+    display: flex;
+  }
+}
+
 .dialog {
   width: min(360px, calc(100vw - 24px));
   max-height: calc(100dvh - 24px);

@@ -1,0 +1,104 @@
+/* not-found.module.css — layout for the 404 page (app/not-found.tsx). */
+
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 80px var(--gutter) 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.01em;
+}
+
+.intro {
+  color: var(--text-body);
+  max-width: 640px;
+}
+
+.window {
+  margin-top: 12px;
+}
+
+.body {
+  padding: 22px 32px 8px;
+}
+
+.try {
+  padding: 12px 32px 0;
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.prompt {
+  padding: 4px 32px 26px;
+}
+
+.links {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Each link is a 48px-tall "command" chip: the command, then what it does. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-button);
+  color: var(--text);
+  text-decoration: none;
+  background: var(--surface);
+}
+
+.link:hover {
+  border-color: var(--accent);
+}
+
+.linkLabel {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--syn-func);
+}
+
+.linkHint {
+  font-size: var(--fs-small);
+  color: var(--text-body);
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding-top: 48px;
+  }
+
+  .heading {
+    font-size: 28px;
+  }
+
+  .body {
+    padding: 16px 16px 4px;
+  }
+
+  .try {
+    padding: 10px 16px 0;
+  }
+
+  .prompt {
+    padding: 4px 16px 18px;
+  }
+
+  .links,
+  .links li,
+  .link {
+    width: 100%;
+  }
+}

@@ -37,7 +37,16 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const study = getCaseStudy((await params).slug);
   if (!study) return {};
-  return { title: `${study.card.title} — case study · ${site.name}`, description: study.summary };
+  // The root layout's title template adds " · Sam Mishin".
+  const title = `${study.card.title} — case study`;
+  const path = `/work/${study.slug}`;
+  return {
+    title,
+    description: study.summary,
+    alternates: { canonical: path },
+    openGraph: { type: "article", title, description: study.summary, url: path, siteName: site.name },
+    twitter: { card: "summary_large_image", title, description: study.summary },
+  };
 }
 
 export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]">) {

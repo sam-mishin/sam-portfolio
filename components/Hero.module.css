@@ -47,7 +47,9 @@
   padding-left: 0.06em;
   background: var(--accent);
   user-select: none;
-  animation: caret-blink 1.06s step-end infinite;
+  /* Five blinks (about 5 seconds), then it stays solid: WCAG 2.2.2 asks
+     that anything blinking on its own stops within five seconds. */
+  animation: caret-blink 1.06s step-end 5;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -86,10 +88,10 @@
 }
 
 :global(html[data-intro][data-intro-run]) .caret {
-  /* Hidden while the headline types (caret-wait), then blinking. */
+  /* Hidden while the headline types (caret-wait), then five blinks. */
   animation:
     caret-wait var(--type-end) linear,
-    caret-blink 1.06s step-end var(--type-end) infinite;
+    caret-blink 1.06s step-end var(--type-end) 5;
 }
 
 @keyframes caret-wait {

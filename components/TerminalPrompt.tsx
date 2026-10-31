@@ -203,6 +203,9 @@ export function TerminalPrompt({ className }: TerminalPromptProps) {
             onBlur={() => setFocused(false)}
           />
           <span
+            // A new key on every edit or caret move restarts the blink, so
+            // it blinks while you type and settles a few seconds after.
+            key={`${value}|${column}`}
             className={styles.cursor}
             aria-hidden="true"
             style={{ "--col": column, "--scroll": `${scroll}px` } as React.CSSProperties}
