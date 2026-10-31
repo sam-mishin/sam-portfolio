@@ -16,7 +16,7 @@ export function FieldNotes() {
     <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro}>
       <ul className={styles.grid}>
         {fieldNotes.map((note) => (
-          <li key={note.title} className={styles.card}>
+          <li key={note.title} className={`${styles.card} reveal`} data-spotlight>
             <p className={styles.status}>{note.status}</p>
             <h3 className={styles.title}>
               {note.href ? <a href={note.href}>{note.title}</a> : note.title}

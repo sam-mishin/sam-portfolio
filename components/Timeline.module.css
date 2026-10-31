@@ -39,7 +39,7 @@
   bottom: 0;
   left: 7px;
   width: 2px;
-  background: var(--border-subtle);
+  background: var(--dots);
 }
 
 .item:last-child .rail::after {
@@ -116,5 +116,51 @@
 
   .desc {
     display: none;
+  }
+}
+
+/* ---- Scroll: the git graph draws itself ----------------------------------
+   Each commit's dot pops in and its line grows down to the next commit as
+   it scrolls through the viewport, driven by the entry's own view timeline
+   (named so the rail's pseudo-elements can follow it). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .item {
+      view-timeline: --commit block;
+    }
+
+    .rail::before {
+      animation: commit-pop auto linear backwards;
+      animation-timeline: --commit;
+      animation-range: entry 30% entry 80%;
+    }
+
+    .rail::after {
+      transform-origin: top;
+      animation: draw-line auto linear backwards;
+      animation-timeline: --commit;
+      animation-range: entry 70% cover 55%;
+    }
+  }
+}
+
+@keyframes commit-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Hovering a commit brightens its hash, like selecting it in git log. */
+@media (hover: hover) {
+  .item:hover .hash {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }

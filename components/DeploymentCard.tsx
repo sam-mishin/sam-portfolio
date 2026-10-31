@@ -35,8 +35,9 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
 
   return (
     <article
-      className={d.featured ? `${styles.card} ${styles.featured}` : styles.card}
+      className={`${styles.card} ${d.featured ? styles.featured : ""} reveal`}
       aria-labelledby={`deploy-${d.slug}`}
+      data-spotlight
     >
       {!d.featured && <Shot label={d.shot} />}
 
@@ -71,7 +72,9 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
         {d.caseStudy && (
           <Link href={`/work/${d.slug}`} className={styles.cta} transitionTypes={[NAV_FORWARD]}>
             {sections.work.caseStudyCta}
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className={styles.arrow}>
+              →
+            </span>
             <span className="sr-only">: {d.title}</span>
           </Link>
         )}

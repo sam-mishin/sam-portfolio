@@ -13,7 +13,7 @@ export function ImpactStrip() {
     <section aria-label={sections.impact.label} className={styles.band}>
       <ul className={styles.list}>
         {profile.impact.map((item) => (
-          <li key={item.label} className={styles.item}>
+          <li key={item.label} className={`${styles.item} reveal`}>
             <span className={`${styles.value} num`}>{item.value}</span>
             <span className={styles.label}>{item.label}</span>
           </li>

@@ -5,6 +5,10 @@
  * `git log --career`…) and the command lines inside terminal windows.
  * Colors follow the Ayu editor theme: the path is a tag (--syn-tag) and
  * the command a function name (--syn-func).
+ *
+ * With `typeOnScroll`, the line types itself out as it scrolls into view
+ * (section eyebrows use this). It's a stepped clip-path wipe, one step per
+ * character, which works because the font is monospaced.
  */
 import type { ReactNode } from "react";
 import { site } from "@/content/site";
@@ -20,12 +24,18 @@ export interface PromptProps {
   as?: "p" | "div";
   /** Optional class for spacing set by the parent (margins, padding). */
   className?: string;
+  /** Type the line out as it scrolls into view. Needs a plain-text command. */
+  typeOnScroll?: boolean;
 }
 
 /** A `PS C:\sam>` prompt followed by a command in the typed-command color. */
-export function Prompt({ children, after, as: Tag = "p", className }: PromptProps) {
+export function Prompt({ children, after, as: Tag = "p", className, typeOnScroll }: PromptProps) {
+  const typing = typeOnScroll && typeof children === "string";
+  const classes = [styles.prompt, typing && styles.typeOnScroll, className].filter(Boolean).join(" ");
+  // Characters to step through: the path, the space and the command.
+  const style = typing ? ({ "--chars": site.promptPath.length + 1 + children.length } as React.CSSProperties) : undefined;
   return (
-    <Tag className={className ? `${styles.prompt} ${className}` : styles.prompt}>
+    <Tag className={classes} style={style}>
       <span className={styles.path}>{site.promptPath}</span>
       {children ? <span className={styles.command}> {children}</span> : " "}
       {after}

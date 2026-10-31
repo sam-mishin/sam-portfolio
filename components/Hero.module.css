@@ -21,12 +21,16 @@
   letter-spacing: -0.02em;
 }
 
-/* Part of the headline, highlighted like selected text in the editor. */
+/* Part of the headline, marked like a highlighter over the lower half of
+   the letters. A background image (not background-color) so its height
+   and width can be set and animated. */
 .highlight {
   padding: 0 0.04em;
-  border-radius: 4px;
-  background: var(--selection);
-  /* Each wrapped line gets its own rounded highlight. */
+  background-image: linear-gradient(var(--selection), var(--selection));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 48%;
+  /* Each wrapped line gets its own mark. */
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -42,6 +46,10 @@
   /* Starts on the hidden half so it doesn't sit at the end while the
      headline is still typing (the delay is set below). */
   animation: caret-blink 1.06s step-end infinite backwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes caret-blink {
@@ -58,8 +66,9 @@
   animation-delay: var(--type-end);
 }
 
+/* The marker sweeps across left to right once the typing is done. */
 :global(html[data-intro]) .highlight {
-  animation: select-in 160ms ease-out both;
+  animation: mark-in 520ms var(--vt-ease-out) both;
   animation-delay: var(--type-end);
 }
 
@@ -73,9 +82,9 @@
   animation-delay: calc(var(--type-end) + 90ms);
 }
 
-@keyframes select-in {
+@keyframes mark-in {
   from {
-    background-color: transparent;
+    background-size: 0% 48%;
   }
 }
 

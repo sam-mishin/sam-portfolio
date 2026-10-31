@@ -92,3 +92,16 @@
     font-size: 22px;
   }
 }
+
+/* Editor current-line highlight on hover. */
+@media (hover: hover) {
+  .json li {
+    margin-inline: -8px;
+    padding-inline: 8px;
+    border-radius: 4px;
+  }
+
+  .json li:hover {
+    background: var(--line-highlight);
+  }
+}

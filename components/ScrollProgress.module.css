@@ -1,0 +1,32 @@
+/* ScrollProgress.module.css — the reading-progress line at the top. */
+
+.bar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .bar {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      height: 2px;
+      background: var(--accent);
+      transform-origin: 0 50%;
+      pointer-events: none;
+      animation: grow-progress auto linear both;
+      /* After the shorthand, which would otherwise reset it. */
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@keyframes grow-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

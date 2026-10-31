@@ -15,7 +15,7 @@ export function Timeline() {
     <Section id={s.id} command={s.command} heading={s.heading}>
       <ol className={styles.list}>
         {jobs.map((job) => (
-          <li key={job.hash} className={styles.item}>
+          <li key={job.hash} className={`${styles.item} reveal`}>
             <span className={`${styles.rail} ${styles[job.dot]}`} aria-hidden="true" />
             <div className={styles.entry}>
               <p className={styles.meta}>

@@ -9,6 +9,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { IBM_Plex_Sans } from "next/font/google";
+import { PointerSpotlight } from "@/components/PointerSpotlight";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TabNav } from "@/components/TabNav";
 import { site } from "@/content/site";
@@ -78,6 +80,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
       <body suppressHydrationWarning>
+        <ScrollProgress />
+        <PointerSpotlight />
         <a className="skip-link" href="#main">
           {site.skipLink}
         </a>

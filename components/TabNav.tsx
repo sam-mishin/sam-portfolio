@@ -98,7 +98,7 @@ interface TabProps {
   from: string;
 }
 
-/** One tab: PowerShell icon, label and, when active, a decorative ✕. */
+/** One tab: PowerShell icon, label and a decorative ✕ (always shown when active, on hover otherwise). */
 function Tab({ href, label, current, from }: TabProps) {
   return (
     <Link
@@ -109,11 +109,11 @@ function Tab({ href, label, current, from }: TabProps) {
     >
       <PsIcon />
       <span className={styles.label}>{label}</span>
-      {current && (
-        <svg className={styles.close} viewBox="0 0 10 10" width="8" height="8" aria-hidden="true">
-          <path d="M1 1l8 8M9 1L1 9" />
-        </svg>
-      )}
+      {/* Decorative ✕: always on the active tab, and on hover for the
+          others, like Windows Terminal. */}
+      <svg className={styles.close} viewBox="0 0 10 10" width="8" height="8" aria-hidden="true">
+        <path d="M1 1l8 8M9 1L1 9" />
+      </svg>
     </Link>
   );
 }

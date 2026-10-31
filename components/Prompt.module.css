@@ -17,3 +17,23 @@
 .command {
   color: var(--syn-func);
 }
+
+/* Types the line out as it scrolls into view: a clip-path wipe in one
+   step per character. fit-content makes the box exactly as wide as the
+   monospaced text, so each step reveals one whole character. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .typeOnScroll {
+      width: fit-content;
+      animation: prompt-type auto steps(var(--chars), end) backwards;
+      animation-timeline: view();
+      animation-range: entry 100% cover 28%;
+    }
+  }
+}
+
+@keyframes prompt-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}

@@ -46,6 +46,9 @@
   --ps-icon: #e6b450;
   --ps-icon-glyph: #0b0e14;
   --selection: rgb(64 159 255 / 0.3);
+  --line-highlight: #191e28; /* the editor's current-line highlight */
+  --glow: rgb(230 180 80 / 0.1); /* cursor spotlight on cards */
+  --glow-edge: rgb(230 180 80 / 0.55); /* rim light near the cursor */
   --syn-tag: #39bae6;
   --syn-func: #ffb454;
   --syn-entity: #59c2ff;
@@ -83,6 +86,9 @@
   --ps-icon: #ffaa33;
   --ps-icon-glyph: #24282d;
   --selection: rgb(3 91 214 / 0.16);
+  --line-highlight: #eef0f3;
+  --glow: rgb(255 170 51 / 0.12);
+  --glow-edge: rgb(152 90 0 / 0.45);
   --syn-tag: #1a6d88;
   --syn-func: #985a00;
   --syn-entity: #1863a6; /* darkened from #399ee6 */
@@ -276,26 +282,107 @@ button {
 }
 
 /* ---------------------------------------------------------------------------
- * Reduced motion: no smooth scrolling, no blinking cursor, no transitions
- * (including View Transitions between pages).
+ * Reduced motion
+ * Handled per component (each animation either sits inside a
+ * prefers-reduced-motion: no-preference block or switches itself off),
+ * rather than a blanket "animation-duration: 0.01ms" rule, which can make
+ * some animations jump more, not less. Globally: no smooth scrolling and
+ * no animated page changes.
  * ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Scroll reveal: add class="reveal" to a card or heading block and it fades
+ * and rises into place as it scrolls into view. Pure CSS, driven by the
+ * element's own position in the viewport (a view timeline), so it costs
+ * nothing on the main thread. Browsers without scroll-driven animations
+ * (Firefox today) just show everything, which is fine for decoration.
+ *
+ * It animates `translate`, not `transform`, so it never fights a hover
+ * effect that uses `transform`.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .reveal {
+      animation: reveal-in auto linear backwards;
+      animation-timeline: view();
+      /* Done by the time the element is ~70% of the way into view. */
+      animation-range: entry 0% entry 70%;
+    }
+
+    @keyframes reveal-in {
+      from {
+        opacity: 0;
+        translate: 0 28px;
+      }
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Cursor spotlight: an element with data-spotlight gets a soft glow and a
+ * rim light that follow the pointer (components/PointerSpotlight.tsx sets
+ * --mx/--my). Mouse and trackpad only; content is never hidden behind it.
+ * The rim is a 1px ring masked down to the border area, which reads like a
+ * border lighting up near the cursor on an otherwise unbordered card.
+ * ------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight] {
+    position: relative;
+    isolation: isolate;
+  }
+
+  [data-spotlight]::before,
+  [data-spotlight]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+  }
+
+  [data-spotlight]::before {
+    z-index: -1;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 65%);
+  }
+
+  [data-spotlight]::after {
+    padding: 1px;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--glow-edge), transparent 70%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+  }
+
+  [data-spotlight]:hover::before,
+  [data-spotlight]:hover::after {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-spotlight] {
+      transition: transform 0.25s var(--vt-ease-out, ease-out);
+    }
+
+    [data-spotlight]:hover {
+      transform: translateY(-2px);
+    }
   }
 }
 

@@ -49,3 +49,19 @@
     padding: 18px;
   }
 }
+
+/* The arrow nudges toward where the link goes when the card is hovered. */
+.arrow {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .arrow {
+    transition: translate 0.2s var(--vt-ease-out);
+  }
+
+  .card:hover .arrow,
+  .cta:focus-visible .arrow {
+    translate: 4px 0;
+  }
+}

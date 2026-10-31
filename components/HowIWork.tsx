@@ -17,7 +17,7 @@ export function HowIWork() {
     <Section id={s.id} command={s.command} heading={s.heading}>
       <ol className={styles.steps}>
         {howIWork.map((step, i) => (
-          <li key={step.title} className={styles.step}>
+          <li key={step.title} className={`${styles.step} reveal`} data-spotlight>
             <p className={`${styles.number} num`} aria-hidden="true">
               {String(i + 1).padStart(2, "0")}
               {i < howIWork.length - 1 && <span className={styles.arrow}> →</span>}

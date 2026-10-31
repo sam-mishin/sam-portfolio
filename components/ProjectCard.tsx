@@ -16,7 +16,7 @@ export interface ProjectCardProps {
 /** A hand-written personal project with a GitHub link. */
 export function ProjectCard({ project: p }: ProjectCardProps) {
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} reveal`} data-spotlight>
       <Shot label={p.shot} />
       <p className={styles.meta}>{p.meta}</p>
       <h3 className={styles.title}>{p.title}</h3>
@@ -24,7 +24,9 @@ export function ProjectCard({ project: p }: ProjectCardProps) {
       <p className={styles.stack}>{p.stack.join(" · ")}</p>
       <a href={p.href} className={styles.cta}>
         {p.cta}
-        <span aria-hidden="true">→</span>
+        <span aria-hidden="true" className={styles.arrow}>
+          →
+        </span>
         <span className="sr-only">: {p.title}</span>
       </a>
     </article>

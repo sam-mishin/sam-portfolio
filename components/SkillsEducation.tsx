@@ -13,7 +13,7 @@ export function SkillsEducation() {
   const s = sections.skills;
   return (
     <section id={s.id} aria-labelledby={`${s.id}-heading`} className={styles.section}>
-      <div className={`${styles.card} ${styles.skills}`}>
+      <div className={`${styles.card} ${styles.skills} reveal`}>
         <Prompt>{s.command}</Prompt>
         <h2 id={`${s.id}-heading`} className={styles.heading}>
           {s.heading}
@@ -31,7 +31,7 @@ export function SkillsEducation() {
         </ul>
       </div>
 
-      <div className={`${styles.card} ${styles.education}`}>
+      <div className={`${styles.card} ${styles.education} reveal`}>
         <Prompt>{s.educationCommand}</Prompt>
         <h2 className={styles.heading}>{s.educationHeading}</h2>
         <ul className={styles.schools}>

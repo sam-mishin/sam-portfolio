@@ -27,8 +27,8 @@ export interface SectionProps {
 export function Section({ id, command, heading, intro, children, className }: SectionProps) {
   return (
     <section id={id} aria-labelledby={`${id}-heading`} className={className ? `${styles.section} ${className}` : styles.section}>
-      <div className={styles.head}>
-        <Prompt>{command}</Prompt>
+      <div className={`${styles.head} reveal`}>
+        <Prompt typeOnScroll>{command}</Prompt>
         <h2 id={`${id}-heading`} className={styles.heading}>
           {heading}
         </h2>

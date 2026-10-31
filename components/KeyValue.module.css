@@ -68,3 +68,22 @@
     overflow: visible;
   }
 }
+
+/* Hovering a row lights it up like the editor's current-line highlight,
+   and the dot leader brightens to tie the key to its value. The negative
+   margin lets the highlight bleed slightly past the text. */
+@media (hover: hover) {
+  .row {
+    margin-inline: -6px;
+    padding-inline: 6px;
+    border-radius: 4px;
+  }
+
+  .row:hover {
+    background: var(--line-highlight);
+  }
+
+  .row:hover::after {
+    color: var(--muted);
+  }
+}

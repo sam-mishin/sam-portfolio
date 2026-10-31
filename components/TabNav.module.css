@@ -83,6 +83,29 @@
   color: var(--muted);
 }
 
+/* Inactive tabs show their ✕ only on hover or keyboard focus. It sits in
+   the tab's right padding so revealing it never changes the tab's width. */
+.tab {
+  position: relative;
+}
+
+.tab:not(.current) {
+  padding-right: 24px;
+}
+
+.tab:not(.current) .close {
+  position: absolute;
+  right: 5px;
+  top: calc(50% - 4px);
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+
+.tab:not(.current):hover .close,
+.tab:not(.current):focus-visible .close {
+  opacity: 1;
+}
+
 .close path,
 .newTab path {
   fill: none;
