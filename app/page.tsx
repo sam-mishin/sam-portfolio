@@ -20,7 +20,7 @@ export default function HomePage() {
   return (
     <PageTransition>
       <Hero />
-      <section aria-label={sections.profileCard.label} className={styles.profile}>
+      <section id={sections.profileCard.id} aria-label={sections.profileCard.label} className={styles.profile}>
         <Winfetch />
       </section>
       <ImpactStrip />

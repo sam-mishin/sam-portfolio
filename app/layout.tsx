@@ -1,10 +1,10 @@
 /**
  * app/layout.tsx — the root layout wrapped around every page.
  *
- * It loads the two fonts, sets page metadata, and renders the frame every
- * page shares: skip link → tab-bar header → <main> → contact footer.
- * Milestone 6 adds the command palette, theme toggle and the no-flash
- * theme script here.
+ * It loads the two fonts, sets page metadata, runs the no-flash theme
+ * script, and renders the frame every page shares: skip link → tab-bar
+ * header (with the command palette and theme toggle) → <main> → contact
+ * footer.
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -12,6 +12,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TabNav } from "@/components/TabNav";
 import { site } from "@/content/site";
+import { themeScript } from "@/lib/theme";
 import "./globals.css";
 
 /**
@@ -50,8 +51,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // suppressHydrationWarning on <html> and <body> only: browser extensions
     // (ad blockers, antivirus, analytics opt-out) add attributes to these two
-    // elements before React hydrates, and the theme script (milestone 6)
-    // sets data-theme on <html>. It ignores attribute differences on these
+    // elements before React hydrates, and the theme script below sets
+    // data-theme on <html>. It ignores attribute differences on these
     // elements alone, not on anything inside them.
     //
     // data-scroll-behavior="smooth": in-page #anchor jumps scroll smoothly,
@@ -63,6 +64,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      <head>
+        {/* Sets data-theme on <html> before the first paint, from the saved
+            choice or the system setting, so light-mode visitors never see
+            a flash of the dark palette. It has to be an inline, blocking
+            script: anything loaded later would run after the page shows.
+            Without JavaScript the site stays in the default dark theme. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body suppressHydrationWarning>
         <a className="skip-link" href="#main">
           {site.skipLink}

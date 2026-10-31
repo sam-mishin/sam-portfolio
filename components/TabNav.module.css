@@ -95,9 +95,11 @@
   gap: 10px;
 }
 
-/* Phones get the résumé button in the hero instead, as in the mockup. */
+/* Phones get the résumé button in the hero and the theme switch in the
+   menu instead, as in the mockup. */
 @media (max-width: 720px) {
-  .resume {
+  .resume,
+  .theme {
     display: none;
   }
 }

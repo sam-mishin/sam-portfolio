@@ -39,6 +39,12 @@
   --ps-icon: #2671be;
   --ps-icon-glyph: #ffffff;
   --shadow-window: 0 16px 48px rgb(0 0 0 / 0.5);
+  /* Command palette and dialogs */
+  --overlay-surface: #2c2c2c;
+  --overlay-active: #404040;
+  --overlay-active-text: #ffffff;
+  --backdrop: rgb(1 4 9 / 0.72);
+  --shadow-overlay: 0 24px 64px rgb(0 0 0 / 0.6);
 
   color-scheme: dark;
 }
@@ -61,6 +67,11 @@
   --ok: #1a7f37;
   --hash: #9a6700;
   --shadow-window: 0 12px 32px rgb(0 0 0 / 0.12);
+  --overlay-surface: #ffffff;
+  --overlay-active: #e6ebf0;
+  --overlay-active-text: #1f2328;
+  --backdrop: rgb(31 35 40 / 0.45);
+  --shadow-overlay: 0 24px 64px rgb(31 35 40 / 0.25);
 
   color-scheme: light;
 }

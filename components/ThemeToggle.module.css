@@ -1,0 +1,60 @@
+/* ThemeToggle.module.css — the sun/moon theme button. */
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: var(--touch);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-button);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+.button svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon {
+  width: var(--touch);
+}
+
+/* Full-width row inside the phone menu, styled like the menu's links. */
+.row {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+
+/* Show the icon (and name) for the theme that's on. The sun means
+   "you're in dark mode, press for light", matching the mockup. */
+.moon,
+.lightName {
+  display: none;
+}
+
+:global([data-theme="light"]) .sun,
+:global([data-theme="light"]) .darkName {
+  display: none;
+}
+
+:global([data-theme="light"]) .moon,
+:global([data-theme="light"]) .lightName {
+  display: inline;
+}

@@ -14,29 +14,28 @@
  * A client component only because it reads the current URL to decide
  * which tab is active (and which way the page should slide).
  *
+ * On the right: the search button that opens the command palette, the
+ * light/dark toggle (moved into the phone menu on small screens) and the
+ * résumé download.
+ *
  * The header has its own view-transition name ("site-header"), which
  * pins it in place while page content slides underneath during a page
  * change, the way the tab strip stays put when you switch terminal tabs.
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
 import { nav } from "@/content/nav";
 import { deployments } from "@/content/projects";
 import { directionFor } from "@/lib/transitions";
 import { ButtonLink } from "./ButtonLink";
+import { CommandPalette } from "./CommandPalette";
 import { MobileMenu } from "./MobileMenu";
 import { PsIcon } from "./PsIcon";
+import { ThemeToggle } from "./ThemeToggle";
 import styles from "./TabNav.module.css";
 
-/** Props for {@link TabNav}. */
-export interface TabNavProps {
-  /** Extra buttons before the résumé button (search and theme, milestone 6). */
-  actions?: ReactNode;
-}
-
 /** The Windows Terminal–style tab bar used as the site's main navigation. */
-export function TabNav({ actions }: TabNavProps) {
+export function TabNav() {
   const pathname = usePathname();
   const slug = pathname.startsWith("/work/") ? pathname.split("/")[2] : null;
   const project = slug ? deployments.find((d) => d.slug === slug) : undefined;
@@ -75,7 +74,8 @@ export function TabNav({ actions }: TabNavProps) {
           </li>
         </ul>
         <div className={styles.actions}>
-          {actions}
+          <CommandPalette />
+          <ThemeToggle className={styles.theme} />
           <ButtonLink href={nav.resume.href} size="sm" download className={styles.resume}>
             {nav.resume.label}
           </ButtonLink>

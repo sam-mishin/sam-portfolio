@@ -64,7 +64,8 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 | `content/how-i-work.ts` | The six "How I work" steps and their artifact links |
 | `content/field-notes.ts` | Field notes cards |
 | `content/home.ts` | Section commands, headings, intro lines and card labels |
-| `content/nav.ts` | Tab bar tabs, résumé button, phone menu labels |
+| `content/nav.ts` | Tab bar tabs, résumé button, phone menu and theme-button labels |
+| `content/commands.ts` | Command palette commands, hints and messages |
 | `content/case-studies.ts` | Case-study summaries, facts grids, hero screenshots and the 8-section template |
 | `content/case-studies/*.mdx` | Case-study prose |
 | `content/ascii-*.txt` | The ASCII portrait (generated — see below) |
@@ -81,7 +82,12 @@ Case studies live at `/work/<slug>` and are built as static pages.
 2. **The facts.** In `content/case-studies.ts`, add an entry with the same `slug`: a one-sentence `summary`, the four `facts` (Role, Status, Stack, How it’s built) and the `heroShot` placeholder.
 3. **The prose.** Copy `content/case-studies/cash-drawer.mdx` to `content/case-studies/<slug>.mdx` and fill in each section. Every case study uses the same eight sections, in this order: Customer and context · Discovery · Constraints · What I shipped · Rollout and training · Results · What broke and what I changed · What’s next. Wrap each in `<CaseSection id="…">`; the number and heading are added for you.
 4. Components you can use inside the `.mdx` without importing anything: `<Diagram>`, `<Decisions>` / `<Decision>`, `<CodeExcerpt>`, `<Aside>`, `<Todo>` (see `mdx-components.tsx`). Plain markdown works for everything else.
-5. Run `npm run build`. The page, the table of contents, the previous/next links, the project tab in the header, and the card-to-page animation are all automatic.
+5. Run `npm run build`. The page, the table of contents, the previous/next links, the project tab in the header, the `open <slug>` command in the palette and the page-slide animation are all automatic.
+
+## Command palette and theme
+
+- **Palette.** Press `/` or `Ctrl+K` (`⌘K` on a Mac), or click **Search**. Commands come from `content/commands.ts`: a `link` goes to a page or `#section`, `external` opens a new tab, and the rest (`copy-email`, `download`, `toggle-theme`, `winfetch`, `hire`, `help`) are handled in `components/CommandPalette.tsx`. Every case study gets an `open <slug>` command automatically. The filtering and arrow-key logic is in `lib/palette.ts`, tested in `lib/palette.test.ts`.
+- **Theme.** The site follows the visitor's system setting until they press the sun/moon button; then their choice is saved in `localStorage` under `theme`. A tiny inline script in `app/layout.tsx` sets `data-theme` on `<html>` before the first paint, so there's no flash of the wrong theme. Colors for both themes are only in `app/globals.css`. Logic: `lib/theme.ts`.
 
 ## Regenerating the ASCII portrait
 
@@ -119,7 +125,7 @@ The card sizes the font to fit whatever width the art comes out at, so no code c
 3. ✅ Content files, uptime math, ASCII portrait and the `winfetch` card
 4. ✅ Home page: tab-bar navigation, hero, winfetch, impact strip, Deployments, timeline, skills/education, How I work, field notes, contact footer with copy-to-clipboard email
 5. ✅ Case studies (MDX) and View Transitions
-6. Command palette and light/dark theme
+6. ✅ Command palette and light/dark theme
 7. 404, metadata, Open Graph image, sitemap, final docs and audits
 
 ## Placeholder TODO

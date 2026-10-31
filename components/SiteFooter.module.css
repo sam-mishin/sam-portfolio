@@ -88,3 +88,18 @@
     font-size: 11px;
   }
 }
+
+.kbd {
+  padding: 0 5px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: inherit;
+  color: var(--text);
+}
+
+/* No / key on a touch screen. */
+@media (hover: none) {
+  .searchHint {
+    display: none;
+  }
+}

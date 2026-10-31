@@ -9,6 +9,9 @@
  * inert, and returns focus to the button when it closes. Clicking the
  * dimmed backdrop or a link also closes it.
  *
+ * Below the links is the light/dark switch, which leaves the header on
+ * phones to make room.
+ *
  * Links close the dialog first and navigate on the next frame. Closing
  * puts focus back on the menu button at the top of the page; if the jump
  * to #experience started first, that focus change would scroll it away.
@@ -19,6 +22,7 @@ import { useRef, useState } from "react";
 import { nav } from "@/content/nav";
 import { directionFor } from "@/lib/transitions";
 import styles from "./MobileMenu.module.css";
+import { ThemeToggle } from "./ThemeToggle";
 
 /** Menu button plus the dialog listing every tab. Hidden on wide screens. */
 export function MobileMenu() {
@@ -89,6 +93,8 @@ export function MobileMenu() {
               </li>
             ))}
           </ul>
+          <p className={`${styles.title} ${styles.subtitle}`}>{nav.menu.themeTitle}</p>
+          <ThemeToggle variant="row" />
         </div>
       </dialog>
     </>

@@ -43,7 +43,7 @@ export const sections = {
   },
   contact: { id: "contact" },
   /** Accessible names for sections that have no visible heading. */
-  profileCard: { label: "Profile summary" },
+  profileCard: { id: "winfetch", label: "Profile summary" },
   impact: { label: "Impact" },
 } as const;
 

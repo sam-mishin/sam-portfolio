@@ -45,7 +45,7 @@
 }
 
 .dialog::backdrop {
-  background: rgb(0 0 0 / 0.6);
+  background: var(--backdrop);
 }
 
 .panel {
@@ -65,6 +65,12 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.subtitle {
+  margin-top: 12px;
+  padding: 10px 0 6px 8px;
+  border-top: 1px solid var(--border);
 }
 
 .list {

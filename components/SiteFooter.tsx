@@ -2,7 +2,8 @@
  * components/SiteFooter.tsx — the contact footer on every page:
  * `PS C:\sam> contact --sam`, "Let’s talk.", the copy-to-clipboard email
  * button, LinkedIn / GitHub / freelance links, and the credit line saying
- * how the site was made. Text comes from content/profile.ts.
+ * how the site was made, plus a "press / to search" hint for keyboard
+ * users. Text comes from content/profile.ts.
  */
 import { sections } from "@/content/home";
 import { profile } from "@/content/profile";
@@ -40,8 +41,27 @@ export function SiteFooter() {
         <div className={styles.bottom}>
           <span>{footer.copyright}</span>
           <span>{footer.credit}</span>
+          <SearchHint text={footer.searchHint} />
         </div>
       </div>
     </footer>
+  );
+}
+
+/** Props for {@link SearchHint}. */
+interface SearchHintProps {
+  /** Hint text; its first "/" is drawn as a key cap, e.g. "press / to search". */
+  text: string;
+}
+
+/** "press [/] to search". Hidden on touch screens, where there's no / key. */
+function SearchHint({ text }: SearchHintProps) {
+  const [before, ...rest] = text.split("/");
+  return (
+    <span className={styles.searchHint}>
+      {before}
+      <kbd className={styles.kbd}>/</kbd>
+      {rest.join("/")}
+    </span>
   );
 }

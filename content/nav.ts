@@ -26,5 +26,17 @@ export const nav = {
     open: "Open menu",
     close: "Close menu",
     title: "Go to",
+    /** Heading above the theme switch inside the phone menu. */
+    themeTitle: "Theme",
+  },
+  /** The sun/moon button. The label says what pressing it will do. */
+  theme: {
+    toLight: "Switch to light mode",
+    toDark: "Switch to dark mode",
+    /** Used before the page knows the current theme (first render). */
+    unknown: "Switch theme",
+    /** Visible text next to the icon inside the phone menu. */
+    lightName: "Light",
+    darkName: "Dark",
   },
 } as const;
