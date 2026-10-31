@@ -36,7 +36,7 @@ export const profile = {
     /** Part of the headline shown with an editor-style selection highlight. Must appear in `headline`. */
     headlineHighlight: "ship the software they run on.",
     intro:
-      "Full-stack web developer. I build the billing platform, POS integrations and staff tools at a working winery, and I’ve shipped about 12 client websites since 2023.",
+      "Full-stack web developer. I built a wine club billing platform, Clover POS integrations and daily-use staff tools, and I’ve shipped about 12 client websites since 2023.",
     primaryCta: { label: "See my work", href: "#work" },
     secondaryCta: { label: "Download résumé", href: "/resume/Sam_Mishin_Resume.pdf" },
     availability: "Open to full-stack and forward-deployed engineering roles",

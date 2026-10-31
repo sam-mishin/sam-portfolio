@@ -59,6 +59,51 @@ export const paletteText = {
   historyEmpty: "no commands yet",
 } as const;
 
+/** The interactive prompt at the bottom of the winfetch card. */
+export const terminalText = {
+  /** Accessible name of the input (different from the palette's, so the two are easy to tell apart). */
+  inputLabel: "Terminal command",
+  /** Shown faintly in the empty prompt. */
+  placeholder: "type help and press Enter",
+  /** Screen-reader hint describing the input. */
+  hint: "Run commands like ls, whoami or cd ~/work. Tab completes, up and down arrows recall earlier commands.",
+  outputLabel: "Terminal output",
+  /** {input} is replaced with what was typed. Styled like PowerShell's error. */
+  notFound: "{input} : The term '{input}' is not recognized as a command. Try 'help'.",
+  helpIntro: "Commands (Tab completes, ↑ ↓ recall):",
+  winfetchHere: "You’re looking at it ↑",
+  downloading: "downloading resume.pdf…",
+  exit: "logout — but the site’s still here.",
+} as const;
+
+/**
+ * Other things people type out of habit, mapped to a command label. Used
+ * by the terminal prompt (lib/shell.ts).
+ */
+export const commandAliases: Record<string, string> = {
+  neofetch: "winfetch",
+  cls: "clear",
+  dir: "ls",
+  "ls -la": "ls",
+  "ls -l": "ls",
+  "cat resume": "cat resume.txt",
+  "git log": "git log --oneline",
+  cd: "cd ~",
+  "cd ..": "cd ~",
+  "cd /": "cd ~",
+  man: "help",
+  "?": "help",
+  theme: "theme --toggle",
+  "hire sam": "sudo hire sam",
+  "sudo hire": "sudo hire sam",
+  email: "cp email",
+  resume: "wget resume.pdf",
+  logout: "exit",
+  "sudo rm -rf /": "rm -rf /",
+  "rm -rf": "rm -rf /",
+  quit: "exit",
+};
+
 const caseStudyCommands: Command[] = deployments
   .filter((d) => d.caseStudy)
   .map((d) => ({

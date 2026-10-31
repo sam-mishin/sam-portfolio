@@ -1,0 +1,125 @@
+/* TerminalPrompt.module.css — the live prompt in the winfetch card. */
+
+/* Same size as the card's other prompt lines (Prompt, Winfetch). */
+.terminal {
+  font-size: var(--fs-label);
+}
+
+@media (max-width: 720px) {
+  .terminal {
+    font-size: var(--fs-mono-sm);
+  }
+}
+
+.output {
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+.echo {
+  overflow-wrap: anywhere;
+}
+
+.path {
+  flex: none;
+  color: var(--syn-tag);
+}
+
+.typed {
+  color: var(--syn-func);
+}
+
+.line,
+.error {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--text-body);
+}
+
+/* PowerShell prints errors in red. */
+.error {
+  color: var(--error);
+}
+
+.prompt {
+  display: flex;
+  align-items: baseline;
+  gap: 1ch;
+  margin-inline: -6px;
+  padding-inline: 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  line-height: 1.6;
+  cursor: text;
+}
+
+/* While typing, the line gets the editor's current-line highlight, on top
+   of the cursor turning solid: the focus indicator. */
+.focused {
+  background: var(--line-highlight);
+}
+
+.field {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.input {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--syn-func);
+  font: inherit;
+  /* Cascadia's ligatures would merge characters and throw off the
+     character-counted cursor. */
+  font-variant-ligatures: none;
+  /* The block cursor below replaces the thin native caret. */
+  caret-color: transparent;
+}
+
+.input::placeholder {
+  color: var(--muted);
+}
+
+/* Focus is shown by the line highlight and the solid cursor instead. */
+.input:focus-visible {
+  outline: none;
+}
+
+/* A block one character wide at the caret's column. Hollow when the
+   prompt isn't focused, solid and blinking when it is. */
+.cursor {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--col) * 1ch - var(--scroll));
+  width: 1ch;
+  height: 1.25em;
+  translate: 0 -50%;
+  border: 1px solid var(--text-body);
+  pointer-events: none;
+}
+
+.focused .cursor {
+  background: var(--text-body);
+  animation: blink 1.1s steps(1) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* iPhones zoom into inputs smaller than 16px; keep the input at 16px there. */
+@supports (-webkit-touch-callout: none) {
+  .input {
+    font-size: max(16px, 1em);
+  }
+}

@@ -1,7 +1,8 @@
 /**
  * components/Winfetch.tsx — the terminal card under the hero: `PS C:\sam>
  * winfetch`, Sam's ASCII portrait on the left and neofetch-style key/value
- * rows on the right, ending in a blinking prompt.
+ * rows on the right, ending in a live prompt visitors can type commands
+ * into (TerminalPrompt).
  *
  * A server component: the portrait is read from content/ at build time and
  * the uptime comes from a daily-cached value (lib/winfetch-data.ts). All
@@ -10,9 +11,9 @@
 import type { CSSProperties } from "react";
 import { profile } from "@/content/profile";
 import { getUptime, readAsciiArt } from "@/lib/winfetch-data";
-import { Cursor } from "./Cursor";
 import { KeyValue, KeyValueList } from "./KeyValue";
 import { Prompt } from "./Prompt";
+import { TerminalPrompt } from "./TerminalPrompt";
 import { TerminalWindow } from "./TerminalWindow";
 import { ThemeText } from "./ThemeText";
 import styles from "./Winfetch.module.css";
@@ -78,7 +79,8 @@ export async function Winfetch({ className }: WinfetchProps) {
         </div>
       </div>
 
-      <Prompt className={styles.command} after={<Cursor />} />
+      {/* A live prompt: visitors can type commands here (TerminalPrompt). */}
+      <TerminalPrompt className={styles.command} />
     </TerminalWindow>
   );
 }

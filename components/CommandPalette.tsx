@@ -20,20 +20,12 @@
  *   output pane above the results, a role="log" region, so screen readers
  *   hear new output. The output and history last for the visit.
  */
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { commands, paletteText as text } from "@/content/commands";
-import { profile } from "@/content/profile";
 import { site } from "@/content/site";
-import { reboot } from "@/lib/boot";
-import { type Command, filterCommands, flatten, isPaletteShortcut, moveIndex } from "@/lib/palette";
-import { toggleThemeAnimated } from "@/lib/theme";
-import { formatUptime, uptimeBetween } from "@/lib/uptime";
-import { directionFor } from "@/lib/transitions";
+import { filterCommands, flatten, isPaletteShortcut, moveIndex } from "@/lib/palette";
 import styles from "./CommandPalette.module.css";
-
-/** How long "permission granted" stays on screen before the mail app opens. */
-const HIRE_DELAY_MS = 1400;
+import { useCommandRunner } from "./useCommandRunner";
 
 /** How many past commands the output pane keeps. */
 const OUTPUT_LIMIT = 6;
@@ -49,17 +41,13 @@ interface OutputEntry {
 export function CommandPalette() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [status, setStatus] = useState("");
   const [output, setOutput] = useState<OutputEntry[]>([]);
-  const history = useRef<string[]>([]);
   const outputRef = useRef<HTMLDivElement>(null);
   const nextId = useRef(0);
-  const router = useRouter();
-  const pathname = usePathname();
   const id = useId();
 
   const groups = useMemo(() => filterCommands(commands, query), [query]);
@@ -94,9 +82,6 @@ export function CommandPalette() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  useEffect(() => () => {
-    if (timer.current) clearTimeout(timer.current);
-  }, []);
 
   // Keep the highlighted row visible when arrowing through a long list.
   useEffect(() => {
@@ -118,97 +103,23 @@ export function CommandPalette() {
     setOutput((current) => [...current, entry].slice(-OUTPUT_LIMIT));
   }
 
-  /** Close the palette, then navigate on the next frame (see MobileMenu for why). */
-  function go(href: string) {
-    close();
-    requestAnimationFrame(() => router.push(href, { transitionTypes: directionFor(pathname, href) }));
-  }
-
-  async function run(command: Command) {
-    const { action } = command;
-    history.current.push(command.label);
-    switch (action.kind) {
-      case "link":
-        go(action.href);
-        return;
-      case "external":
-        window.open(action.href, "_blank", "noopener,noreferrer");
-        close();
-        return;
-      case "download": {
-        const link = document.createElement("a");
-        link.href = action.href;
-        link.download = "";
-        link.click();
-        close();
-        return;
-      }
-      case "copy-email":
-        try {
-          await navigator.clipboard.writeText(profile.contact.email);
-          setStatus(text.copied);
-        } catch {
-          setStatus(text.copyFailed);
-          window.location.href = `mailto:${profile.contact.email}`;
-        }
-        return;
-      case "toggle-theme":
-        // Stays open so you can see the new theme and flip back.
-        setStatus(text.themeSet.replace("{theme}", toggleThemeAnimated()));
-        return;
-      case "winfetch":
-        if (pathname === "/") {
-          close();
-          requestAnimationFrame(() => document.getElementById("winfetch")?.scrollIntoView());
-        } else {
-          go("/#winfetch");
-        }
-        return;
-      case "hire":
-        setStatus(text.hire);
-        if (timer.current) clearTimeout(timer.current);
-        timer.current = setTimeout(() => {
-          close();
-          window.location.href = `mailto:${profile.contact.email}?subject=${encodeURIComponent(text.hireSubject)}`;
-        }, HIRE_DELAY_MS);
-        return;
-      case "help":
-        setQuery("");
-        setActive(0);
-        inputRef.current?.focus();
-        return;
-      case "print":
-        print(command.label, action.lines);
-        return;
-      case "date":
-        print(command.label, [new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "medium" })]);
-        return;
-      case "uptime":
-        print(command.label, [
-          text.uptime.replace("{uptime}", formatUptime(uptimeBetween(profile.winfetch.codingSince, new Date()))),
-        ]);
-        return;
-      case "history":
-        print(
-          command.label,
-          history.current.length > 1
-            ? history.current.map((label, i) => `${String(i + 1).padStart(3)}  ${label}`)
-            : [text.historyEmpty],
-        );
-        return;
-      case "clear":
-        setOutput([]);
-        setStatus("");
-        return;
-      case "exit":
-        close();
-        return;
-      case "reboot":
-        close();
-        reboot();
-        return;
-    }
-  }
+  // What running a command does lives in useCommandRunner, shared with the
+  // prompt in the winfetch card; this says how the palette shows results.
+  const run = useCommandRunner({
+    kind: "palette",
+    print,
+    clear: () => {
+      setOutput([]);
+      setStatus("");
+    },
+    status: (_command, message) => setStatus(message),
+    close,
+    showAll: () => {
+      setQuery("");
+      setActive(0);
+      inputRef.current?.focus();
+    },
+  });
 
   function onInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -245,10 +156,7 @@ export function CommandPalette() {
         ref={dialogRef}
         className={styles.dialog}
         aria-label={text.label}
-        onClose={() => {
-          setOpen(false);
-          if (timer.current) clearTimeout(timer.current);
-        }}
+        onClose={() => setOpen(false)}
         // A click whose target is the <dialog> itself landed on the
         // backdrop (the content fills the box), so treat it as "close".
         onClick={(event) => {

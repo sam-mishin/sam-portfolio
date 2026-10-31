@@ -47,6 +47,7 @@
   --ps-icon-glyph: #0b0e14;
   --selection: rgb(64 159 255 / 0.3);
   --line-highlight: #191e28; /* the editor's current-line highlight */
+  --error: #f07178; /* Ayu's markup red, for terminal errors */
   --glow: rgb(230 180 80 / 0.1); /* cursor spotlight on cards */
   --glow-edge: rgb(230 180 80 / 0.55); /* rim light near the cursor */
   --syn-tag: #39bae6;
@@ -87,6 +88,7 @@
   --ps-icon-glyph: #24282d;
   --selection: rgb(3 91 214 / 0.16);
   --line-highlight: #eef0f3;
+  --error: #c4352f; /* darkened from Ayu Light's #f07171 for contrast */
   --glow: rgb(255 170 51 / 0.12);
   --glow-edge: rgb(152 90 0 / 0.45);
   --syn-tag: #1a6d88;
