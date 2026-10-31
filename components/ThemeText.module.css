@@ -1,0 +1,13 @@
+/* ThemeText.module.css — show the text that matches the active theme. */
+
+.light {
+  display: none;
+}
+
+:global([data-theme="light"]) .dark {
+  display: none;
+}
+
+:global([data-theme="light"]) .light {
+  display: inline;
+}

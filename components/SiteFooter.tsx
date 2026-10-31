@@ -10,6 +10,7 @@ import { profile } from "@/content/profile";
 import { ButtonLink } from "./ButtonLink";
 import { CopyEmail } from "./CopyEmail";
 import { Prompt } from "./Prompt";
+import { ThemeText } from "./ThemeText";
 import styles from "./SiteFooter.module.css";
 
 /** Contact section and credits at the bottom of every page. */
@@ -41,7 +42,9 @@ export function SiteFooter() {
         <div className={styles.bottom}>
           <span>{footer.copyright}</span>
           <span>{footer.credit}</span>
-          <span>{footer.themeNote}</span>
+          <span>
+            <ThemeText {...footer.themeNote} />
+          </span>
           <SearchHint text={footer.searchHint} />
         </div>
       </div>

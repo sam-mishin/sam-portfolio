@@ -14,6 +14,7 @@ import { Cursor } from "./Cursor";
 import { KeyValue, KeyValueList } from "./KeyValue";
 import { Prompt } from "./Prompt";
 import { TerminalWindow } from "./TerminalWindow";
+import { ThemeText } from "./ThemeText";
 import styles from "./Winfetch.module.css";
 
 /** Props for {@link Winfetch}. */
@@ -59,7 +60,15 @@ export async function Winfetch({ className }: WinfetchProps) {
                   <KeyValue
                     key={row.label}
                     label={row.label}
-                    value={row.value === "{uptime}" ? uptime : row.value}
+                    value={
+                      typeof row.value === "object" ? (
+                        <ThemeText {...row.value} />
+                      ) : row.value === "{uptime}" ? (
+                        uptime
+                      ) : (
+                        row.value
+                      )
+                    }
                     className={"phone" in row && row.phone ? undefined : styles.desktopOnly}
                   />
                 ))}

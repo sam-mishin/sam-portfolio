@@ -15,7 +15,8 @@
 /** One `Key: ..... value` line on the winfetch card. */
 export interface WinfetchRow {
   label: string;
-  value: string;
+  /** The value, or one value per theme ({ dark, light }) when it should follow the theme toggle. */
+  value: string | { dark: string; light: string };
   /** Show this row on phones too. */
   phone?: boolean;
 }
@@ -55,7 +56,7 @@ export const profile = {
           { label: "Host", value: "14 Acres Vineyard & Winery", phone: true },
           { label: "Kernel", value: "Marketing & Technology Lead", phone: true },
           { label: "IDE", value: "VS Code" },
-          { label: "Theme", value: "Ayu Dark Unbordered" },
+          { label: "Theme", value: { dark: "Ayu Dark Unbordered", light: "Ayu Light" } },
         ],
       },
       {
@@ -111,6 +112,10 @@ export const profile = {
     copyright: "© 2026 Sam Mishin · Ridgefield, WA",
     credit: "Designed by Sam Mishin · built with AI assistance, reviewed by me · Next.js on Vercel",
     searchHint: "press / to search",
-    themeNote: "Colors: Ayu Dark, the theme I use in VS Code",
+    /** Follows the theme toggle. */
+    themeNote: {
+      dark: "Colors: Ayu Dark Unbordered, the theme I use in VS Code",
+      light: "Colors: Ayu Light, the light side of the theme I use in VS Code",
+    },
   },
 } as const;
