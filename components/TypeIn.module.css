@@ -7,7 +7,8 @@
   animation:
     type-in 1ms linear both,
     type-caret var(--step) step-end;
-  animation-delay: calc(var(--start) + var(--i) * var(--step));
+  /* --boot-offset: waits for the first-visit boot screen (BootScreen). */
+  animation-delay: calc(var(--boot-offset, 0ms) + var(--start) + var(--i) * var(--step));
 }
 
 @keyframes type-in {

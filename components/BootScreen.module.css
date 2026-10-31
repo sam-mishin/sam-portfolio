@@ -1,0 +1,108 @@
+/* BootScreen.module.css — the first-visit boot overlay. Everything here
+   only applies while <html> has data-boot (lib/boot.ts). */
+
+.boot {
+  display: none;
+}
+
+:global(html[data-boot]) {
+  /* The hero intro starts this much later (TypeIn, Hero). Keep in sync
+     with BOOT_MS in lib/typing.ts. */
+  --boot-offset: 1500ms;
+}
+
+:global(html[data-boot]) .boot {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background: var(--bg);
+  /* Fades out at the end; "visibility: hidden" in the last frame stops it
+     catching clicks once it's invisible. */
+  animation: boot-out 260ms ease-in 1240ms forwards;
+}
+
+.screen {
+  width: min(640px, 100%);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+/* Each line appears in turn, like output scrolling into a terminal. */
+.line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  animation: line-in 1ms linear both;
+  animation-delay: calc(var(--n) * 110ms);
+}
+
+.command {
+  color: var(--syn-func);
+}
+
+.ok {
+  color: var(--ok);
+}
+
+.name {
+  color: var(--key);
+  white-space: pre;
+}
+
+.value {
+  color: var(--value);
+}
+
+/* A block-character progress bar that fills in 24 steps. */
+.track {
+  display: inline-block;
+  width: min(24ch, 60%);
+  height: 0.9em;
+  vertical-align: -0.1em;
+  background: var(--border-subtle);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  animation: fill 520ms steps(24, end) both;
+  animation-delay: 700ms;
+}
+
+.done {
+  color: var(--ok);
+  animation: line-in 1ms linear both;
+  animation-delay: 1230ms;
+}
+
+.skip {
+  margin-top: 18px;
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+}
+
+@keyframes line-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes boot-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

@@ -15,7 +15,19 @@ export type CommandAction =
   | { kind: "toggle-theme" }
   | { kind: "winfetch" }
   | { kind: "hire" }
-  | { kind: "help" };
+  | { kind: "help" }
+  /** Print fixed lines in the palette's output pane, like a shell. */
+  | { kind: "print"; lines: string[] }
+  /** Print something computed when the command runs. */
+  | { kind: "date" }
+  | { kind: "uptime" }
+  | { kind: "history" }
+  /** Empty the output pane. */
+  | { kind: "clear" }
+  /** Close the palette. */
+  | { kind: "exit" }
+  /** Replay the first-visit boot screen. */
+  | { kind: "reboot" };
 
 /** One row in the palette. */
 export interface Command {
@@ -42,28 +54,53 @@ export interface CommandGroup {
 }
 
 /**
+ * How well a command matches: 0 = label is exactly the query, 1 = label
+ * starts with it, 2 = label contains it, 3 = only the hint contains it,
+ * null = no match. Lower is better.
+ */
+export function matchRank(command: Command, q: string): number | null {
+  const label = command.label.toLowerCase();
+  if (label === q) return 0;
+  if (label.startsWith(q)) return 1;
+  if (label.includes(q)) return 2;
+  if (command.hint.toLowerCase().includes(q)) return 3;
+  return null;
+}
+
+/**
  * Commands whose label or hint contains the query (case-insensitive,
- * surrounding spaces ignored), grouped by `group` in the order the groups
- * first appear. Every result also gets a running `index` across all
- * groups, which is what the arrow keys move through. An empty query
- * returns everything.
+ * surrounding spaces ignored), grouped by `group`. Every result also gets
+ * a running `index` across all groups, which is what the arrow keys move
+ * through, and index 0 is highlighted, so Enter runs it.
+ *
+ * Best matches come first: typing "history" puts the `history` command
+ * above `git log --oneline`, whose hint merely mentions "history". Ties
+ * keep their original order. An empty query returns everything as listed.
  */
 export function filterCommands(commands: Command[], query: string): CommandGroup[] {
   const q = query.trim().toLowerCase();
   const matches = q
-    ? commands.filter((c) => c.label.toLowerCase().includes(q) || c.hint.toLowerCase().includes(q))
+    ? commands
+        .map((command, order) => ({ command, order, rank: matchRank(command, q) }))
+        .filter((m): m is { command: Command; order: number; rank: number } => m.rank !== null)
+        // Group order follows each group's best match, so sort by the
+        // group's best rank first, then by each command's own rank.
+        .sort((a, b) => a.rank - b.rank || a.order - b.order)
+        .map((m) => m.command)
     : commands;
 
-  const groups: CommandGroup[] = [];
-  matches.forEach((command, index) => {
+  const groups: { name: string; items: Command[] }[] = [];
+  for (const command of matches) {
     let group = groups.find((g) => g.name === command.group);
     if (!group) {
       group = { name: command.group, items: [] };
       groups.push(group);
     }
-    group.items.push({ ...command, index });
-  });
-  return groups;
+    group.items.push(command);
+  }
+  // Number the rows in display order (group by group) for the arrow keys.
+  let index = 0;
+  return groups.map((g) => ({ name: g.name, items: g.items.map((command) => ({ ...command, index: index++ })) }));
 }
 
 /** All rows of the grouped results, in display order. */

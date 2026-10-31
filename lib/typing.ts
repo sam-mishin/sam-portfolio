@@ -7,6 +7,13 @@
  * hero and the client component that tidies up afterwards.
  */
 
+/**
+ * How long the first-visit boot screen holds the page, in ms (lib/boot.ts).
+ * When it plays, the hero intro starts this much later. Keep in sync with
+ * --boot-offset in components/BootScreen.module.css.
+ */
+export const BOOT_MS = 1500;
+
 /** When a typed run starts and how far apart its characters appear, in ms. */
 export interface TypingTiming {
   start: number;

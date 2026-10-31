@@ -157,6 +157,37 @@
   color: var(--text);
 }
 
+/* ---- Shell output pane (ls, git log --oneline, history…) ---- */
+.output {
+  flex: none;
+  max-height: 38vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 10px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--band);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.entry + .entry {
+  margin-top: 8px;
+}
+
+.echo {
+  color: var(--syn-func);
+}
+
+.echoPath {
+  color: var(--syn-tag);
+}
+
+.outLine {
+  color: var(--text-body);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .list {
   flex: 1 1 auto;
   min-height: 0;

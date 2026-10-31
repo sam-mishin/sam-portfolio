@@ -2,12 +2,15 @@
  * components/case-study/Blocks.tsx — small building blocks the case-study
  * .mdx files use alongside plain markdown:
  * - <Decisions> / <Decision>: the grid of key-decision cards
- * - <CodeExcerpt>: a titled code block
+ * - <CodeExcerpt>: a titled code block. Put a ```fenced``` block inside it
+ *   and it's syntax-highlighted with a copy button.
  * - <Todo>: a paragraph Sam still has to write, shown as a [placeholder]
  * - <Aside>: a muted note (e.g. "Working with AI")
  */
 import type { ReactNode } from "react";
 import styles from "./Blocks.module.css";
+import { findFencedCode } from "@/lib/mdx-code";
+import { CodeBlock } from "./CodeBlock";
 
 /** Props for {@link Decisions}. */
 export interface DecisionsProps {
@@ -42,12 +45,14 @@ export function Decision({ title, children }: DecisionProps) {
 export interface CodeExcerptProps {
   /** File name shown in the header, e.g. "charge.ts — excerpt". */
   title: string;
-  /** The code, or a [placeholder] until a real excerpt is pasted in. */
+  /** A ```fenced``` code block, or a [placeholder] until a real excerpt is pasted in. */
   children: ReactNode;
 }
 
 /** A code block with a file-name header. Scrolls sideways inside itself if a line is long. */
 export function CodeExcerpt({ title, children }: CodeExcerptProps) {
+  const fenced = findFencedCode(children);
+  if (fenced) return <CodeBlock code={fenced.code} lang={fenced.lang} title={title} />;
   return (
     <figure className={styles.code}>
       <figcaption className={styles.codeTitle}>{title}</figcaption>

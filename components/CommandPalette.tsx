@@ -16,18 +16,34 @@
  *   runs the highlighted command.
  * - Results of actions ("✓ copied to clipboard") are printed in a polite
  *   live region, like a terminal printing output.
+ * - Shell commands (`ls`, `git log --oneline`, `history`…) print into an
+ *   output pane above the results, a role="log" region, so screen readers
+ *   hear new output. The output and history last for the visit.
  */
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { commands, paletteText as text } from "@/content/commands";
 import { profile } from "@/content/profile";
+import { site } from "@/content/site";
+import { reboot } from "@/lib/boot";
 import { type Command, filterCommands, flatten, isPaletteShortcut, moveIndex } from "@/lib/palette";
-import { toggleTheme } from "@/lib/theme";
+import { toggleThemeAnimated } from "@/lib/theme";
+import { formatUptime, uptimeBetween } from "@/lib/uptime";
 import { directionFor } from "@/lib/transitions";
 import styles from "./CommandPalette.module.css";
 
 /** How long "permission granted" stays on screen before the mail app opens. */
 const HIRE_DELAY_MS = 1400;
+
+/** How many past commands the output pane keeps. */
+const OUTPUT_LIMIT = 6;
+
+/** One command and what it printed. */
+interface OutputEntry {
+  id: number;
+  command: string;
+  lines: string[];
+}
 
 /** Header search button plus the command palette dialog. */
 export function CommandPalette() {
@@ -38,6 +54,10 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [status, setStatus] = useState("");
+  const [output, setOutput] = useState<OutputEntry[]>([]);
+  const history = useRef<string[]>([]);
+  const outputRef = useRef<HTMLDivElement>(null);
+  const nextId = useRef(0);
   const router = useRouter();
   const pathname = usePathname();
   const id = useId();
@@ -86,6 +106,18 @@ export function CommandPalette() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, open]);
 
+  // Keep the newest output in view.
+  useEffect(() => {
+    const pane = outputRef.current;
+    if (pane) pane.scrollTop = pane.scrollHeight;
+  }, [output]);
+
+  /** Add a command and its lines to the output pane, like a shell would. */
+  function print(command: string, lines: string[]) {
+    const entry = { id: nextId.current++, command, lines };
+    setOutput((current) => [...current, entry].slice(-OUTPUT_LIMIT));
+  }
+
   /** Close the palette, then navigate on the next frame (see MobileMenu for why). */
   function go(href: string) {
     close();
@@ -94,6 +126,7 @@ export function CommandPalette() {
 
   async function run(command: Command) {
     const { action } = command;
+    history.current.push(command.label);
     switch (action.kind) {
       case "link":
         go(action.href);
@@ -121,7 +154,7 @@ export function CommandPalette() {
         return;
       case "toggle-theme":
         // Stays open so you can see the new theme and flip back.
-        setStatus(text.themeSet.replace("{theme}", toggleTheme()));
+        setStatus(text.themeSet.replace("{theme}", toggleThemeAnimated()));
         return;
       case "winfetch":
         if (pathname === "/") {
@@ -143,6 +176,36 @@ export function CommandPalette() {
         setQuery("");
         setActive(0);
         inputRef.current?.focus();
+        return;
+      case "print":
+        print(command.label, action.lines);
+        return;
+      case "date":
+        print(command.label, [new Date().toLocaleString("en-US", { dateStyle: "full", timeStyle: "medium" })]);
+        return;
+      case "uptime":
+        print(command.label, [
+          text.uptime.replace("{uptime}", formatUptime(uptimeBetween(profile.winfetch.codingSince, new Date()))),
+        ]);
+        return;
+      case "history":
+        print(
+          command.label,
+          history.current.length > 1
+            ? history.current.map((label, i) => `${String(i + 1).padStart(3)}  ${label}`)
+            : [text.historyEmpty],
+        );
+        return;
+      case "clear":
+        setOutput([]);
+        setStatus("");
+        return;
+      case "exit":
+        close();
+        return;
+      case "reboot":
+        close();
+        reboot();
         return;
     }
   }
@@ -224,6 +287,23 @@ export function CommandPalette() {
             <kbd className={styles.kbd}>{text.closeKey}</kbd>
           </button>
         </div>
+
+        {output.length > 0 && (
+          <div ref={outputRef} className={styles.output} role="log" aria-label={text.outputLabel}>
+            {output.map((entry) => (
+              <div key={entry.id} className={styles.entry}>
+                <p className={styles.echo}>
+                  <span className={styles.echoPath}>{site.promptPath}</span> {entry.command}
+                </p>
+                {entry.lines.map((line, i) => (
+                  <p key={i} className={styles.outLine}>
+                    {line}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
 
         <div id={`${id}-list`} role="listbox" aria-label={text.listLabel} className={styles.list}>
           {groups.map((group) => (

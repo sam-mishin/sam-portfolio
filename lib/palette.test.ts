@@ -34,12 +34,24 @@ describe("filterCommands", () => {
   });
 
   it("drops groups with no matches", () => {
-    expect(filterCommands(commands, "email").map((g) => g.name)).toEqual(["Pages", "Actions"]);
+    // "cp email" matches by label, "cd ~/contact" only by hint, so Actions leads.
+    expect(filterCommands(commands, "email").map((g) => g.name)).toEqual(["Actions", "Pages"]);
   });
 
   it("numbers results continuously across groups", () => {
     const indexes = flatten(filterCommands(commands, "e")).map((c) => c.index);
     expect(indexes).toEqual(indexes.map((_, i) => i));
+  });
+
+  it("puts exact and prefix label matches above hint-only matches", () => {
+    const list = [cmd("git log", "Career history", "Shell"), cmd("history", "Commands you ran", "Shell")];
+    expect(flatten(filterCommands(list, "history")).map((c) => c.label)).toEqual(["history", "git log"]);
+  });
+
+  it("orders groups by their best match", () => {
+    const list = [cmd("cd ~/work", "Deployments", "Pages"), cmd("winfetch", "Profile card", "Actions")];
+    expect(filterCommands(list, "win").map((g) => g.name)).toEqual(["Actions"]);
+    expect(filterCommands([...list, cmd("open winery", "x", "Projects")], "w").map((g) => g.name)).toEqual(["Actions", "Pages", "Projects"]);
   });
 
   it("returns no groups when nothing matches", () => {

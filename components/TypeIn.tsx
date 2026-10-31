@@ -17,6 +17,7 @@
  *   readers, copy/paste and find-in-page see ordinary words.
  */
 import { useEffect, useState } from "react";
+import { bootPlaying, BOOT_MS } from "@/lib/boot";
 import { introPlaying } from "@/lib/intro";
 import { characters, type TypingTiming, typingEnd } from "@/lib/typing";
 import styles from "./TypeIn.module.css";
@@ -44,7 +45,8 @@ export function TypeIn({ segments, timing }: TypeInProps) {
 
   useEffect(() => {
     // Small margin so the last character's caret finishes before the swap.
-    const wait = introPlaying() ? typingEnd(fullText, timing) + timing.step + 50 : 0;
+    const boot = bootPlaying() ? BOOT_MS : 0;
+    const wait = introPlaying() ? boot + typingEnd(fullText, timing) + timing.step + 50 : 0;
     const timer = setTimeout(() => setPlain(true), wait);
     return () => clearTimeout(timer);
   }, [fullText, timing]);

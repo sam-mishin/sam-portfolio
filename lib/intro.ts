@@ -10,10 +10,15 @@
  * that attribute, so everyone else (repeat views, reduced motion, no
  * JavaScript) sees the finished text immediately, with no flash.
  *
+ * If the first-visit boot screen is also playing (lib/boot.ts, whose
+ * script runs first), the intro waits for it via --boot-offset.
+ *
  * The attribute is removed after a few seconds no matter what. If the page
  * is slow or something breaks, the text simply appears; it can never stay
  * hidden.
  */
+
+import { BOOT_MS } from "./typing";
 
 /** sessionStorage key marking that the intro already played. */
 export const INTRO_STORAGE_KEY = "intro-played";
@@ -21,7 +26,7 @@ export const INTRO_STORAGE_KEY = "intro-played";
 /** How long the attribute stays, in ms. Longer than the animation itself. */
 const INTRO_MAX_MS = 4000;
 
-export const introScript = `(function(){try{if(location.pathname!=="/"||matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("${INTRO_STORAGE_KEY}"))return;sessionStorage.setItem("${INTRO_STORAGE_KEY}","1");var d=document.documentElement;d.setAttribute("data-intro","");setTimeout(function(){d.removeAttribute("data-intro")},${INTRO_MAX_MS})}catch(e){}})()`;
+export const introScript = `(function(){try{if(location.pathname!=="/"||matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("${INTRO_STORAGE_KEY}"))return;sessionStorage.setItem("${INTRO_STORAGE_KEY}","1");var d=document.documentElement;d.setAttribute("data-intro","");setTimeout(function(){d.removeAttribute("data-intro")},d.hasAttribute("data-boot")?${INTRO_MAX_MS + BOOT_MS}:${INTRO_MAX_MS})}catch(e){}})()`;
 
 /** True while the intro is playing. Browser only. */
 export function introPlaying(): boolean {

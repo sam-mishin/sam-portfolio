@@ -41,6 +41,10 @@ export interface CaseStudy {
 
 /** Labels used on every case-study page. */
 export const caseStudyLabels = {
+  /** Code-block copy button. */
+  copy: "copy",
+  copied: "✓ copied",
+  copyCode: "Copy code",
   breadcrumbRoot: "~/work",
   breadcrumbHref: "/#work",
   tocCommand: "cat toc",

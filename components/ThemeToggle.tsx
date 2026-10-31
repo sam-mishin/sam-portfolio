@@ -8,10 +8,13 @@
  * `data-theme` on <html>. That way the server-rendered HTML is already
  * correct before React knows the theme, so the icon never flickers on
  * load. Only the accessible name has to wait for hydration.
+ *
+ * Switching plays a circular reveal from where it was clicked
+ * (toggleThemeAnimated in lib/theme.ts).
  */
 import { useSyncExternalStore } from "react";
 import { nav } from "@/content/nav";
-import { getTheme, subscribeTheme, toggleTheme, type Theme } from "@/lib/theme";
+import { getTheme, subscribeTheme, toggleThemeAnimated, type Theme } from "@/lib/theme";
 import styles from "./ThemeToggle.module.css";
 
 /** Props for {@link ThemeToggle}. */
@@ -41,7 +44,16 @@ export function ThemeToggle({ variant = "icon", className }: ThemeToggleProps) {
       // The row variant shows the current theme's name as visible text,
       // so its accessible name starts with that text (WCAG "label in name").
       aria-label={variant === "row" && theme ? `${theme === "dark" ? nav.theme.darkName : nav.theme.lightName} — ${label}` : label}
-      onClick={() => toggleTheme()}
+      onClick={(event) => {
+        // Grow the new theme out from the pointer, or from the button's
+        // center when it was pressed with the keyboard (detail is 0).
+        const box = event.currentTarget.getBoundingClientRect();
+        const fromPointer = event.detail > 0;
+        toggleThemeAnimated({
+          x: fromPointer ? event.clientX : box.left + box.width / 2,
+          y: fromPointer ? event.clientY : box.top + box.height / 2,
+        });
+      }}
     >
       {/* Sun: shown in dark mode, since pressing it brings the light. */}
       <svg className={styles.sun} viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">

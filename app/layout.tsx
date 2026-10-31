@@ -1,19 +1,21 @@
 /**
  * app/layout.tsx — the root layout wrapped around every page.
  *
- * It loads the two fonts, sets page metadata, runs the no-flash theme
- * and intro scripts, and renders the frame every page shares: skip link →
- * tab-bar header (with the command palette and theme toggle) → <main> →
- * contact footer.
+ * It loads the two fonts, sets page metadata, runs the no-flash theme,
+ * boot-screen and intro scripts, and renders the frame every page shares:
+ * boot overlay (first visit only) → skip link → tab-bar header (with the
+ * command palette and theme toggle) → <main> → contact footer.
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { IBM_Plex_Sans } from "next/font/google";
+import { BootScreen } from "@/components/BootScreen";
 import { PointerSpotlight } from "@/components/PointerSpotlight";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TabNav } from "@/components/TabNav";
 import { site } from "@/content/site";
+import { bootScript } from "@/lib/boot";
 import { introScript } from "@/lib/intro";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
@@ -74,12 +76,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             script: anything loaded later would run after the page shows.
             Without JavaScript the site stays in the default dark theme. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* First visit ever: shows the boot screen (lib/boot.ts). Runs before
+            the intro script, which checks whether it should wait for it. */}
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         {/* Turns on the hero's typing animation for the first home-page
             view of the session (see lib/intro.ts). Inline for the same
             reason: it must decide before the headline paints. */}
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
       <body suppressHydrationWarning>
+        <BootScreen />
         <ScrollProgress />
         <PointerSpotlight />
         <a className="skip-link" href="#main">

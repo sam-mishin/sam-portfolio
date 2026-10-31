@@ -104,6 +104,22 @@
   color-scheme: light;
 }
 
+/* Code highlighting (lib/highlight.ts): Shiki's token variables mapped to
+   the Ayu syntax tokens above, so code follows the theme toggle. */
+:root {
+  --shiki-foreground: var(--text-body);
+  --shiki-background: transparent;
+  --shiki-token-keyword: var(--syn-keyword);
+  --shiki-token-function: var(--syn-func);
+  --shiki-token-string: var(--value);
+  --shiki-token-string-expression: var(--value);
+  --shiki-token-constant: var(--syn-const);
+  --shiki-token-parameter: var(--text);
+  --shiki-token-comment: var(--muted);
+  --shiki-token-punctuation: var(--text-body);
+  --shiki-token-link: var(--syn-tag);
+}
+
 /* ---------------------------------------------------------------------------
  * Type, shape and spacing tokens
  * ------------------------------------------------------------------------- */
@@ -298,6 +314,38 @@ button {
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Theme switch: the new theme grows out of the toggle in a circle
+ * (toggleThemeAnimated in lib/theme.ts sets --theme-x/-y/-r and the
+ * theme-transition class for the duration).
+ *
+ * The header normally keeps its own snapshot so it stays still during page
+ * changes; here it's folded into the page so the whole screen reveals
+ * together. The old snapshot just sits underneath.
+ * ------------------------------------------------------------------------- */
+html.theme-transition header {
+  view-transition-name: none !important;
+}
+
+html.theme-transition::view-transition-old(root),
+html.theme-transition::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-transition::view-transition-new(root) {
+  animation: theme-reveal 560ms var(--vt-ease-out);
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-x) var(--theme-y));
+  }
+  to {
+    clip-path: circle(var(--theme-r) at var(--theme-x) var(--theme-y));
   }
 }
 

@@ -12,6 +12,7 @@ The developer portfolio of **Sam Mishin**: full-stack web developer and Marketin
 | Styling | Plain CSS: design tokens as custom properties in `app/globals.css`, CSS Modules per component. No Tailwind, no UI library. |
 | Content | TypeScript data files in `content/`, MDX for case studies (milestone 5) |
 | Fonts | Cascadia Code self-hosted with `next/font/local`; IBM Plex Sans via `next/font/google` (fallback after Segoe UI) |
+| Code highlighting | Shiki, at build time, colored by the Ayu tokens (`lib/highlight.ts`) |
 | Tests | Vitest |
 | Hosting | Vercel |
 
@@ -82,16 +83,30 @@ Case studies live at `/work/<slug>` and are built as static pages.
 2. **The facts.** In `content/case-studies.ts`, add an entry with the same `slug`: a one-sentence `summary`, the four `facts` (Role, Status, Stack, How it’s built) and the `heroShot` placeholder.
 3. **The prose.** Copy `content/case-studies/cash-drawer.mdx` to `content/case-studies/<slug>.mdx` and fill in each section. Every case study uses the same eight sections, in this order: Customer and context · Discovery · Constraints · What I shipped · Rollout and training · Results · What broke and what I changed · What’s next. Wrap each in `<CaseSection id="…">`; the number and heading are added for you.
 4. Components you can use inside the `.mdx` without importing anything: `<Diagram>`, `<Decisions>` / `<Decision>`, `<CodeExcerpt>`, `<Aside>`, `<Todo>` (see `mdx-components.tsx`). Plain markdown works for everything else.
+   - **Code:** use a fenced block, which keeps indentation. It's highlighted at build time in the Ayu colors and gets a copy button. For a file-name header, wrap it in `<CodeExcerpt>` (leave blank lines around the fence):
+
+     ````mdx
+     <CodeExcerpt title="charge.ts — excerpt">
+
+     ```ts
+     const key = `charge:${memberId}:${period}`;
+     ```
+
+     </CodeExcerpt>
+     ````
+
+     Languages: ts, tsx, js, jsx, json, sql, bash, powershell, python, css, html, yaml (others show as plain text).
 5. Run `npm run build`. The page, the table of contents, the previous/next links, the project tab in the header, the `open <slug>` command in the palette and the page-slide animation are all automatic.
 
 ## Colors, command palette, theme and intro
 
 - **Colors.** The palette is [Ayu](https://github.com/ayu-theme), the theme Sam uses in VS Code: Ayu Dark Unbordered in dark mode, Ayu Light in light mode. "Unbordered" means cards and windows are told apart by background shade, not outlines. Syntax colors are used the way the editor uses them: numbers purple, labels orange, prompt paths cyan, commands yellow-orange. All of it lives in `app/globals.css`; a few Ayu Light colors are darkened there so text stays above 4.5:1.
 
-- **Palette.** Press `/` or `Ctrl+K` (`⌘K` on a Mac), or click **Search**. Commands come from `content/commands.ts`: a `link` goes to a page or `#section`, `external` opens a new tab, and the rest (`copy-email`, `download`, `toggle-theme`, `winfetch`, `hire`, `help`) are handled in `components/CommandPalette.tsx`. Every case study gets an `open <slug>` command automatically. The filtering and arrow-key logic is in `lib/palette.ts`, tested in `lib/palette.test.ts`.
+- **Palette.** Press `/` or `Ctrl+K` (`⌘K` on a Mac), or click **Search**. Commands come from `content/commands.ts`: a `link` goes to a page or `#section`, `external` opens a new tab, and the rest (`copy-email`, `download`, `toggle-theme`, `winfetch`, `hire`, `help`) are handled in `components/CommandPalette.tsx`. The **Shell** group prints into an output pane like a real terminal: `ls`, `pwd`, `whoami`, `cat resume.txt`, `git log --oneline`, `uptime`, `date`, `history`, `clear`, `reboot` (replays the boot screen), `rm -rf /` and `exit`. Their output is built from the other content files, so it never drifts. Best matches sort first (an exact name beats a word in a hint). Every case study gets an `open <slug>` command automatically. The filtering and arrow-key logic is in `lib/palette.ts`, tested in `lib/palette.test.ts`.
 - **Intro.** On the first home-page visit of a browser session, `whoami` and the headline type themselves out, the end of the headline is "selected" like text in the editor, and the intro and buttons fade in. It's CSS-only per-character delays, so it doesn't wait for JavaScript. It's skipped for repeat views and for visitors who turn on reduced motion. Timings: `lib/typing.ts`; on/off logic: `lib/intro.ts`; component: `components/TypeIn.tsx`. The highlighted words are `headlineHighlight` in `content/profile.ts`.
 - **Motion.** Scroll-driven (pure CSS, no scroll listeners): a reading-progress line across the top, cards and section headings that fade up as they enter, section prompts that type themselves out, and the career `git log` graph that draws itself. Pointer-driven: a soft glow and rim light that follow the cursor on cards (`components/PointerSpotlight.tsx` plus `[data-spotlight]` in `globals.css`), editor-style line highlights on the winfetch and `skills.json` rows, arrows that nudge on hover, and a ✕ on hovered tabs. Everything is skipped with reduced motion, and browsers without scroll-driven animations (Firefox) simply show the content. Add `className="reveal"` or `data-spotlight` to opt a new element in.
-- **Theme.** The site follows the visitor's system setting until they press the sun/moon button; then their choice is saved in `localStorage` under `theme`. A tiny inline script in `app/layout.tsx` sets `data-theme` on `<html>` before the first paint, so there's no flash of the wrong theme. Colors for both themes are only in `app/globals.css`. Logic: `lib/theme.ts`.
+- **Theme.** The site follows the visitor's system setting until they press the sun/moon button; then their choice is saved in `localStorage` under `theme`. A tiny inline script in `app/layout.tsx` sets `data-theme` on `<html>` before the first paint, so there's no flash of the wrong theme. Switching plays a circular reveal from the button (View Transitions; instant in browsers without them or with reduced motion). Colors for both themes are only in `app/globals.css`. Logic: `lib/theme.ts`.
+- **Boot screen.** A visitor's very first visit opens with a 1.5-second PowerShell-style boot (`components/BootScreen.tsx`, lines in `content/boot.ts`) showing the real page-load time, then the hero intro plays. It's shown once per browser, skipped with any key or click, never shown with reduced motion or without JavaScript, and removed after 2.6 s no matter what. Logic: `lib/boot.ts`. Type `reboot` in the palette to see it again.
 
 ## Regenerating the ASCII portrait
 

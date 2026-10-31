@@ -74,6 +74,39 @@ export function toggleTheme(): Theme {
 }
 
 /**
+ * Switch theme with a circular reveal: the new theme grows out from
+ * `origin` (the button that was pressed) until it covers the page.
+ *
+ * Uses the View Transitions API: the browser snapshots the page, we flip
+ * the theme, and CSS animates a clip-path circle on the new snapshot
+ * (see "Theme switch" in app/globals.css). The `theme-transition` class
+ * scopes that CSS to this transition, so page-change transitions are
+ * unaffected. Falls back to an instant switch when the API is missing or
+ * the visitor prefers reduced motion.
+ */
+export function toggleThemeAnimated(origin?: { x: number; y: number }): Theme {
+  const next: Theme = getTheme() === "dark" ? "light" : "dark";
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || typeof document.startViewTransition !== "function") return toggleTheme();
+
+  const x = origin?.x ?? window.innerWidth / 2;
+  const y = origin?.y ?? window.innerHeight / 2;
+  // Distance to the farthest corner, so the circle ends up covering everything.
+  const r = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+  const root = document.documentElement;
+  root.style.setProperty("--theme-x", `${x}px`);
+  root.style.setProperty("--theme-y", `${y}px`);
+  root.style.setProperty("--theme-r", `${r}px`);
+  root.classList.add("theme-transition");
+
+  const transition = document.startViewTransition(() => {
+    toggleTheme();
+  });
+  transition.finished.finally(() => root.classList.remove("theme-transition"));
+  return next;
+}
+
+/**
  * Call `onChange` whenever the theme changes: from the toggle, from a
  * choice made in another tab, or from the system setting when the visitor
  * hasn't picked one. Returns an unsubscribe function.
