@@ -11,7 +11,7 @@
 
 The tasting room staff at 14 Acres Vineyard & Winery — **8–10 people** — who count the cash drawer, and the managers who rely on those counts. Cash sales are rung up in the **Clover POS**.
 
-<Todo>[Add: when counts happen (open, close, shift change) and who checks them]</Todo>
+Counts happen at closing. The staff working up front count the cash, and the app works out the expected amount, verifies their count and tells them how much to move into overage.
 
 </CaseSection>
 
@@ -28,8 +28,8 @@ The tasting room staff at 14 Acres Vineyard & Winery — **8–10 people** — w
 - **Existing systems:** the source of truth for cash sales is Clover, so every count is checked against Clover cash sales.
 - **Users:** 8–10 staff use it, so it has to be quick to learn and quick to use during a shift.
 - **The first version:** constant bugs and an interface staff complained about, so the rebuild had to be reliable and work the way each of them needed.
-
-<Todo>[Add: devices it runs on, and the timeline]</Todo>
+- **Devices:** it runs on the staff’s own phones.
+- **Timeline:** the rebuild took 5 days.
 
 </CaseSection>
 
@@ -48,7 +48,12 @@ The tasting room staff at 14 Acres Vineyard & Winery — **8–10 people** — w
 
 I rebuilt the prototype in Next.js and Supabase. Staff enter the drawer count in the app, and every count is checked against Clover cash sales so any mismatch is flagged.
 
-<Todo>[Add: 2–3 key decisions from the rebuild, and a screenshot of the count screen]</Todo>
+Two decisions shaped the rebuild:
+
+- **Starting cash comes from the last close.** The app calculates the starting cash from the last time the register was closed, not just from the previous day’s ending cash.
+- **Overage is handled in the app.** When the drawer is over, the app tells staff how much to put into overage. When they confirm they’ve moved it, the app deducts that amount from the drawer, so the next day’s count starts out accurate.
+
+<Todo>[Add: a screenshot of the count screen]</Todo>
 
 <Aside title="Working with AI">
 
@@ -62,7 +67,7 @@ The cash drawer app is AI-assisted. I review and test every change before it shi
 
 I train staff on each system myself.
 
-<Todo>[Add: how the switch from paper to the app went, and how long it took staff to get comfortable]</Todo>
+Switching from paper brought more accountability: every count is checked, so cash is handled correctly. It took staff several weeks to get used to, but they now close out several minutes faster than they did on paper, with more accurate counts.
 
 </CaseSection>
 
@@ -76,7 +81,9 @@ I train staff on each system myself.
 
 <CaseSection id="broke">
 
-<Todo>[Add: something that broke or confused staff after launch, and what you changed]</Todo>
+**What broke:** after launch, the Clover cash total was sometimes wrong. The value was cached, so staff saw an out-of-date number.
+
+**What I changed:** the app now loads the Clover total fresh every time the page loads.
 
 </CaseSection>
 

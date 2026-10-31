@@ -54,11 +54,17 @@ export const howIWork: WorkStep[] = [
   {
     title: "Measure",
     body: "I check that it’s used and that it works — every mismatch the cash drawer app has flagged has been under $1.",
-    artifact: { label: "[Link: a results write-up]", href: "" },
+    artifact: {
+      label: "Example: the cash drawer app’s results — staff close out several minutes faster than on paper, with more accurate counts",
+      href: "/work/cash-drawer#results",
+    },
   },
   {
     title: "Improve",
     body: "Then I fix what broke, like redesigning the spend tracker’s Clover sync around duplicate customer records.",
-    artifact: { label: "[Link: a field note]", href: "" },
+    artifact: {
+      label: "Example: fixing the cash drawer app’s out-of-date Clover total after launch",
+      href: "/work/cash-drawer#broke",
+    },
   },
 ];
