@@ -1,6 +1,6 @@
 **SAM MISHIN**
 
-Vancouver, WA \| 360-869-8440 \| mishinsam2@gmail.com
+Vancouver, WA \| 360-869-8440 \| sammishin2@gmail.com
 
 [sammishin.dev](https://sammishin.dev) \|
 [linkedin.com/in/samuel-mishin](https://www.linkedin.com/in/samuel-mishin/)

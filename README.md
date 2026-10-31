@@ -268,7 +268,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 
 **Content**
 
-- [ ] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there). Note: the résumé still lists mishinsam2@gmail.com; the site uses sammishin2@gmail.com.
+- [ ] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there).
 - [ ] **Screenshots** (WebP, ≤1920px long edge, <400 KB, in `public/shots/`), then swap the `shot` text in `content/projects.ts` for the image:
   - [ ] Trellis member billing dashboard
   - [ ] Spend tracker dashboard
