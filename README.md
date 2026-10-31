@@ -128,6 +128,7 @@ Case studies live at `/work/<slug>` and are built as static pages.
 ## Plain-text versions: `curl`, `/resume.txt`, `/llms.txt`
 
 - **`curl <site>`** prints a colored résumé in the terminal instead of the HTML page: the same sections as the site, as prompt lines (`whoami`, `ls .\work --deployed`, `git log --career`…), in the Ayu Dark colors. It also works with PowerShell (`irm <site>`), `wget -qO- <site>` and HTTPie. `proxy.ts` spots those tools by their User-Agent (`lib/terminal-client.ts`, tested) and serves `app/resume.ansi`; browsers and link-preview bots always get the web page. Colors use the 256-color palette so they look right in Windows Terminal, macOS Terminal and iTerm alike. Try it locally: `npm run dev`, then `curl localhost:3000`.
+  - **On the live site, use `https://` or `-L`:** `curl https://sammishin.dev` or `curl -L sammishin.dev`. Plain `curl sammishin.dev` asks for `http://`, and Vercel answers every http request with a "Redirecting..." to https before the site's code runs, so there's no way to serve the résumé there. PowerShell's `irm sammishin.dev` follows the redirect on its own.
 - **`/resume.txt`** is the same résumé without colors, for pasting into application forms.
 - **`/llms.txt`** is a short Markdown summary with links to every case study, in the [llms.txt](https://llmstxt.org) format that AI assistants and screening tools read.
 
