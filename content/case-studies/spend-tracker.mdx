@@ -77,11 +77,9 @@ Training was simple: the whole site is one filter-and-search page plus dashboard
 
 <CaseSection id="broke">
 
-**Duplicate customers.** Duplicate Clover customer records — the same person saved more than once — split one customer’s spend across several records. The fix was letting several Clover customers link to the same account. I’m also building a hand-written name-similarity matcher, tested with Vitest, and redesigning the sync around webhooks.
+**Duplicate customers.** Duplicate Clover customer records — the same person saved more than once — split one customer’s spend across several records. The fix was letting several Clover customers link to the same account. I’m also building a deduper package: a hand-written name-similarity matcher, tested with Vitest.
 
 **Orders with no customer.** I built the tracker assuming every order had a customer attached, so at first the code ignored orders without one. That made total revenue for different food items wrong, so I changed it to keep every order.
-
-<Todo>[Add: how the webhook redesign changes the sync]</Todo>
 
 </CaseSection>
 
@@ -89,5 +87,6 @@ Training was simple: the whole site is one filter-and-search page plus dashboard
 
 - Measure the identity matcher on a hand-labeled sample of real duplicates: how many it catches versus how many it wrongly merges
 - Package the matcher as a small open-source library with its Vitest tests
+- Once the deduper package is finished, extend it to a webhook-based sync
 
 </CaseSection>

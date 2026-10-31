@@ -18,8 +18,8 @@ export interface FieldNote {
 
 export const fieldNotes: FieldNote[] = [
   {
-    title: "Duplicate Clover customers and the webhook redesign",
-    summary: "[Add: how duplicate customer records skewed the spend tracker, and how the sync was redesigned]",
+    title: "Duplicate Clover customers and the deduper",
+    summary: "[Add: how duplicate customer records skewed the spend tracker, and how the deduper matches them]",
     status: "Draft — coming soon",
     href: "",
   },

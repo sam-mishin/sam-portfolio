@@ -280,8 +280,8 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] Crypto Telegram bot alert message
 - [ ] **New Adventure Homes card** (`content/projects.ts`): the problem they needed solved; hand-written or AI-assisted
 - [ ] **Royal Service Cleaning card**: a result (inquiries delivered, response time…)
-- [ ] **How I work artifacts** (`content/how-i-work.ts`): links for discovery note, prototype, rollout plan, training notes, results write-up, field note
-- [ ] **Field notes** (`content/field-notes.ts`): summaries and links for the duplicate-customer/webhook note, the Trellis migration, receptionist evals
+- [x] **How I work artifacts** (`content/how-i-work.ts`): a real example for all six steps
+- [ ] **Field notes** (`content/field-notes.ts`): summaries and links for the duplicate-customer/deduper note, the Trellis migration, receptionist evals
 - [ ] **Trellis case study** (`content/case-studies/trellis.mdx`):
   - [ ] Hero screenshot: Trellis admin, member list with next charge dates
   - [ ] Who on staff runs club billing day to day, and how often charges run
@@ -291,14 +291,8 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] After go-live: migration/cutover/rollback plan and staff training; results (charges run, failures caught, time saved)
   - [ ] Something that broke during the build and what you changed
 - [ ] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
-  - [ ] Your role (facts grid); hero screenshot of the dashboard
-  - [ ] How the owner and GM use it; the real problem behind the request
-  - [ ] Budget, timeline, Clover data quirks; 2–3 key decisions
-  - [ ] How it went live; what changed for the owner/GM (before/after)
-  - [ ] How the duplicates were found and how the webhook redesign changes the sync
+  - [x] Your role, how the GM uses it, the real problem, constraints, key decisions, rollout, results, what broke
+  - [ ] Hero screenshot of the dashboard
 - [ ] **Cash drawer case study** (`content/case-studies/cash-drawer.mdx` + `content/case-studies.ts`):
-  - [ ] Your role (facts grid); screenshot of the count screen
-  - [ ] When counts happen and who checks them; asked-for vs. real problem
-  - [ ] Devices, timeline, what the prototype got wrong; 2–3 key decisions
-  - [ ] How the switch from paper went; in-app vs. paper counts and before/after accuracy
-  - [ ] Something that broke or confused staff and what you changed
+  - [x] Your role, when counts happen, the real problem, constraints, key decisions, rollout, results, what broke
+  - [ ] Screenshot of the count screen
