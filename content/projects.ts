@@ -13,9 +13,26 @@
  *   is true; the matching text lives in content/case-studies/<slug>.mdx.
  * - Order here is the order on the page. The `featured` one gets the wide
  *   card at the top.
+ * - Screenshots: save the image in public/shots/ (WebP, 1920px max on the
+ *   long edge, under 400 KB), then replace the "[Screenshot: …]" text with
+ *   { src: "/shots/name.webp", alt: "what it shows", width, height } — see
+ *   `trellisLogo` below for an example.
  */
 
 /** One customer deployment card. */
+import type { ShotValue } from "@/components/Placeholder";
+
+/**
+ * The Trellis logo, used in its screenshot slots until there's a product
+ * screenshot. Lives in public/shots/; width and height are the file's size.
+ */
+export const trellisLogo = {
+  src: "/shots/trellis-logo.webp",
+  alt: "Trellis logo: a trellis post with a vine and a leaf, and the tagline “Built by wineries, for wineries.”",
+  width: 1183,
+  height: 465,
+};
+
 export interface Deployment {
   slug: string;
   title: string;
@@ -30,8 +47,8 @@ export interface Deployment {
   /** How it was built — see the note at the top of this file. */
   build: string;
   stack: string[];
-  /** Screenshot text until a real image exists, e.g. "[Screenshot: …]". */
-  shot: string;
+  /** Screenshot text until a real image exists, e.g. "[Screenshot: …]", then the image ({ src, alt, width, height }). */
+  shot: ShotValue;
   /** Has a case-study page at /work/<slug>. */
   caseStudy: boolean;
   /** Short status pill, e.g. "In development · first live charges Jan 2027". */
@@ -50,7 +67,7 @@ export const deployments: Deployment[] = [
     result: "First live member charges planned for January 2027.",
     build: "AI-assisted · reviewed and tested by me",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Render workers", "Clover API", "GitHub Actions"],
-    shot: "[Screenshot: Trellis member billing dashboard]",
+    shot: trellisLogo,
     caseStudy: true,
     status: "In development · first live charges Jan 2027",
     featured: true,
@@ -124,7 +141,8 @@ export interface HandWrittenProject {
   meta: string;
   body: string;
   stack: string[];
-  shot: string;
+  /** Screenshot text, or the image once there is one (same as a deployment's `shot`). */
+  shot: ShotValue;
   href: string;
   cta: string;
 }

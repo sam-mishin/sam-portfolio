@@ -14,6 +14,9 @@
  * - [Bracketed] values are placeholders and show on the page as-is.
  */
 
+import type { ShotValue } from "@/components/Placeholder";
+import { trellisLogo } from "./projects";
+
 /** The eight sections, in order, used by every case study. */
 export const template = [
   { id: "customer", title: "Customer and context" },
@@ -35,8 +38,8 @@ export interface CaseStudy {
   /** One sentence under the title. */
   summary: string;
   facts: { label: string; value: string }[];
-  /** Screenshot text until a real image exists. */
-  heroShot: string;
+  /** Screenshot text until a real image exists, then the image ({ src, alt, width, height }). */
+  heroShot: ShotValue;
 }
 
 /** Labels used on every case-study page. */
@@ -66,14 +69,14 @@ export const caseStudies: CaseStudy[] = [
       { label: "Stack", value: "Next.js, TypeScript, PostgreSQL, Render" },
       { label: "How it’s built", value: "AI-assisted; I review and test every change" },
     ],
-    heroShot: "[Screenshot: Trellis admin — member list with next charge dates]",
+    heroShot: trellisLogo,
   },
   {
     slug: "spend-tracker",
     summary:
       "One view of revenue and the top food and wine for the owner and general manager, built on a nightly sync of Clover POS orders that now holds 50,000+ orders.",
     facts: [
-      { label: "Role", value: "[Add: your role]" },
+      { label: "Role", value: "Lead designer and developer" },
       { label: "Status", value: "Live · syncing nightly" },
       { label: "Stack", value: "Supabase functions, Vercel Cron, Postgres, Clover API" },
       { label: "How it’s built", value: "AI-assisted; I review and test every change" },
@@ -85,7 +88,7 @@ export const caseStudies: CaseStudy[] = [
     summary:
       "A rebuild of a buggy prototype that ends inaccurate paper cash counts: 8–10 staff count the drawer in the app, and every count is checked against Clover cash sales.",
     facts: [
-      { label: "Role", value: "[Add: your role]" },
+      { label: "Role", value: "Lead designer and developer" },
       { label: "Status", value: "Live · used by 8–10 staff" },
       { label: "Stack", value: "Next.js, Supabase, Clover API" },
       { label: "How it’s built", value: "AI-assisted; I review and test every change" },

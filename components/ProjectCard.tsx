@@ -17,7 +17,7 @@ export interface ProjectCardProps {
 export function ProjectCard({ project: p }: ProjectCardProps) {
   return (
     <article className={`${styles.card} reveal`} data-spotlight>
-      <Shot label={p.shot} />
+      <Shot shot={p.shot} />
       <p className={styles.meta}>{p.meta}</p>
       <h3 className={styles.title}>{p.title}</h3>
       <p className={styles.body}>{p.body}</p>

@@ -39,7 +39,7 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
       aria-labelledby={`deploy-${d.slug}`}
       data-spotlight
     >
-      {!d.featured && <Shot label={d.shot} />}
+      {!d.featured && <Shot shot={d.shot} />}
 
       <div className={styles.body}>
         {(d.featured || d.status) && (
@@ -82,7 +82,7 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
 
       {d.featured && (
         <div className={styles.featureShot}>
-          <Shot label={d.shot} size="feature" />
+          <Shot shot={d.shot} size="feature" />
         </div>
       )}
     </article>

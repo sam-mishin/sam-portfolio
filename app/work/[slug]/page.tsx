@@ -93,7 +93,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </header>
 
         <div className={styles.hero}>
-          <Shot label={study.heroShot} size="feature" />
+          <Shot shot={study.heroShot} size="feature" preload />
         </div>
 
         <div className={styles.body}>
