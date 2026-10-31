@@ -53,7 +53,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // elements before React hydrates, and the theme script (milestone 6)
     // sets data-theme on <html>. It ignores attribute differences on these
     // elements alone, not on anything inside them.
-    <html lang="en" className={`${cascadia.variable} ${plex.variable}`} suppressHydrationWarning>
+    //
+    // data-scroll-behavior="smooth": in-page #anchor jumps scroll smoothly,
+    // but Next.js switches smoothing off while changing pages so a new
+    // page starts at the top instantly instead of scrolling up through it.
+    <html
+      lang="en"
+      className={`${cascadia.variable} ${plex.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning>
         <a className="skip-link" href="#main">
           {site.skipLink}

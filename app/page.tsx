@@ -6,6 +6,7 @@
  */
 import { FieldNotes } from "@/components/FieldNotes";
 import { Hero } from "@/components/Hero";
+import { PageTransition } from "@/components/PageTransition";
 import { HowIWork } from "@/components/HowIWork";
 import { ImpactStrip } from "@/components/ImpactStrip";
 import { SkillsEducation } from "@/components/SkillsEducation";
@@ -17,7 +18,7 @@ import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
-    <>
+    <PageTransition>
       <Hero />
       <section aria-label={sections.profileCard.label} className={styles.profile}>
         <Winfetch />
@@ -28,6 +29,6 @@ export default function HomePage() {
       <SkillsEducation />
       <HowIWork />
       <FieldNotes />
-    </>
+    </PageTransition>
   );
 }

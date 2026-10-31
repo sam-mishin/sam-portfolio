@@ -7,17 +7,13 @@
  * the right and status pills on top. Fields are a <dl> so screen readers
  * announce "Problem", "Shipped"… before each value.
  *
- * View Transitions: for cards with a case study, the title and screenshot
- * carry the same view-transition names as the heading and hero on
- * /work/<slug>. In browsers that support it (Chromium, recent Safari and
- * Firefox), clicking through animates them from the card into the page;
- * elsewhere it's a normal page change. Reduced-motion users get no
- * animation (app/globals.css).
+ * The case-study link is tagged "nav-forward", so the page change slides
+ * forward (see components/PageTransition.tsx).
  */
 import Link from "next/link";
-import { ViewTransition, type ReactNode } from "react";
 import { deploymentLabels, sections } from "@/content/home";
 import type { Deployment } from "@/content/projects";
+import { NAV_FORWARD } from "@/lib/transitions";
 import { Shot, Text } from "./Placeholder";
 import styles from "./DeploymentCard.module.css";
 
@@ -29,16 +25,6 @@ export interface DeploymentCardProps {
 
 /** A customer deployment: who, problem, what shipped, result, how built. */
 export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
-  // Only cards that link to a case study join a transition; the rest have
-  // no matching element on another page.
-  const shared = (kind: "title" | "shot", node: ReactNode) =>
-    d.caseStudy ? (
-      <ViewTransition name={`project-${kind}-${d.slug}`} share="morph" default="none">
-        {node}
-      </ViewTransition>
-    ) : (
-      node
-    );
 
   const fields = [
     { label: deploymentLabels.problem, value: d.problem },
@@ -52,7 +38,7 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
       className={d.featured ? `${styles.card} ${styles.featured}` : styles.card}
       aria-labelledby={`deploy-${d.slug}`}
     >
-      {!d.featured && shared("shot", <Shot label={d.shot} />)}
+      {!d.featured && <Shot label={d.shot} />}
 
       <div className={styles.body}>
         {(d.featured || d.status) && (
@@ -62,12 +48,9 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
           </p>
         )}
         <p className={styles.customer}>{d.customer}</p>
-        {shared(
-          "title",
-          <h3 id={`deploy-${d.slug}`} className={styles.title}>
-            {d.title}
-          </h3>,
-        )}
+        <h3 id={`deploy-${d.slug}`} className={styles.title}>
+          {d.title}
+        </h3>
         <dl className={styles.fields}>
           {fields.map((field) => (
             <div key={field.label} className={styles.field}>
@@ -86,7 +69,7 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
           ))}
         </ul>
         {d.caseStudy && (
-          <Link href={`/work/${d.slug}`} className={styles.cta}>
+          <Link href={`/work/${d.slug}`} className={styles.cta} transitionTypes={[NAV_FORWARD]}>
             {sections.work.caseStudyCta}
             <span aria-hidden="true">→</span>
             <span className="sr-only">: {d.title}</span>
@@ -96,7 +79,7 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
 
       {d.featured && (
         <div className={styles.featureShot}>
-          {shared("shot", <Shot label={d.shot} size="feature" />)}
+          <Shot label={d.shot} size="feature" />
         </div>
       )}
     </article>

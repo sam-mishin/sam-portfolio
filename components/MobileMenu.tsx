@@ -14,9 +14,10 @@
  * to #experience started first, that focus change would scroll it away.
  */
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { nav } from "@/content/nav";
+import { directionFor } from "@/lib/transitions";
 import styles from "./MobileMenu.module.css";
 
 /** Menu button plus the dialog listing every tab. Hidden on wide screens. */
@@ -24,6 +25,7 @@ export function MobileMenu() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
 
   const close = () => dialogRef.current?.close();
 
@@ -74,7 +76,9 @@ export function MobileMenu() {
                   onClick={(event) => {
                     event.preventDefault();
                     close();
-                    requestAnimationFrame(() => router.push(item.href));
+                    requestAnimationFrame(() =>
+                      router.push(item.href, { transitionTypes: directionFor(pathname, item.href) }),
+                    );
                   }}
                 >
                   <span aria-hidden="true" className={styles.chevron}>

@@ -12,13 +12,18 @@
  * (see MobileMenu) that lists the rest.
  *
  * A client component only because it reads the current URL to decide
- * which tab is active.
+ * which tab is active (and which way the page should slide).
+ *
+ * The header has its own view-transition name ("site-header"), which
+ * pins it in place while page content slides underneath during a page
+ * change, the way the tab strip stays put when you switch terminal tabs.
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { nav } from "@/content/nav";
 import { deployments } from "@/content/projects";
+import { directionFor } from "@/lib/transitions";
 import { ButtonLink } from "./ButtonLink";
 import { MobileMenu } from "./MobileMenu";
 import { PsIcon } from "./PsIcon";
@@ -43,22 +48,24 @@ export function TabNav({ actions }: TabNavProps) {
       : null;
 
   return (
-    <header className={styles.header}>
+    // The view-transition name is set inline because CSS Modules would
+    // rename it, and globals.css targets "site-header" by name.
+    <header className={styles.header} style={{ viewTransitionName: "site-header" }}>
       <nav aria-label={nav.label} className={styles.nav}>
         <ul className={styles.tabs}>
           {/* On phones the home tab is the one tab shown, except on a case
               study, where the project's tab takes its place. */}
           <li className={project ? `${styles.tabItem} ${styles.secondary}` : styles.tabItem}>
-            <Tab href={nav.home.href} label={nav.home.label} current={active === nav.home} />
+            <Tab href={nav.home.href} label={nav.home.label} current={active === nav.home} from={pathname} />
           </li>
           {nav.tabs.map((tab) => (
             <li key={tab.href} className={`${styles.tabItem} ${styles.secondary}`}>
-              <Tab href={tab.href} label={tab.label} current={false} />
+              <Tab href={tab.href} label={tab.label} current={false} from={pathname} />
             </li>
           ))}
           {project && active && (
             <li className={styles.tabItem}>
-              <Tab href={active.href} label={active.label} current />
+              <Tab href={active.href} label={active.label} current from={pathname} />
             </li>
           )}
           <li className={styles.newTab} aria-hidden="true">
@@ -87,13 +94,16 @@ interface TabProps {
   label: string;
   /** True for the page you're on: styled as the attached tab and marked aria-current. */
   current: boolean;
+  /** The current path, used to pick the slide direction for the page change. */
+  from: string;
 }
 
 /** One tab: PowerShell icon, label and, when active, a decorative ✕. */
-function Tab({ href, label, current }: TabProps) {
+function Tab({ href, label, current, from }: TabProps) {
   return (
     <Link
       href={href}
+      transitionTypes={directionFor(from, href)}
       className={current ? `${styles.tab} ${styles.current}` : styles.tab}
       aria-current={current ? "page" : undefined}
     >

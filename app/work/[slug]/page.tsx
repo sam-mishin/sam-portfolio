@@ -11,13 +11,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ViewTransition } from "react";
+import { PageTransition } from "@/components/PageTransition";
 import { Shot, Text } from "@/components/Placeholder";
 import { Prompt } from "@/components/Prompt";
 import { caseStudyLabels as labels, template } from "@/content/case-studies";
 import { site } from "@/content/site";
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies";
+import { NAV_BACK, NAV_FORWARD } from "@/lib/transitions";
 import styles from "./page.module.css";
+
+/**
+ * Every real case study is prerendered at build time, so reading `params`
+ * here never makes a visitor wait. The only slugs not built ahead are
+ * mistyped URLs, which go straight to the 404 page. `instant = false`
+ * tells Next.js's dev-time navigation check that this is intended, instead
+ * of asking for a loading fallback that would only ever flash on screen.
+ */
+export const instant = false;
 
 export function generateStaticParams() {
   return caseStudySlugs().map((slug) => ({ slug }));
@@ -39,76 +49,78 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   const { default: Body } = await import(`@/content/case-studies/${slug}.mdx`);
 
   return (
-    <article className={styles.page}>
-      <header className={styles.header}>
-        <p className={styles.breadcrumb}>
-          <Link href={labels.breadcrumbHref}>{labels.breadcrumbRoot}</Link>
-          <span aria-hidden="true" className={styles.slash}>
-            {" "}
-            /{" "}
-          </span>
-          <span aria-current="page">{slug}</span>
-        </p>
-        {/* Same view-transition name as the card title on the home page, so
-            the title appears to fly from the card into this heading. */}
-        <ViewTransition name={`project-title-${slug}`} share="morph" default="none">
+    <PageTransition>
+      <article className={styles.page}>
+        <header className={styles.header}>
+          <p className={styles.breadcrumb}>
+            <Link href={labels.breadcrumbHref} transitionTypes={[NAV_BACK]}>
+              {labels.breadcrumbRoot}
+            </Link>
+            <span aria-hidden="true" className={styles.slash}>
+              {" "}
+              /{" "}
+            </span>
+            <span aria-current="page">{slug}</span>
+          </p>
           <h1 className={styles.title}>{study.card.title}</h1>
-        </ViewTransition>
-        <p className={styles.summary}>{study.summary}</p>
-        <dl className={styles.facts}>
-          {study.facts.map((fact) => (
-            <div key={fact.label} className={styles.fact}>
-              <dt className={styles.factLabel}>{fact.label}</dt>
-              <dd className={styles.factValue}>
-                <Text value={fact.value} />
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </header>
+          <p className={styles.summary}>{study.summary}</p>
+          <dl className={styles.facts}>
+            {study.facts.map((fact) => (
+              <div key={fact.label} className={styles.fact}>
+                <dt className={styles.factLabel}>{fact.label}</dt>
+                <dd className={styles.factValue}>
+                  <Text value={fact.value} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </header>
 
-      <ViewTransition name={`project-shot-${slug}`} share="morph" default="none">
         <div className={styles.hero}>
           <Shot label={study.heroShot} size="feature" />
         </div>
-      </ViewTransition>
 
-      <div className={styles.body}>
-        <nav aria-label={labels.tocLabel} className={styles.toc}>
-          <Prompt>{labels.tocCommand}</Prompt>
-          <ol className={styles.tocList}>
-            {template.map((section, i) => (
-              <li key={section.id}>
-                <a href={`#${section.id}`} className={styles.tocLink}>
-                  <span className="num">{String(i + 1).padStart(2, "0")}</span> {section.title}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-        <div className={styles.prose}>
-          <Body />
+        <div className={styles.body}>
+          <nav aria-label={labels.tocLabel} className={styles.toc}>
+            <Prompt>{labels.tocCommand}</Prompt>
+            <ol className={styles.tocList}>
+              {template.map((section, i) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`} className={styles.tocLink}>
+                    <span className="num">{String(i + 1).padStart(2, "0")}</span> {section.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          <div className={styles.prose}>
+            <Body />
+          </div>
         </div>
-      </div>
 
-      <nav aria-label={labels.moreLabel} className={styles.pager}>
-        <Link href={labels.allWork.href} className={styles.pagerLink}>
-          <span className={styles.pagerHint}>{labels.allWork.hint}</span>
-          <span className={styles.pagerTitle}>{labels.allWork.label}</span>
-        </Link>
-        {study.previous && (
-          <Link href={`/work/${study.previous.slug}`} className={styles.pagerLink}>
-            <span className={styles.pagerHint}>{labels.previous}</span>
-            <span className={styles.pagerTitle}>{study.previous.title}</span>
+        <nav aria-label={labels.moreLabel} className={styles.pager}>
+          <Link href={labels.allWork.href} className={styles.pagerLink} transitionTypes={[NAV_BACK]}>
+            <span className={styles.pagerHint}>{labels.allWork.hint}</span>
+            <span className={styles.pagerTitle}>{labels.allWork.label}</span>
           </Link>
-        )}
-        {study.next && (
-          <Link href={`/work/${study.next.slug}`} className={`${styles.pagerLink} ${styles.pagerNext}`}>
-            <span className={styles.pagerHint}>{labels.next}</span>
-            <span className={styles.pagerTitle}>{study.next.title}</span>
-          </Link>
-        )}
-      </nav>
-    </article>
+          {study.previous && (
+            <Link href={`/work/${study.previous.slug}`} className={styles.pagerLink} transitionTypes={[NAV_BACK]}>
+              <span className={styles.pagerHint}>{labels.previous}</span>
+              <span className={styles.pagerTitle}>{study.previous.title}</span>
+            </Link>
+          )}
+          {study.next && (
+            <Link
+              href={`/work/${study.next.slug}`}
+              className={`${styles.pagerLink} ${styles.pagerNext}`}
+              transitionTypes={[NAV_FORWARD]}
+            >
+              <span className={styles.pagerHint}>{labels.next}</span>
+              <span className={styles.pagerTitle}>{study.next.title}</span>
+            </Link>
+          )}
+        </nav>
+      </article>
+    </PageTransition>
   );
 }

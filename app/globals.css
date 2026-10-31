@@ -267,12 +267,102 @@ button {
 }
 
 /* ---------------------------------------------------------------------------
- * View Transitions: a project card's title and screenshot morph into the
- * case study's heading and hero (see components/DeploymentCard.tsx). The
- * "morph" class comes from <ViewTransition share="morph">. Disabled for
- * reduced motion by the rule above.
+ * View Transitions: changing pages (see components/PageTransition.tsx).
+ *
+ * Feels like switching Windows Terminal tabs: the tab bar stays still while
+ * the content glides sideways. The old page leaves quickly and only a short
+ * distance; the new one arrives a beat later over a longer, decelerating
+ * curve, with a touch of blur that clears as it settles, so the hand-off
+ * reads as one smooth motion rather than two pages fighting for attention.
+ * Reduced-motion visitors get no animation (rule above).
  * ------------------------------------------------------------------------- */
-::view-transition-group(.morph) {
-  animation-duration: 350ms;
-  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+:root {
+  --vt-ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* fast start, long gentle stop */
+  --vt-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --vt-exit: 160ms;
+  --vt-enter: 460ms;
+  --vt-delay: 60ms;
+}
+
+/* Clicks during the animation go to the live page, not the snapshot. */
+::view-transition {
+  pointer-events: none;
+}
+
+/* The tab bar doesn't move or fade. */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(.nav-forward),
+::view-transition-old(.nav-back) {
+  animation: vt-leave var(--vt-exit) var(--vt-ease-in) both;
+}
+
+::view-transition-new(.nav-forward),
+::view-transition-new(.nav-back) {
+  animation: vt-arrive var(--vt-enter) var(--vt-ease-out) var(--vt-delay) both;
+}
+
+/* Forward: out to the left, in from the right. Back: the mirror image. */
+::view-transition-old(.nav-forward) {
+  --vt-shift: -24px;
+}
+
+::view-transition-new(.nav-forward) {
+  --vt-shift: 40px;
+}
+
+::view-transition-old(.nav-back) {
+  --vt-shift: 24px;
+}
+
+::view-transition-new(.nav-back) {
+  --vt-shift: -40px;
+}
+
+/* Untyped page changes (browser back/forward): a quick crossfade. */
+::view-transition-old(.nav-fade) {
+  animation: vt-fade-out 120ms var(--vt-ease-in) both;
+}
+
+::view-transition-new(.nav-fade) {
+  animation: vt-fade-in 240ms var(--vt-ease-out) both;
+}
+
+@keyframes vt-leave {
+  to {
+    opacity: 0;
+    translate: var(--vt-shift) 0;
+    filter: blur(2px);
+  }
+}
+
+@keyframes vt-arrive {
+  from {
+    opacity: 0;
+    translate: var(--vt-shift) 0;
+    filter: blur(3px);
+  }
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
 }
