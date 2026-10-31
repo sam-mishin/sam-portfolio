@@ -18,7 +18,7 @@ export function Work() {
   const rest = deployments.filter((d) => !d.featured);
 
   return (
-    <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro}>
+    <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro} source="components/Work.tsx">
       {featured.map((d) => (
         <DeploymentCard key={d.slug} deployment={d} />
       ))}

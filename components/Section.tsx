@@ -6,6 +6,7 @@
 import type { ReactNode } from "react";
 import { Prompt } from "./Prompt";
 import styles from "./Section.module.css";
+import { SourceRow } from "./SourceLink";
 
 /** Props for {@link Section}. */
 export interface SectionProps {
@@ -21,14 +22,17 @@ export interface SectionProps {
   children: ReactNode;
   /** Optional class for extra spacing set by the page. */
   className?: string;
+  /** Repository path of the component, for the "</> File.tsx" view-source link. */
+  source?: string;
 }
 
 /** A titled home-page section with the PowerShell-prompt eyebrow. */
-export function Section({ id, command, heading, intro, children, className }: SectionProps) {
+export function Section({ id, command, heading, intro, children, className, source }: SectionProps) {
+  const prompt = <Prompt typeOnScroll>{command}</Prompt>;
   return (
     <section id={id} aria-labelledby={`${id}-heading`} className={className ? `${styles.section} ${className}` : styles.section}>
       <div className={`${styles.head} reveal`}>
-        <Prompt typeOnScroll>{command}</Prompt>
+        {source ? <SourceRow file={source}>{prompt}</SourceRow> : prompt}
         <h2 id={`${id}-heading`} className={styles.heading}>
           {heading}
         </h2>

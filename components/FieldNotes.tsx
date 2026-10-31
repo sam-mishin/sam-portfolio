@@ -13,7 +13,7 @@ import styles from "./FieldNotes.module.css";
 export function FieldNotes() {
   const s = sections.fieldNotes;
   return (
-    <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro}>
+    <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro} source="components/FieldNotes.tsx">
       <ul className={styles.grid}>
         {fieldNotes.map((note) => (
           <li key={note.title} className={`${styles.card} reveal`} data-spotlight>

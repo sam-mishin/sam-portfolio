@@ -1,0 +1,52 @@
+/* SourceLink.module.css — the "</> File.tsx" view-source links. */
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.link {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* A full 44px tap target, pulled back so it doesn't push the line apart. */
+  min-height: var(--touch);
+  margin-block: -12px;
+  padding-inline: 6px;
+  border-radius: var(--radius-tag);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link:hover {
+  color: var(--accent);
+  background: var(--line-highlight);
+  text-decoration: none;
+}
+
+.icon {
+  color: var(--syn-tag);
+}
+
+.link:hover .icon {
+  color: inherit;
+}
+
+/* Phones: just the </> mark (the full name is still the link's label). */
+@media (max-width: 720px) {
+  .name {
+    display: none;
+  }
+
+  .link {
+    min-width: var(--touch);
+    justify-content: center;
+  }
+}

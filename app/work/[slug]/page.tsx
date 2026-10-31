@@ -14,6 +14,7 @@ import { notFound } from "next/navigation";
 import { PageTransition } from "@/components/PageTransition";
 import { Shot, Text } from "@/components/Placeholder";
 import { Prompt } from "@/components/Prompt";
+import { SourceRow } from "@/components/SourceLink";
 import { caseStudyLabels as labels, template } from "@/content/case-studies";
 import { site } from "@/content/site";
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies";
@@ -52,16 +53,19 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
     <PageTransition>
       <article className={styles.page}>
         <header className={styles.header}>
-          <p className={styles.breadcrumb}>
-            <Link href={labels.breadcrumbHref} transitionTypes={[NAV_BACK]}>
-              {labels.breadcrumbRoot}
-            </Link>
-            <span aria-hidden="true" className={styles.slash}>
-              {" "}
-              /{" "}
-            </span>
-            <span aria-current="page">{slug}</span>
-          </p>
+          {/* The view-source link opens this case study's .mdx on GitHub. */}
+          <SourceRow file={`content/case-studies/${slug}.mdx`}>
+            <p className={styles.breadcrumb}>
+              <Link href={labels.breadcrumbHref} transitionTypes={[NAV_BACK]}>
+                {labels.breadcrumbRoot}
+              </Link>
+              <span aria-hidden="true" className={styles.slash}>
+                {" "}
+                /{" "}
+              </span>
+              <span aria-current="page">{slug}</span>
+            </p>
+          </SourceRow>
           <h1 className={styles.title}>{study.card.title}</h1>
           <p className={styles.summary}>{study.summary}</p>
           <dl className={styles.facts}>

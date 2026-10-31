@@ -14,7 +14,7 @@ import styles from "./HowIWork.module.css";
 export function HowIWork() {
   const s = sections.howIWork;
   return (
-    <Section id={s.id} command={s.command} heading={s.heading}>
+    <Section id={s.id} command={s.command} heading={s.heading} source="components/HowIWork.tsx">
       <ol className={styles.steps}>
         {howIWork.map((step, i) => (
           <li key={step.title} className={`${styles.step} reveal`} data-spotlight>

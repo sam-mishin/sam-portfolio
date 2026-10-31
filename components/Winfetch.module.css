@@ -110,6 +110,11 @@
     font-size: var(--fs-mono-sm);
   }
 
+  /* The first prompt sits inside a SourceRow; let it take this size. */
+  .command > p {
+    font-size: inherit;
+  }
+
   .command:last-child {
     padding: 0 16px 18px;
   }

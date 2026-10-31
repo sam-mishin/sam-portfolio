@@ -12,7 +12,7 @@ import styles from "./Timeline.module.css";
 export function Timeline() {
   const s = sections.experience;
   return (
-    <Section id={s.id} command={s.command} heading={s.heading}>
+    <Section id={s.id} command={s.command} heading={s.heading} source="components/Timeline.tsx">
       <ol className={styles.list}>
         {jobs.map((job) => (
           <li key={job.hash} className={`${styles.item} reveal`}>

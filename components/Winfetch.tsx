@@ -14,6 +14,7 @@ import { getUptime, readAsciiArt } from "@/lib/winfetch-data";
 import { AsciiField } from "./AsciiField";
 import { KeyValue, KeyValueList } from "./KeyValue";
 import { Prompt } from "./Prompt";
+import { SourceRow } from "./SourceLink";
 import { TerminalPrompt } from "./TerminalPrompt";
 import { TerminalWindow } from "./TerminalWindow";
 import { ThemeText } from "./ThemeText";
@@ -33,7 +34,9 @@ export async function Winfetch({ className }: WinfetchProps) {
 
   return (
     <TerminalWindow className={className}>
-      <Prompt className={styles.command}>{command}</Prompt>
+      <SourceRow file="components/Winfetch.tsx" className={styles.command}>
+        <Prompt>{command}</Prompt>
+      </SourceRow>
 
       <div className={styles.content}>
         {/* The portrait is decoration: both versions are hidden from screen

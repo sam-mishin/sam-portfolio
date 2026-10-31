@@ -22,4 +22,17 @@ export const site = {
   promptPath: "PS C:\\sam>",
   /** Title on the terminal tabs (home tab, winfetch window). */
   terminalTitle: "sam@mishin: ~",
+  /**
+   * The small "</> Hero.tsx" links that open each section's code on GitHub
+   * (components/SourceLink.tsx). The repository must be public for them to
+   * work; set `enabled: false` to hide them all.
+   */
+  source: {
+    enabled: true,
+    repo: "https://github.com/sam-mishin/sam-portfolio",
+    /** Used when the build doesn't know its commit (local builds). On Vercel, links point at the exact deployed commit. */
+    branch: "main",
+    /** {file} is replaced with the file name. */
+    label: "View the source of {file} on GitHub (opens in a new tab)",
+  },
 } as const;

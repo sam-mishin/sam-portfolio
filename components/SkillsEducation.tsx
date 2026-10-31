@@ -6,6 +6,7 @@
 import { sections } from "@/content/home";
 import { certsInProgress, education, skills } from "@/content/skills";
 import { Prompt } from "./Prompt";
+import { SourceRow } from "./SourceLink";
 import styles from "./SkillsEducation.module.css";
 
 /** The skills (JSON-style) and education cards. */
@@ -14,7 +15,9 @@ export function SkillsEducation() {
   return (
     <section id={s.id} aria-labelledby={`${s.id}-heading`} className={styles.section}>
       <div className={`${styles.card} ${styles.skills} reveal`}>
-        <Prompt>{s.command}</Prompt>
+        <SourceRow file="components/SkillsEducation.tsx">
+          <Prompt>{s.command}</Prompt>
+        </SourceRow>
         <h2 id={`${s.id}-heading`} className={styles.heading}>
           {s.heading}
         </h2>

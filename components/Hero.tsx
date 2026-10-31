@@ -12,6 +12,7 @@ import { profile } from "@/content/profile";
 import { heroTimings } from "@/lib/typing";
 import { ButtonLink } from "./ButtonLink";
 import { Prompt } from "./Prompt";
+import { SourceRow } from "./SourceLink";
 import { TypeIn, type TypeInSegment } from "./TypeIn";
 import styles from "./Hero.module.css";
 
@@ -37,9 +38,11 @@ export function Hero() {
       // When the typing finishes; the highlight, caret and fade-in wait for it.
       style={{ "--type-end": `${timing.end}ms` } as React.CSSProperties}
     >
-      <Prompt className={styles.prompt}>
-        <TypeIn segments={[{ text: hero.command }]} timing={timing.command} />
-      </Prompt>
+      <SourceRow file="components/Hero.tsx">
+        <Prompt className={styles.prompt}>
+          <TypeIn segments={[{ text: hero.command }]} timing={timing.command} />
+        </Prompt>
+      </SourceRow>
       <h1 id="hero-heading" className={styles.headline}>
         <TypeIn
           segments={headlineSegments(hero.headline, hero.headlineHighlight)}

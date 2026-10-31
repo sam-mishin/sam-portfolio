@@ -10,6 +10,7 @@ import { profile } from "@/content/profile";
 import { ButtonLink } from "./ButtonLink";
 import { CopyEmail } from "./CopyEmail";
 import { Prompt } from "./Prompt";
+import { SourceRow } from "./SourceLink";
 import { ThemeText } from "./ThemeText";
 import styles from "./SiteFooter.module.css";
 
@@ -19,7 +20,9 @@ export function SiteFooter() {
   return (
     <footer id={sections.contact.id} className={styles.footer} aria-labelledby="contact-heading">
       <div className={styles.inner}>
-        <Prompt>{contact.command}</Prompt>
+        <SourceRow file="components/SiteFooter.tsx">
+          <Prompt>{contact.command}</Prompt>
+        </SourceRow>
         <h2 id="contact-heading" className={styles.heading}>
           {contact.heading}
         </h2>
