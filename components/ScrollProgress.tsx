@@ -11,5 +11,5 @@ import styles from "./ScrollProgress.module.css";
 
 /** Decorative reading-progress bar; hidden from screen readers. */
 export function ScrollProgress() {
-  return <div className={styles.bar} aria-hidden="true" />;
+  return <div className={styles.bar} aria-hidden="true" data-no-print />;
 }

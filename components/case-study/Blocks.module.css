@@ -123,3 +123,12 @@
 .aside p {
   margin: 0;
 }
+
+/* Printed case studies: keep each decision card and code excerpt on one page. */
+@media print {
+  .decision,
+  .code,
+  .aside {
+    break-inside: avoid;
+  }
+}

@@ -65,7 +65,7 @@ interface SearchHintProps {
 function SearchHint({ text }: SearchHintProps) {
   const [before, ...rest] = text.split("/");
   return (
-    <span className={styles.searchHint}>
+    <span className={styles.searchHint} data-no-print>
       {before}
       <kbd className={styles.kbd}>/</kbd>
       {rest.join("/")}

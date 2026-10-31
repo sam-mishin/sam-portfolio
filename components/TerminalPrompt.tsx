@@ -149,7 +149,7 @@ export function TerminalPrompt({ className }: TerminalPromptProps) {
   }
 
   return (
-    <div className={className ? `${styles.terminal} ${className}` : styles.terminal}>
+    <div className={className ? `${styles.terminal} ${className}` : styles.terminal} data-no-print>
       {entries.length > 0 && (
         <div className={styles.output} role="log" aria-label={text.outputLabel}>
           {entries.map((entry) => (

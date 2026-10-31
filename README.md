@@ -73,6 +73,7 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 | `content/case-studies.ts` | Case-study summaries, facts grids, hero screenshots and the 8-section template |
 | `content/case-studies/*.mdx` | Case-study prose |
 | `content/not-found.ts` | The 404 page's PowerShell error and links |
+| `content/plain-text.ts` | Labels for the terminal résumé (`curl`), `/resume.txt` and `/llms.txt` |
 | `content/ascii-*.txt` | The ASCII portrait (generated — see below) |
 
 Use curly quotes (’ “ ”) and real dashes (– —). Every number should match the résumé.
@@ -119,7 +120,22 @@ Case studies live at `/work/<slug>` and are built as static pages.
 - **Metadata** is set in `app/layout.tsx` (site-wide) and `app/work/[slug]/page.tsx` (per case study): title, description, canonical URL, Open Graph and Twitter/X card tags. The wording comes from `content/site.ts` and `content/case-studies.ts`.
 - **Share images** (the picture LinkedIn, Slack or iMessage shows for a link) are terminal windows drawn at build time: the home one shows the name, title, headline and the three Impact rows from the winfetch card (`app/opengraph-image.tsx`); each case study gets its own with title, summary, status and stack (`app/work/[slug]/opengraph-image.tsx`; `[placeholder]` facts are left off). Drawing code: `lib/og.tsx`. Preview them at `/opengraph-image` and `/work/trellis/opengraph-image/card` while `npm run dev` is running.
 - **`/sitemap.xml`** lists the home page and every case study; **`/robots.txt`** allows everything and points at the sitemap. Both use the site address from `lib/site-url.ts`.
+- **Plain text for machines:** `/llms.txt` and `/resume.txt` (see below).
 - **404:** any unknown address shows `app/not-found.tsx`, styled as PowerShell's `Cannot find path … because it does not exist.` error with the path the visitor typed, two links out and a live prompt (`cd ~` works). Mistyped case studies (`/work/nope`) get a true 404 status too, thanks to `proxy.ts`. Wording: `content/not-found.ts`.
+
+## Plain-text versions: `curl`, `/resume.txt`, `/llms.txt`
+
+- **`curl <site>`** prints a colored résumé in the terminal instead of the HTML page: the same sections as the site, as prompt lines (`whoami`, `ls .\work --deployed`, `git log --career`…), in the Ayu Dark colors. It also works with PowerShell (`irm <site>`), `wget -qO- <site>` and HTTPie. `proxy.ts` spots those tools by their User-Agent (`lib/terminal-client.ts`, tested) and serves `app/resume.ansi`; browsers and link-preview bots always get the web page. Colors use the 256-color palette so they look right in Windows Terminal, macOS Terminal and iTerm alike. Try it locally: `npm run dev`, then `curl localhost:3000`.
+- **`/resume.txt`** is the same résumé without colors, for pasting into application forms.
+- **`/llms.txt`** is a short Markdown summary with links to every case study, in the [llms.txt](https://llmstxt.org) format that AI assistants and screening tools read.
+
+All three are built at build time from the content files (`lib/plain-resume.ts`, tested), so they can't drift from the site. Anything still marked `[like this]` is left out, and the PDF link appears only once `public/resume/Sam_Mishin_Resume.pdf` exists. Labels live in `content/plain-text.ts`.
+
+## Printing
+
+Case studies (and the home page) print as clean documents: black text on white, whatever theme is on screen; cards outlined instead of shaded; no tab bar, buttons, live terminal, view-source links, table of contents or placeholder screenshot boxes; headings kept with their text; code wrapped instead of cut off; and the address of every outside link printed after it. A line at the top of each printed page names the site, and case studies print their own URL under the summary. Trellis comes out at four Letter pages.
+
+The rules are at the bottom of `app/globals.css` (the print palette and type scale) plus small `@media print` blocks in the components they affect. To keep something new off paper, give it a `data-no-print` attribute.
 
 ## Deploying to Vercel
 

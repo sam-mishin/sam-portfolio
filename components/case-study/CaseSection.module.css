@@ -22,3 +22,10 @@
     font-size: 24px;
   }
 }
+
+/* Printed: the section number stays on the same page as its heading. */
+@media print {
+  .number {
+    break-after: avoid;
+  }
+}

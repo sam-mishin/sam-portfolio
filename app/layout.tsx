@@ -132,6 +132,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {site.skipLink}
         </a>
         <TabNav />
+        {/* On paper the tab bar is hidden; this line says whose site it is
+            and where to find it instead (see the print styles in globals.css). */}
+        <p className="print-only print-header">
+          {site.title} · {siteUrl().replace(/^https?:\/\//, "")}
+        </p>
         <main id="main" tabIndex={-1}>
           {children}
         </main>

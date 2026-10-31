@@ -71,6 +71,27 @@
   display: block;
 }
 
+/* Paper is white whatever the screen theme, so print the light portrait,
+   and the real text rather than the mouse-effect canvas. */
+@media print {
+  .artDark,
+  :global([data-theme="light"]) .artDark {
+    display: none;
+  }
+
+  .artLight {
+    display: block;
+  }
+
+  .art[data-live] .pre {
+    visibility: visible;
+  }
+
+  .art canvas {
+    display: none;
+  }
+}
+
 /* ---- Rows ---------------------------------------------------------------- */
 .info {
   flex: 999 1 520px;

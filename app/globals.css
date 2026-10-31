@@ -536,3 +536,154 @@ html.theme-transition::view-transition-new(root) {
     opacity: 0;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Print: case studies and the home page as clean, ink-friendly documents.
+ *
+ * Whatever theme is on screen, paper gets its own palette: black-ish text
+ * on white, the light theme's darkened syntax colors (all above 4.5:1 on
+ * white), outlined cards instead of shaded ones, and no backgrounds at all,
+ * since most people print with "background graphics" off. Anything that
+ * only works on a screen (the tab bar, palette, live terminal, buttons,
+ * view-source links, the table of contents) is marked data-no-print in
+ * its component and dropped. Links to other sites print their address.
+ * A print-only line at the top (app/layout.tsx) says whose site it is.
+ * ------------------------------------------------------------------------- */
+.print-only {
+  display: none;
+}
+
+@media print {
+  html,
+  html[data-theme] {
+    --bg: #ffffff;
+    --band: #ffffff;
+    --surface: #ffffff;
+    --chrome: #ffffff;
+    --border-subtle: #e4e7eb;
+    --border: #d3d8de;
+    --border-card: #d3d8de;
+    --dots: #cdd2d8;
+    --text: #111418;
+    --text-body: #33373c;
+    --muted: #55595e;
+    --accent: #985a00;
+    /* Backgrounds don't print, so text that normally sits on the accent
+       color is drawn in plain ink instead. */
+    --on-accent: #111418;
+    --key: #1a6d88;
+    --value: #4c6a00;
+    --ok: #377011;
+    --hash: #985a00;
+    --icon-tile: #ffaa33;
+    --icon-glyph: #24282d;
+    --selection: transparent;
+    --line-highlight: transparent;
+    --error: #c4352f;
+    --glow: transparent;
+    --glow-edge: transparent;
+    --syn-tag: #1a6d88;
+    --syn-func: #985a00;
+    --syn-entity: #1863a6;
+    --syn-keyword: #9e4710;
+    --syn-const: #7a4ca8;
+    --shadow-window: none;
+    --shadow-overlay: none;
+
+    /* A paper-sized type scale: the screen one is built for 1440px. */
+    --fs-h1: 30px;
+    --fs-h2: 22px;
+    --fs-h3: 16px;
+    --fs-lead: 15px;
+    --fs-body: 13px;
+    --fs-small: 12px;
+    --fs-label: 11px;
+    --fs-mono-sm: 10px;
+    --gutter: 0px;
+
+    color-scheme: light;
+  }
+
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  [data-no-print],
+  .skip-link,
+  dialog {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .print-header {
+    margin: 0 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--muted);
+  }
+
+  .print-url {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--muted);
+  }
+
+  /* Scroll-revealed and spotlit content shows as-is. */
+  .reveal,
+  [data-spotlight] {
+    opacity: 1 !important;
+    translate: none !important;
+    transform: none !important;
+  }
+
+  /* Keep headings with what follows, and don't split small blocks. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  figure,
+  pre,
+  blockquote,
+  li,
+  dl > div,
+  [data-spotlight] {
+    break-inside: avoid;
+  }
+
+  /* Code wraps instead of running off the page. */
+  pre,
+  pre code {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere;
+    overflow: visible !important;
+  }
+
+  /* Links to other sites print their address after the text. */
+  main a[href^="http"]::after,
+  footer a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    font-weight: 400;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+}

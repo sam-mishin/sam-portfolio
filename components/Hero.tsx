@@ -56,7 +56,8 @@ export function Hero() {
         </span>
       </h1>
       <p className={styles.intro}>{hero.intro}</p>
-      <div className={styles.actions}>
+      {/* Buttons do nothing on paper, so they're left out of print. */}
+      <div className={styles.actions} data-no-print>
         <ButtonLink href={hero.primaryCta.href} className={styles.cta}>
           {hero.primaryCta.label}
         </ButtonLink>

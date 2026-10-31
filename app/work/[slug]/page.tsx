@@ -18,6 +18,7 @@ import { SourceRow } from "@/components/SourceLink";
 import { caseStudyLabels as labels, template } from "@/content/case-studies";
 import { site } from "@/content/site";
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies";
+import { absoluteUrl } from "@/lib/site-url";
 import { NAV_BACK, NAV_FORWARD } from "@/lib/transitions";
 import styles from "./page.module.css";
 
@@ -77,6 +78,8 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           </SourceRow>
           <h1 className={styles.title}>{study.card.title}</h1>
           <p className={styles.summary}>{study.summary}</p>
+          {/* Printed copies say where the live page is. */}
+          <p className="print-only print-url">{absoluteUrl(`/work/${slug}`)}</p>
           <dl className={styles.facts}>
             {study.facts.map((fact) => (
               <div key={fact.label} className={styles.fact}>
@@ -94,7 +97,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </div>
 
         <div className={styles.body}>
-          <nav aria-label={labels.tocLabel} className={styles.toc}>
+          <nav aria-label={labels.tocLabel} className={styles.toc} data-no-print>
             <Prompt>{labels.tocCommand}</Prompt>
             <ol className={styles.tocList}>
               {template.map((section, i) => (
@@ -111,7 +114,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
           </div>
         </div>
 
-        <nav aria-label={labels.moreLabel} className={styles.pager}>
+        <nav aria-label={labels.moreLabel} className={styles.pager} data-no-print>
           <Link href={labels.allWork.href} className={styles.pagerLink} transitionTypes={[NAV_BACK]}>
             <span className={styles.pagerHint}>{labels.allWork.hint}</span>
             <span className={styles.pagerTitle}>{labels.allWork.label}</span>

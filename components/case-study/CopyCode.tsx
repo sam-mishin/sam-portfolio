@@ -37,7 +37,7 @@ export function CopyCode({ code }: CopyCodeProps) {
 
   return (
     <>
-      <button type="button" className={styles.copy} onClick={copy} aria-label={copied ? undefined : labels.copyCode}>
+      <button type="button" className={styles.copy} data-no-print onClick={copy} aria-label={copied ? undefined : labels.copyCode}>
         {copied ? labels.copied : labels.copy}
       </button>
       <span className="sr-only" role="status" aria-live="polite">

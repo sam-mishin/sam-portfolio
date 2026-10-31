@@ -54,3 +54,16 @@
   font-size: var(--fs-label);
   padding: 0 18px;
 }
+
+/* On paper a button is just a link: plain text, its address printed after
+   it (globals.css), and allowed to wrap. */
+@media print {
+  .button {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    justify-content: flex-start;
+    white-space: normal;
+    color: var(--text);
+  }
+}

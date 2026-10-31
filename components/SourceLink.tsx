@@ -27,6 +27,7 @@ export function SourceLink({ file }: SourceLinkProps) {
   return (
     <a
       className={styles.link}
+      data-no-print
       href={`${repo}/blob/${ref}/${file}`}
       target="_blank"
       rel="noopener noreferrer"

@@ -56,6 +56,7 @@ export function TabNav() {
       className={styles.header}
       style={{ viewTransitionName: "site-header" }}
       data-case-study={project ? "" : undefined}
+      data-no-print
     >
       <nav aria-label={nav.label} className={styles.nav}>
         <ul className={styles.tabs}>

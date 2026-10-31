@@ -43,7 +43,7 @@ export function BootScreen() {
   ];
 
   return (
-    <div className={styles.boot} aria-hidden="true">
+    <div className={styles.boot} aria-hidden="true" data-no-print>
       <div className={styles.screen}>
         {lines.map((line, i) => (
           <p key={i} className={styles.line} style={{ "--n": i } as React.CSSProperties}>

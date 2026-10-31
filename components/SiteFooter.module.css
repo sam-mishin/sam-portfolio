@@ -102,3 +102,16 @@
     display: none;
   }
 }
+
+/* Printed: the contact block as a compact sign-off, not a full screen. */
+@media print {
+  .footer {
+    margin-top: 32px;
+    break-inside: avoid;
+  }
+
+  .inner {
+    padding: 20px 0 0;
+    gap: 12px;
+  }
+}

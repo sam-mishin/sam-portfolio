@@ -26,12 +26,13 @@ flowchart LR
   app --> meta
 
   subgraph Edge["Vercel"]
-    proxy["proxy.ts<br/>(/work/:slug only)"]
+    proxy["proxy.ts<br/>(/ and /work/:slug)"]
     cdn["CDN cache"]
   end
 
   visitor(("Visitor /<br/>crawler")) --> proxy
-  proxy -- "known slug" --> cdn
+  proxy -- "known slug,<br/>browser on /" --> cdn
+  proxy -- "curl / irm on /:<br/>rewrite to /resume.ansi" --> cdn
   proxy -- "unknown slug:<br/>rewrite, status 404" --> cdn
   visitor --> cdn
   pages --> cdn
@@ -58,10 +59,15 @@ flowchart LR
 | Any unknown URL | `app/not-found.tsx` | Static PowerShell-style 404, status 404, `noindex`. |
 | `/sitemap.xml`, `/robots.txt` | `app/sitemap.ts`, `app/robots.ts` | Static, built from the case-study list and `lib/site-url.ts`. |
 | Share images | `app/opengraph-image.tsx`, `app/work/[slug]/opengraph-image.tsx` | 1200×630 PNGs drawn at build time with `next/og` (`lib/og.tsx`). |
+| `/resume.txt`, `/llms.txt`, `/resume.ansi` | `app/*/route.ts` | Static text built from the content files (`lib/plain-resume.ts`). `/resume.ansi` is the colored version `curl` gets. |
 
 ### Why `proxy.ts` exists
 
-The site uses Next.js 16's Cache Components, where a page can start streaming before it has finished deciding what to show. For a mistyped case study (`/work/nope`), the page calls `notFound()`, but by then the 200 status has already been sent: a "soft 404" that search engines may index. `proxy.ts` runs before rendering, checks the slug against the case-study list, and rewrites unknown ones to the 404 page with a real 404 status. It only runs on `/work/:slug`, so the rest of the site never touches it.
+It does two jobs, and runs only on `/` and `/work/:slug`.
+
+**Terminal visitors.** On `/`, if the User-Agent is curl, wget, HTTPie or PowerShell (`lib/terminal-client.ts`), the request is rewritten to `/resume.ansi`, so `curl <site>` prints a colored résumé instead of HTML. Everyone else passes straight through. The response carries `Vary: User-Agent` so a cache never hands one version to the other.
+
+**Real 404s.** The site uses Next.js 16's Cache Components, where a page can start streaming before it has finished deciding what to show. For a mistyped case study (`/work/nope`), the page calls `notFound()`, but by then the 200 status has already been sent: a "soft 404" that search engines may index. `proxy.ts` runs before rendering, checks the slug against the case-study list, and rewrites unknown ones to the 404 page with a real 404 status. It only runs on `/work/:slug`, so the rest of the site never touches it.
 
 ## What runs in the browser
 

@@ -32,3 +32,14 @@
     gap: 20px;
   }
 }
+
+/* Printed: a section heading never ends a page on its own. */
+@media print {
+  .section {
+    padding-top: 28px;
+  }
+
+  .head {
+    break-after: avoid;
+  }
+}

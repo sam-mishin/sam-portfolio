@@ -51,7 +51,7 @@ export function CopyEmail({ email, copiedMessage, actionHint, mailLinkLabel }: C
           {email}
           <span className="sr-only"> — {actionHint}</span>
         </button>
-        <a href={`mailto:${email}`} className={styles.mailLink}>
+        <a href={`mailto:${email}`} className={styles.mailLink} data-no-print>
           {mailLinkLabel}
         </a>
       </div>

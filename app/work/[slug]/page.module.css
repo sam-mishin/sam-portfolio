@@ -216,3 +216,26 @@
     gap: 36px;
   }
 }
+
+/* ---- Print ---------------------------------------------------------------
+   Tighter spacing on paper, and no reserved space for the hero screenshot
+   while it's still a placeholder (the placeholder itself isn't printed). */
+@media print {
+  .page {
+    padding: 0;
+    gap: 28px;
+  }
+
+  .hero {
+    min-height: 0;
+  }
+
+  .hero:empty,
+  .hero:not(:has(img, picture, video)) {
+    display: none;
+  }
+
+  .prose {
+    gap: 28px;
+  }
+}

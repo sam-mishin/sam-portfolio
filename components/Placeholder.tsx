@@ -32,7 +32,14 @@ export interface ShotProps {
   size?: "card" | "feature";
 }
 
-/** Dashed box standing in for a screenshot. */
+/**
+ * Dashed box standing in for a screenshot. Left out of print: an empty
+ * box is just wasted paper. (Real screenshots will print normally.)
+ */
 export function Shot({ label, size = "card" }: ShotProps) {
-  return <div className={`${styles.shot} ${styles[size]}`}>{label}</div>;
+  return (
+    <div className={`${styles.shot} ${styles[size]}`} data-no-print>
+      {label}
+    </div>
+  );
 }
