@@ -2,6 +2,8 @@
 
 The developer portfolio of **Sam Mishin**: full-stack web developer and Marketing & Technology Lead at 14 Acres Vineyard & Winery. The site is styled like Windows Terminal (tab-bar navigation, a `winfetch` profile card, a `/` command palette) on top of plain, scannable sections a recruiter can read in 30 seconds.
 
+> **Live:** <https://sammishin.dev>
+>
 > **Status:** all seven milestones are built (see [Milestones](#milestones)). What's left is content Sam needs to supply, listed under [Placeholder TODO](#placeholder-todo), and the launch steps under [Deploying to Vercel](#deploying-to-vercel). How the pieces fit together: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Tech stack
@@ -139,13 +141,22 @@ The rules are at the bottom of `app/globals.css` (the print palette and type sca
 
 ## Deploying to Vercel
 
-1. Push the repo to GitHub (done: `sam-mishin/sam-portfolio`).
-2. In Vercel: **Add New → Project**, import the repo, keep the detected Next.js settings, **Deploy**. No environment variables are required.
+**Live at <https://sammishin.dev>.** How it's set up:
+
+- **Vercel:** project `sam-portfolio` in Sam's personal Vercel account (team "Sam Mishin's projects", Hobby plan), linked to `sam-mishin/sam-portfolio` on GitHub.
+- **Domains:** `sammishin.dev` serves production; `www.sammishin.dev` 308-redirects to it. `sam-portfolio-lilac.vercel.app` also points at production.
+- **DNS (Cloudflare, where the domain is registered):** two CNAME records, `@` and `www`, both pointing at the target Vercel shows under **Project → Settings → Domains**, with the proxy **off** ("DNS only", grey cloud). Turning the orange-cloud proxy on would put Cloudflare between visitors and Vercel and break Vercel's HTTPS certificate renewal, so leave it off.
+
+To rebuild the setup from scratch:
+
+1. Push the repo to GitHub.
+2. In Vercel: **Add New → Project**, import the repo, keep the detected Next.js settings, add `NEXT_PUBLIC_SITE_URL` (below), **Deploy**.
+3. **Settings → Domains:** add the domain, then add the `www` version as a 308 redirect to it, and copy the DNS records it shows into Cloudflare as "DNS only".
 3. Every push to `main` deploys to production; every other branch gets a preview URL. (Vercel tells search engines not to index preview URLs.)
 
 | Environment variable | Needed? | What it does |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Once you have a custom domain | The site's public address, e.g. `https://sammishin.dev`. Used for canonical links, share-image URLs, the sitemap and robots.txt. Set it in **Project → Settings → Environment Variables** (Production), then redeploy. |
+| `NEXT_PUBLIC_SITE_URL` | Set (Production): `https://sammishin.dev` | The site's public address. Used for canonical links, share-image URLs, the sitemap and robots.txt. Set it in **Project → Settings → Environment Variables** (Production), then redeploy. |
 | `VERCEL_PROJECT_PRODUCTION_URL` | Automatic | Set by Vercel to the project's `*.vercel.app` production domain; used until `NEXT_PUBLIC_SITE_URL` exists. |
 | `VERCEL_GIT_COMMIT_SHA` | Automatic | Pins the `</> File.tsx` view-source links to the deployed commit. |
 
@@ -248,7 +259,8 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 
 **Launch**
 
-- [ ] **Domain:** buy one, add it in Vercel (**Project → Settings → Domains**), then set `NEXT_PUBLIC_SITE_URL` (see [Deploying to Vercel](#deploying-to-vercel)). Put the link on the résumé, LinkedIn and the GitHub profile README.
+- [x] **Domain:** sammishin.dev is live on Vercel (see [Deploying to Vercel](#deploying-to-vercel)).
+- [ ] **Share the link:** put sammishin.dev on the résumé, LinkedIn and the GitHub profile README.
 - [ ] **Analytics (optional):** the build guide suggests Vercel Web Analytics (cookie-free). It needs the `@vercel/analytics` package, which hasn't been added; say the word and it's a two-line change.
 - [ ] **Screen-reader pass** with NVDA and VoiceOver (see [Accessibility](#accessibility)).
 - [ ] **Public repo check:** the repo is public, so everything in `docs/` (résumé, career notes, design files, photo) and its git history is visible. Move anything private out, and know that removing a file now doesn't remove it from history.
