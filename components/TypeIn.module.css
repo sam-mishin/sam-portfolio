@@ -6,9 +6,10 @@
 :global(html[data-intro]) .char {
   animation:
     type-in 1ms linear both,
-    type-caret var(--step) step-end;
-  /* --boot-offset: waits for the first-visit boot screen (BootScreen). */
-  animation-delay: calc(var(--boot-offset, 0ms) + var(--start) + var(--i) * var(--step));
+    type-caret var(--gap) step-end;
+  /* --at: this character's moment (set inline from lib/typing.ts).
+     --boot-offset: waits for the first-visit boot screen (BootScreen). */
+  animation-delay: calc(var(--boot-offset, 0ms) + var(--at));
 }
 
 @keyframes type-in {

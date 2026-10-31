@@ -6,8 +6,10 @@
  *
  * How it works:
  * - Every character is rendered as its own span with a CSS animation
- *   delay, so the typing runs from the server-rendered HTML without
- *   waiting for JavaScript. Characters keep their space while hidden, so
+ *   delay (lib/typing.ts gives each one a slightly different gap, with
+ *   small pauses between words, so it reads like real typing), so the
+ *   typing runs from the server-rendered HTML without waiting for
+ *   JavaScript. Characters keep their space while hidden, so
  *   nothing reflows as the text appears.
  * - The animation only runs while <html> has `data-intro` (see
  *   lib/intro.ts): first home-page view of the session, no reduced-motion
@@ -19,7 +21,7 @@
 import { useEffect, useState } from "react";
 import { bootPlaying, BOOT_MS } from "@/lib/boot";
 import { introPlaying } from "@/lib/intro";
-import { characters, type TypingTiming, typingEnd } from "@/lib/typing";
+import { characters, charTimings, type TypingTiming, typingEnd } from "@/lib/typing";
 import styles from "./TypeIn.module.css";
 
 /** One run of text, optionally wrapped in its own class (e.g. a highlight). */
@@ -46,7 +48,7 @@ export function TypeIn({ segments, timing }: TypeInProps) {
   useEffect(() => {
     // Small margin so the last character's caret finishes before the swap.
     const boot = bootPlaying() ? BOOT_MS : 0;
-    const wait = introPlaying() ? boot + typingEnd(fullText, timing) + timing.step + 50 : 0;
+    const wait = introPlaying() ? boot + typingEnd(fullText, timing) + 100 : 0;
     const timer = setTimeout(() => setPlain(true), wait);
     return () => clearTimeout(timer);
   }, [fullText, timing]);
@@ -54,11 +56,10 @@ export function TypeIn({ segments, timing }: TypeInProps) {
   // The same wrapper spans are rendered in both modes, so swapping the
   // characters for plain text doesn't remount them (which would restart
   // animations on them, like the headline highlight).
+  const timings = charTimings(fullText, timing);
   let index = 0;
   return (
-    <span
-      style={plain ? undefined : ({ "--start": `${timing.start}ms`, "--step": `${timing.step}ms` } as React.CSSProperties)}
-    >
+    <span>
       {segments.map((segment, i) => (
         <span key={i} className={segment.className}>
           {plain
@@ -66,7 +67,11 @@ export function TypeIn({ segments, timing }: TypeInProps) {
             : characters(segment.text).map((char) => {
                 const n = index++;
                 return (
-                  <span key={n} className={styles.char} style={{ "--i": n } as React.CSSProperties}>
+                  <span
+                    key={n}
+                    className={styles.char}
+                    style={{ "--at": `${timings[n].at}ms`, "--gap": `${timings[n].gap}ms` } as React.CSSProperties}
+                  >
                     {char}
                   </span>
                 );

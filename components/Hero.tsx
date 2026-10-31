@@ -42,7 +42,10 @@ export function Hero() {
       </Prompt>
       <h1 id="hero-heading" className={styles.headline}>
         <TypeIn segments={headlineSegments(hero.headline, hero.headlineHighlight)} timing={timing.headline} />
-        <span className={styles.caret} aria-hidden="true" />
+        {/* The zero-width space gives the inline caret a line box to fill. */}
+        <span className={styles.caret} aria-hidden="true">
+          {"\u200B"}
+        </span>
       </h1>
       <p className={styles.intro}>{hero.intro}</p>
       <div className={styles.actions}>

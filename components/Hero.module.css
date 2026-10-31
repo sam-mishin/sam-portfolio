@@ -38,51 +38,67 @@
   box-decoration-break: clone;
 }
 
-/* A thin editor caret after the headline. */
+/* A thin editor caret after the headline. It's drawn exactly like the
+   caret that rides along while typing (TypeIn): an inline box as tall as
+   the letters' own boxes, overlapping the last character's right edge.
+   So when typing ends, the caret stays put instead of jumping or changing
+   height, whatever font the visitor ends up with. */
 .caret {
-  display: inline-block;
-  width: 0.06em;
-  height: 0.9em;
-  margin-left: 0.06em;
-  vertical-align: -0.08em;
+  /* -0.06em for the caret's width, -0.04em to undo the headline's
+     letter-spacing on the last character and the zero-width space. */
+  margin-left: -0.1em;
+  padding-left: 0.06em;
   background: var(--accent);
-  /* Starts on the hidden half so it doesn't sit at the end while the
-     headline is still typing (the delay is set below). */
-  animation: caret-blink 1.06s step-end infinite backwards;
+  user-select: none;
+  animation: caret-blink 1.06s step-end infinite;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
 }
 
+/* Visible for the first half of each cycle, so it shows the moment the
+   typing stops instead of blinking in late. */
 @keyframes caret-blink {
   0% {
-    opacity: 0;
-  }
-  50% {
     opacity: 1;
   }
+  50% {
+    opacity: 0;
+  }
 }
 
-/* ---- First visit: wait for the typing, then select and fade in ---------- */
+/* ---- First visit: wait for the typing, then select and fade in ----------
+   One calm sequence rather than everything at once: the caret takes over
+   from the typing, a beat later the marker sweeps across, and the intro
+   and buttons drift in after it. */
 :global(html[data-intro]) .caret {
-  animation-delay: var(--intro-end);
+  /* Hidden while the headline types (caret-wait), then blinking. */
+  animation:
+    caret-wait var(--intro-end) linear,
+    caret-blink 1.06s step-end var(--intro-end) infinite;
 }
 
-/* The marker sweeps across left to right once the typing is done. */
+@keyframes caret-wait {
+  from,
+  to {
+    opacity: 0;
+  }
+}
+
 :global(html[data-intro]) .highlight {
-  animation: mark-in 520ms var(--vt-ease-out) both;
-  animation-delay: var(--intro-end);
+  animation: mark-in 700ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation-delay: calc(var(--intro-end) + 250ms);
 }
 
 :global(html[data-intro]) .intro,
 :global(html[data-intro]) .actions {
-  animation: fade-up 420ms var(--vt-ease-out) both;
-  animation-delay: var(--intro-end);
+  animation: fade-up 700ms var(--vt-ease-out) both;
+  animation-delay: calc(var(--intro-end) + 450ms);
 }
 
 :global(html[data-intro]) .actions {
-  animation-delay: calc(var(--intro-end) + 90ms);
+  animation-delay: calc(var(--intro-end) + 600ms);
 }
 
 @keyframes mark-in {
@@ -94,7 +110,7 @@
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(4px);
   }
 }
 

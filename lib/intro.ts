@@ -24,7 +24,7 @@ import { BOOT_MS } from "./typing";
 export const INTRO_STORAGE_KEY = "intro-played";
 
 /** How long the attribute stays, in ms. Longer than the animation itself. */
-const INTRO_MAX_MS = 4000;
+const INTRO_MAX_MS = 7000;
 
 export const introScript = `(function(){try{if(location.pathname!=="/"||matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("${INTRO_STORAGE_KEY}"))return;sessionStorage.setItem("${INTRO_STORAGE_KEY}","1");var d=document.documentElement;d.setAttribute("data-intro","");setTimeout(function(){d.removeAttribute("data-intro")},d.hasAttribute("data-boot")?${INTRO_MAX_MS + BOOT_MS}:${INTRO_MAX_MS})}catch(e){}})()`;
 
