@@ -74,14 +74,14 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "spend-tracker",
     summary:
-      "One view of revenue and the top food and wine for the owner and general manager, built on a nightly sync of Clover POS orders that now holds 50,000+ orders.",
+      "Per-customer spend for the general manager — favorite wines, wine vs. food spend, comped tastings — built on a nightly sync of Clover POS orders that now holds 50,000+ orders.",
     facts: [
       { label: "Role", value: "Lead designer and developer" },
       { label: "Status", value: "Live · syncing nightly" },
       { label: "Stack", value: "Supabase functions, Vercel Cron, Postgres, Clover API" },
       { label: "How it’s built", value: "AI-assisted; I review and test every change" },
     ],
-    heroShot: "[Screenshot: spend dashboard — revenue and top food and wine]",
+    heroShot: "[Screenshot: spend dashboard — a member’s favorite wines, spend and comped tastings]",
   },
   {
     slug: "cash-drawer",
