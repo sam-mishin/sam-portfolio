@@ -3,8 +3,8 @@
  *
  * It's the eyebrow above every section (`whoami`, `ls .\work`,
  * `git log --career`…) and the command lines inside terminal windows.
- * PowerShell colors typed commands yellow, so the command uses the --key
- * token while the path uses --text-body.
+ * Colors follow the Ayu editor theme: the path is a tag (--syn-tag) and
+ * the command a function name (--syn-func).
  */
 import type { ReactNode } from "react";
 import { site } from "@/content/site";

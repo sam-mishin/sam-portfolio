@@ -41,6 +41,7 @@ export function SiteFooter() {
         <div className={styles.bottom}>
           <span>{footer.copyright}</span>
           <span>{footer.credit}</span>
+          <span>{footer.themeNote}</span>
           <SearchHint text={footer.searchHint} />
         </div>
       </div>

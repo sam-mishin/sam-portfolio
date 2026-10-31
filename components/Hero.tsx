@@ -2,20 +2,47 @@
  * components/Hero.tsx — the top of the home page: `PS C:\sam> whoami`, the
  * headline, a one-paragraph intro, the two calls to action and the
  * "open to roles" line. All text comes from content/profile.ts.
+ *
+ * On the first home-page view of a session, `whoami` and the headline type
+ * themselves out (TypeIn), the end of the headline gets selected like text
+ * in an editor, and the intro and buttons fade in. Timings live in
+ * lib/typing.ts; whether it plays at all is decided in lib/intro.ts.
  */
 import { profile } from "@/content/profile";
+import { heroTimings } from "@/lib/typing";
 import { ButtonLink } from "./ButtonLink";
 import { Prompt } from "./Prompt";
+import { TypeIn, type TypeInSegment } from "./TypeIn";
 import styles from "./Hero.module.css";
+
+/** Splits the headline so the highlighted part can get its own class. */
+function headlineSegments(headline: string, highlight: string): TypeInSegment[] {
+  const at = headline.indexOf(highlight);
+  if (!highlight || at < 0) return [{ text: headline }];
+  return [
+    { text: headline.slice(0, at) },
+    { text: highlight, className: styles.highlight },
+    { text: headline.slice(at + highlight.length) },
+  ].filter((segment) => segment.text);
+}
 
 /** The home-page hero. */
 export function Hero() {
   const { hero } = profile;
+  const timing = heroTimings(hero.command, hero.headline);
   return (
-    <section aria-labelledby="hero-heading" className={styles.hero}>
-      <Prompt className={styles.prompt}>{hero.command}</Prompt>
+    <section
+      aria-labelledby="hero-heading"
+      className={styles.hero}
+      // When the typing finishes; the highlight, caret and fade-in wait for it.
+      style={{ "--type-end": `${timing.end}ms` } as React.CSSProperties}
+    >
+      <Prompt className={styles.prompt}>
+        <TypeIn segments={[{ text: hero.command }]} timing={timing.command} />
+      </Prompt>
       <h1 id="hero-heading" className={styles.headline}>
-        {hero.headline}
+        <TypeIn segments={headlineSegments(hero.headline, hero.headlineHighlight)} timing={timing.headline} />
+        <span className={styles.caret} aria-hidden="true" />
       </h1>
       <p className={styles.intro}>{hero.intro}</p>
       <div className={styles.actions}>

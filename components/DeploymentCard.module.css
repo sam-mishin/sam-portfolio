@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 16px;
   padding: 24px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   background: var(--surface);
 }
@@ -25,6 +25,8 @@
   padding: 0;
   overflow: hidden;
   border-radius: var(--radius-card-lg);
+  /* An accent bar down the left edge, like the editor's active-line marker. */
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .featured .body {
@@ -38,8 +40,7 @@
   flex: 1 1 400px;
   display: flex;
   padding: 24px;
-  border-left: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--band);
 }
 
 .featured .title {
@@ -67,14 +68,14 @@
 }
 
 .pillAccent {
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .customer {
   font-family: var(--font-mono);
   font-size: var(--fs-mono-sm);
-  color: var(--muted);
+  color: var(--syn-entity);
 }
 
 .title {
@@ -99,7 +100,8 @@
   padding-top: 2px;
   font-family: var(--font-mono);
   font-size: var(--fs-mono-sm);
-  color: var(--muted);
+  /* Labels read like keywords in the editor theme. */
+  color: var(--syn-keyword);
 }
 
 .fieldValue {
@@ -122,7 +124,6 @@
 
 .tag {
   padding: 3px 9px;
-  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-tag);
   background: var(--bg);
   color: var(--value);

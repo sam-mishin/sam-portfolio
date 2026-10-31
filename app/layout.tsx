@@ -2,9 +2,9 @@
  * app/layout.tsx — the root layout wrapped around every page.
  *
  * It loads the two fonts, sets page metadata, runs the no-flash theme
- * script, and renders the frame every page shares: skip link → tab-bar
- * header (with the command palette and theme toggle) → <main> → contact
- * footer.
+ * and intro scripts, and renders the frame every page shares: skip link →
+ * tab-bar header (with the command palette and theme toggle) → <main> →
+ * contact footer.
  */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -12,6 +12,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TabNav } from "@/components/TabNav";
 import { site } from "@/content/site";
+import { introScript } from "@/lib/intro";
 import { themeScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -71,6 +72,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             script: anything loaded later would run after the page shows.
             Without JavaScript the site stays in the default dark theme. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Turns on the hero's typing animation for the first home-page
+            view of the session (see lib/intro.ts). Inline for the same
+            reason: it must decide before the headline paints. */}
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
       <body suppressHydrationWarning>
         <a className="skip-link" href="#main">

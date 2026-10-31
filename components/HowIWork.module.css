@@ -14,7 +14,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 22px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   background: var(--surface);
 }
@@ -22,7 +22,7 @@
 .number {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--key);
+  color: var(--syn-const);
 }
 
 .arrow {

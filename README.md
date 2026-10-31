@@ -84,9 +84,12 @@ Case studies live at `/work/<slug>` and are built as static pages.
 4. Components you can use inside the `.mdx` without importing anything: `<Diagram>`, `<Decisions>` / `<Decision>`, `<CodeExcerpt>`, `<Aside>`, `<Todo>` (see `mdx-components.tsx`). Plain markdown works for everything else.
 5. Run `npm run build`. The page, the table of contents, the previous/next links, the project tab in the header, the `open <slug>` command in the palette and the page-slide animation are all automatic.
 
-## Command palette and theme
+## Colors, command palette, theme and intro
+
+- **Colors.** The palette is [Ayu](https://github.com/ayu-theme), the theme Sam uses in VS Code: Ayu Dark Unbordered in dark mode, Ayu Light in light mode. "Unbordered" means cards and windows are told apart by background shade, not outlines. Syntax colors are used the way the editor uses them: numbers purple, labels orange, prompt paths cyan, commands yellow-orange. All of it lives in `app/globals.css`; a few Ayu Light colors are darkened there so text stays above 4.5:1.
 
 - **Palette.** Press `/` or `Ctrl+K` (`⌘K` on a Mac), or click **Search**. Commands come from `content/commands.ts`: a `link` goes to a page or `#section`, `external` opens a new tab, and the rest (`copy-email`, `download`, `toggle-theme`, `winfetch`, `hire`, `help`) are handled in `components/CommandPalette.tsx`. Every case study gets an `open <slug>` command automatically. The filtering and arrow-key logic is in `lib/palette.ts`, tested in `lib/palette.test.ts`.
+- **Intro.** On the first home-page visit of a browser session, `whoami` and the headline type themselves out, the end of the headline is "selected" like text in the editor, and the intro and buttons fade in. It's CSS-only per-character delays, so it doesn't wait for JavaScript. It's skipped for repeat views and for visitors who turn on reduced motion. Timings: `lib/typing.ts`; on/off logic: `lib/intro.ts`; component: `components/TypeIn.tsx`. The highlighted words are `headlineHighlight` in `content/profile.ts`.
 - **Theme.** The site follows the visitor's system setting until they press the sun/moon button; then their choice is saved in `localStorage` under `theme`. A tiny inline script in `app/layout.tsx` sets `data-theme` on `<html>` before the first paint, so there's no flash of the wrong theme. Colors for both themes are only in `app/globals.css`. Logic: `lib/theme.ts`.
 
 ## Regenerating the ASCII portrait

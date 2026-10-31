@@ -17,7 +17,9 @@
   flex: 1;
   min-width: 0;
   display: flex;
-  flex-wrap: wrap;
+  /* Never wraps: like Windows Terminal, tabs shrink and truncate their
+     labels when space runs out (e.g. a case-study tab on a 1100px screen). */
+  flex-wrap: nowrap;
   align-items: flex-end;
   align-self: flex-end;
   gap: 2px;
@@ -32,12 +34,14 @@
 
 .tabItem {
   display: flex;
+  min-width: 0;
 }
 
 .tab {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
   min-height: var(--touch);
   padding: 0 14px;
   border-radius: 8px 8px 0 0;
@@ -58,13 +62,19 @@
 /* The tab for the page you're on: page background, wider, with a ✕. */
 .current,
 .current:hover {
+  flex: none;
   min-width: 190px;
   background: var(--bg);
   color: var(--text);
+  /* The editor's active-tab underline. */
+  box-shadow: inset 0 -2px 0 var(--accent);
 }
 
 .label {
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -95,11 +105,26 @@
   gap: 10px;
 }
 
+/* Small laptops: drop the decorative "+" and narrow the active tab so a
+   case-study tab still fits with less truncation. */
+@media (max-width: 1279px) {
+  .newTab {
+    display: none;
+  }
+
+  .current,
+  .current:hover {
+    min-width: 150px;
+  }
+}
+
 /* Phones get the résumé button in the hero and the theme switch in the
    menu instead, as in the mockup. */
 @media (max-width: 720px) {
-  .resume,
-  .theme {
+  /* ".actions" adds specificity so this beats the buttons' own
+     display rules, whichever stylesheet loads last. */
+  .actions .resume,
+  .actions .theme {
     display: none;
   }
 }

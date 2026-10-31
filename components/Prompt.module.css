@@ -10,9 +10,10 @@
 }
 
 .path {
-  color: var(--text-body);
+  color: var(--syn-tag);
 }
 
+/* Colored like a function name in the editor theme. */
 .command {
-  color: var(--key);
+  color: var(--syn-func);
 }

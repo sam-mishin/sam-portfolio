@@ -1,0 +1,29 @@
+/* TypeIn.module.css — the per-character typing animation. Runs only while
+   <html> has data-intro (lib/intro.ts). */
+
+/* Each character starts invisible and appears at its own delay. While it's
+   the newest character, a thin accent caret sits on its right edge. */
+:global(html[data-intro]) .char {
+  animation:
+    type-in 1ms linear both,
+    type-caret var(--step) step-end;
+  animation-delay: calc(var(--start) + var(--i) * var(--step));
+}
+
+@keyframes type-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* step-end holds the "from" frame for the whole duration, then drops it. */
+@keyframes type-caret {
+  from {
+    /* Inset, so it's a bar inside the character's right edge rather than
+       a shifted copy of the whole box. */
+    box-shadow: inset -0.06em 0 0 var(--accent);
+  }
+  to {
+    box-shadow: none;
+  }
+}

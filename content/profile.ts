@@ -32,6 +32,8 @@ export const profile = {
   hero: {
     command: "whoami",
     headline: "I embed with businesses and ship the software they run on.",
+    /** Part of the headline shown with an editor-style selection highlight. Must appear in `headline`. */
+    headlineHighlight: "ship the software they run on.",
     intro:
       "Full-stack web developer. I build the billing platform, POS integrations and staff tools at a working winery, and I’ve shipped about 12 client websites since 2023.",
     primaryCta: { label: "See my work", href: "#work" },
@@ -53,6 +55,7 @@ export const profile = {
           { label: "Host", value: "14 Acres Vineyard & Winery", phone: true },
           { label: "Kernel", value: "Marketing & Technology Lead", phone: true },
           { label: "IDE", value: "VS Code" },
+          { label: "Theme", value: "Ayu Dark Unbordered" },
         ],
       },
       {
@@ -108,5 +111,6 @@ export const profile = {
     copyright: "© 2026 Sam Mishin · Ridgefield, WA",
     credit: "Designed by Sam Mishin · built with AI assistance, reviewed by me · Next.js on Vercel",
     searchHint: "press / to search",
+    themeNote: "Colors: Ayu Dark, the theme I use in VS Code",
   },
 } as const;

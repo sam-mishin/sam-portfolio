@@ -5,10 +5,16 @@
  * stylesheet (the *.module.css files) uses the custom properties defined
  * here, so changing a color or the type scale happens in one place.
  *
- * Tokens come straight from docs/portfolio/design-spec.md ("Design tokens").
- * The dark palette is Windows Terminal's Campbell scheme; the light palette
- * follows Windows Terminal's light theme with darker key/value colors so
- * every text pair stays above 4.5:1 on white.
+ * The palettes come from Ayu (github.com/ayu-theme), the theme Sam uses
+ * in VS Code: Ayu Dark Unbordered for dark mode, Ayu Light for light mode.
+ * "Unbordered" means panels are separated by background shade instead of
+ * lines, so cards and the terminal window have no outlines. Ayu's own
+ * colors are kept wherever they pass 4.5:1; a few light-mode colors are
+ * darkened (noted inline) so every text pair stays readable.
+ *
+ * Syntax tokens (--syn-*) are used the way an editor would: numbers are
+ * constants (purple), labels are keywords (orange), prompt paths are tags
+ * (cyan), commands are function names (yellow-orange).
  */
 
 /* ---------------------------------------------------------------------------
@@ -20,29 +26,36 @@
  * share image) gets the light palette for itself and its children.
  * ------------------------------------------------------------------------- */
 :root {
-  --bg: #0c0c0c;
-  --band: #141414;
-  --surface: #1c1c1c;
-  --chrome: #202020;
-  --border-subtle: #2b2b2b;
-  --border: #3a3a3a;
-  --dots: #4a4a4a;
-  --text: #f2f2f2;
-  --text-body: #cccccc;
-  --muted: #9d9d9d;
-  --accent: #60cdff;
-  --on-accent: #0c0c0c;
-  --key: #f9f1a5;
-  --value: #61d6d6;
-  --ok: #16c60c;
-  --hash: #c19c00;
-  --ps-icon: #2671be;
-  --ps-icon-glyph: #ffffff;
-  --shadow-window: 0 16px 48px rgb(0 0 0 / 0.5);
+  --bg: #0d1017; /* editor background */
+  --band: #0b0e14; /* panels: impact strip, footer */
+  --surface: #0f131a; /* cards */
+  --chrome: #0b0e14; /* tab strip, title bars */
+  --border-subtle: #151a22;
+  --border: #232833; /* buttons and inputs only; cards are unbordered */
+  --border-card: transparent;
+  --dots: #2d333d;
+  --text: #e6e1cf;
+  --text-body: #bfbdb6;
+  --muted: #8a9199; /* Ayu's gutter grey, lightened to pass 4.5:1 */
+  --accent: #e6b450;
+  --on-accent: #0b0e14;
+  --key: #39bae6;
+  --value: #aad94c;
+  --ok: #7fd962;
+  --hash: #ffb454;
+  --ps-icon: #e6b450;
+  --ps-icon-glyph: #0b0e14;
+  --selection: rgb(64 159 255 / 0.3);
+  --syn-tag: #39bae6;
+  --syn-func: #ffb454;
+  --syn-entity: #59c2ff;
+  --syn-keyword: #ff8f40;
+  --syn-const: #d2a6ff;
+  --shadow-window: 0 24px 70px rgb(0 0 0 / 0.55);
   /* Command palette and dialogs */
-  --overlay-surface: #2c2c2c;
-  --overlay-active: #404040;
-  --overlay-active-text: #ffffff;
+  --overlay-surface: #141821;
+  --overlay-active: #232937;
+  --overlay-active-text: #e6e1cf;
   --backdrop: rgb(1 4 9 / 0.72);
   --shadow-overlay: 0 24px 64px rgb(0 0 0 / 0.6);
 
@@ -50,28 +63,37 @@
 }
 
 [data-theme="light"] {
-  --bg: #ffffff;
-  --band: #f6f8fa;
-  --surface: #f6f8fa;
-  --chrome: #ebebeb;
-  --border-subtle: #d1d9e0;
-  --border: #d1d9e0;
-  --dots: #c2cfde;
-  --text: #1f2328;
-  --text-body: #3d444d;
-  --muted: #59636e;
-  --accent: #005fb8;
+  --bg: #fcfcfc;
+  --band: #f3f4f5;
+  --surface: #f0f2f4;
+  --chrome: #eceef1;
+  --border-subtle: #e4e7eb;
+  --border: #d3d8de;
+  --border-card: transparent;
+  --dots: #cdd2d8;
+  --text: #24282d;
+  --text-body: #5c6166;
+  --muted: #61676d;
+  --accent: #985a00; /* Ayu Light's #ffaa33, darkened for text and white labels */
   --on-accent: #ffffff;
-  --key: #953800;
-  --value: #0a3069;
-  --ok: #1a7f37;
-  --hash: #9a6700;
-  --shadow-window: 0 12px 32px rgb(0 0 0 / 0.12);
+  --key: #1a6d88; /* darkened from #55b4d4 */
+  --value: #4c6a00; /* darkened from #86b300 */
+  --ok: #377011;
+  --hash: #985a00;
+  --ps-icon: #ffaa33;
+  --ps-icon-glyph: #24282d;
+  --selection: rgb(3 91 214 / 0.16);
+  --syn-tag: #1a6d88;
+  --syn-func: #985a00;
+  --syn-entity: #1863a6; /* darkened from #399ee6 */
+  --syn-keyword: #9e4710; /* darkened from #fa8d3e */
+  --syn-const: #7a4ca8; /* darkened from #a37acc */
+  --shadow-window: 0 16px 40px rgb(36 40 45 / 0.14);
   --overlay-surface: #ffffff;
-  --overlay-active: #e6ebf0;
-  --overlay-active-text: #1f2328;
-  --backdrop: rgb(31 35 40 / 0.45);
-  --shadow-overlay: 0 24px 64px rgb(31 35 40 / 0.25);
+  --overlay-active: #e6e9ed;
+  --overlay-active-text: #24282d;
+  --backdrop: rgb(36 40 45 / 0.4);
+  --shadow-overlay: 0 24px 64px rgb(36 40 45 / 0.22);
 
   color-scheme: light;
 }

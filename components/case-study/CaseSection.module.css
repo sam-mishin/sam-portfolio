@@ -10,7 +10,7 @@
 .number {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--key);
+  color: var(--syn-const);
 }
 
 .heading {

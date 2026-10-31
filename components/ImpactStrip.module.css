@@ -1,8 +1,6 @@
 /* ImpactStrip.module.css — the band of impact numbers. */
 
 .band {
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
   background: var(--band);
 }
 
@@ -27,13 +25,22 @@
   font-size: 32px;
   font-weight: 700;
   line-height: 1.2;
-  color: var(--text);
+  /* Numbers are constants, so they get the theme's constant color. */
+  color: var(--syn-const);
 }
 
 .label {
-  font-size: var(--fs-label);
-  line-height: 1.45;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
   color: var(--muted);
+}
+
+/* Styled as a code comment. The "/ ''" alt text keeps screen readers
+   from announcing "slash slash". */
+.label::before {
+  content: "// " / "";
 }
 
 /* Phones: a 2-column grid; an odd last item spans both columns. */
@@ -53,7 +60,7 @@
   }
 
   .label {
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 12px;
+    line-height: 1.45;
   }
 }

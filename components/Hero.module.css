@@ -21,6 +21,71 @@
   letter-spacing: -0.02em;
 }
 
+/* Part of the headline, highlighted like selected text in the editor. */
+.highlight {
+  padding: 0 0.04em;
+  border-radius: 4px;
+  background: var(--selection);
+  /* Each wrapped line gets its own rounded highlight. */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* A thin editor caret after the headline. */
+.caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.9em;
+  margin-left: 0.06em;
+  vertical-align: -0.08em;
+  background: var(--accent);
+  /* Starts on the hidden half so it doesn't sit at the end while the
+     headline is still typing (the delay is set below). */
+  animation: caret-blink 1.06s step-end infinite backwards;
+}
+
+@keyframes caret-blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---- First visit: wait for the typing, then select and fade in ---------- */
+:global(html[data-intro]) .caret {
+  animation-delay: var(--type-end);
+}
+
+:global(html[data-intro]) .highlight {
+  animation: select-in 160ms ease-out both;
+  animation-delay: var(--type-end);
+}
+
+:global(html[data-intro]) .intro,
+:global(html[data-intro]) .actions {
+  animation: fade-up 420ms var(--vt-ease-out) both;
+  animation-delay: var(--type-end);
+}
+
+:global(html[data-intro]) .actions {
+  animation-delay: calc(var(--type-end) + 90ms);
+}
+
+@keyframes select-in {
+  from {
+    background-color: transparent;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 .intro {
   max-width: 760px;
   font-size: var(--fs-lead);

@@ -1,7 +1,7 @@
 /* TerminalWindow.module.css — Windows Terminal window frame. */
 
 .window {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-window);
   background: var(--bg);
   overflow: hidden;
