@@ -284,9 +284,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 - [ ] **Field notes** (`content/field-notes.ts`): summaries and links for the duplicate-customer/deduper note, the Trellis migration, receptionist evals
 - [ ] **Trellis case study** (`content/case-studies/trellis.mdx`):
   - [ ] Hero screenshot: Trellis admin, member list with next charge dates
-  - [ ] Who on staff runs club billing day to day, and how often charges run
-  - [ ] What happened with the old vendor, and what staff did by hand in the meantime
-  - [ ] Budget, and how comfortable admin users are with new software
+  - [x] Who runs club billing and how often; what went wrong with the old software; budget
   - [ ] A real code excerpt (e.g. the idempotency-key charge call) for `charge.ts — excerpt`
   - [ ] After go-live: migration/cutover/rollback plan and staff training; results (charges run, failures caught, time saved)
   - [ ] Something that broke during the build and what you changed
