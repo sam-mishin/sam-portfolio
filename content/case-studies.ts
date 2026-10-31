@@ -52,6 +52,9 @@ export const caseStudyLabels = {
   breadcrumbHref: "/#work",
   tocCommand: "cat toc",
   tocLabel: "On this page",
+  /** Side-rail labels on wide screens: the title block's, and each section's command ({id} = its id). */
+  headerRail: { number: "00", command: "cat README" },
+  sectionCommand: "cat {id}",
   allWork: { hint: "← cd ..", label: "All work", href: "/#work" },
   next: "next →",
   previous: "← prev",

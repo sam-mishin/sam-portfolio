@@ -6,11 +6,13 @@
  * shows the breadcrumb, title, summary, facts grid and hero screenshot
  * from content/case-studies.ts, a table of contents from the shared
  * section template, the prose from content/case-studies/<slug>.mdx, and
- * links to the previous and next case studies.
+ * links to the previous and next case studies. Each part is a full-width
+ * band with side rails on wide screens (components/case-study/Band.tsx).
  */
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Band } from "@/components/case-study/Band";
 import { PageTransition } from "@/components/PageTransition";
 import { Shot, Text } from "@/components/Placeholder";
 import { Prompt } from "@/components/Prompt";
@@ -62,43 +64,45 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   return (
     <PageTransition>
       <article className={styles.page}>
-        <header className={styles.header}>
-          {/* The view-source link opens this case study's .mdx on GitHub. */}
-          <SourceRow file={`content/case-studies/${slug}.mdx`}>
-            <p className={styles.breadcrumb}>
-              <Link href={labels.breadcrumbHref} transitionTypes={[NAV_BACK]}>
-                {labels.breadcrumbRoot}
-              </Link>
-              <span aria-hidden="true" className={styles.slash}>
-                {" "}
-                /{" "}
-              </span>
-              <span aria-current="page">{slug}</span>
-            </p>
-          </SourceRow>
-          <h1 className={styles.title}>{study.card.title}</h1>
-          <p className={styles.summary}>{study.summary}</p>
-          {/* Printed copies say where the live page is. */}
-          <p className="print-only print-url">{absoluteUrl(`/work/${slug}`)}</p>
-          <dl className={styles.facts}>
-            {study.facts.map((fact) => (
-              <div key={fact.label} className={styles.fact}>
-                <dt className={styles.factLabel}>{fact.label}</dt>
-                <dd className={styles.factValue}>
-                  <Text value={fact.value} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </header>
+        <Band as="header" noRule number={labels.headerRail.number} command={labels.headerRail.command}>
+          <div className={styles.header}>
+            {/* The view-source link opens this case study's .mdx on GitHub. */}
+            <SourceRow file={`content/case-studies/${slug}.mdx`}>
+              <p className={styles.breadcrumb}>
+                <Link href={labels.breadcrumbHref} transitionTypes={[NAV_BACK]}>
+                  {labels.breadcrumbRoot}
+                </Link>
+                <span aria-hidden="true" className={styles.slash}>
+                  {" "}
+                  /{" "}
+                </span>
+                <span aria-current="page">{slug}</span>
+              </p>
+            </SourceRow>
+            <h1 className={styles.title}>{study.card.title}</h1>
+            <p className={styles.summary}>{study.summary}</p>
+            {/* Printed copies say where the live page is. */}
+            <p className="print-only print-url">{absoluteUrl(`/work/${slug}`)}</p>
+            <dl className={styles.facts}>
+              {study.facts.map((fact) => (
+                <div key={fact.label} className={styles.fact}>
+                  <dt className={styles.factLabel}>{fact.label}</dt>
+                  <dd className={styles.factValue}>
+                    <Text value={fact.value} />
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className={styles.hero}>
+            <Shot shot={study.heroShot} size="feature" preload />
+          </div>
+        </Band>
 
-        <div className={styles.hero}>
-          <Shot shot={study.heroShot} size="feature" preload />
-        </div>
-
-        <div className={styles.body}>
-          <nav aria-label={labels.tocLabel} className={styles.toc} data-no-print>
-            <Prompt>{labels.tocCommand}</Prompt>
+        <Band as="div" command={labels.tocCommand} printHidden>
+          <nav aria-label={labels.tocLabel} className={styles.toc}>
+            {/* The right rail shows the command on wide screens. */}
+            <Prompt className={styles.tocPrompt}>{labels.tocCommand}</Prompt>
             <ol className={styles.tocList}>
               {template.map((section, i) => (
                 <li key={section.id}>
@@ -109,9 +113,10 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               ))}
             </ol>
           </nav>
-          <div className={styles.prose}>
-            <Body />
-          </div>
+        </Band>
+
+        <div className={styles.sections}>
+          <Body />
         </div>
 
         <nav aria-label={labels.moreLabel} className={styles.pager} data-no-print>

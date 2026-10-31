@@ -34,6 +34,7 @@
   --border: #232833; /* buttons and inputs only; cards are unbordered */
   --border-card: transparent;
   --dots: #2d333d;
+  --rail-dot: #1d232d; /* the dot grid in case-study side rails */
   --text: #e6e1cf;
   --text-body: #bfbdb6;
   --muted: #8a9199; /* Ayu's gutter grey, lightened to pass 4.5:1 */
@@ -75,6 +76,7 @@
   --border: #d3d8de;
   --border-card: transparent;
   --dots: #cdd2d8;
+  --rail-dot: #e3e7eb;
   --text: #24282d;
   --text-body: #5c6166;
   --muted: #61676d;
@@ -564,6 +566,7 @@ html.theme-transition::view-transition-new(root) {
     --border: #d3d8de;
     --border-card: #d3d8de;
     --dots: #cdd2d8;
+    --rail-dot: #ffffff;
     --text: #111418;
     --text-body: #33373c;
     --muted: #55595e;

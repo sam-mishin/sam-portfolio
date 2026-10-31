@@ -55,7 +55,7 @@ flowchart LR
 | Route | File | How it's built |
 |---|---|---|
 | `/` | `app/page.tsx` | Static. The winfetch Uptime row is cached for a day (`lib/winfetch-data.ts`), so it stays current without a redeploy. |
-| `/work/<slug>` | `app/work/[slug]/page.tsx` + `content/case-studies/<slug>.mdx` | One static page per case study (`generateStaticParams`). Code blocks are highlighted by Shiki at build time (`lib/highlight.ts`). |
+| `/work/<slug>` | `app/work/[slug]/page.tsx` + `content/case-studies/<slug>.mdx` | One static page per case study (`generateStaticParams`), built from full-width bands with side rails (`components/case-study/Band.tsx`). Code blocks are highlighted by Shiki at build time (`lib/highlight.ts`). |
 | Any unknown URL | `app/not-found.tsx` | Static PowerShell-style 404, status 404, `noindex`. |
 | `/sitemap.xml`, `/robots.txt` | `app/sitemap.ts`, `app/robots.ts` | Static, built from the case-study list and `lib/site-url.ts`. |
 | Share images | `app/opengraph-image.tsx`, `app/work/[slug]/opengraph-image.tsx` | 1200×630 PNGs drawn at build time with `next/og` (`lib/og.tsx`). |

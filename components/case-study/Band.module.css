@@ -1,0 +1,105 @@
+/* Band.module.css — full-width case-study band with side rails. */
+
+.band {
+  border-top: 1px dashed var(--border);
+  scroll-margin-top: 24px;
+}
+
+.noRule {
+  border-top: 0;
+}
+
+.frame {
+  --rail: 152px;
+  position: relative;
+  max-width: calc(var(--page-max) + 2 * var(--rail));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.rail {
+  display: none;
+}
+
+.content {
+  min-width: 0;
+  padding: 48px var(--gutter) 56px;
+}
+
+/* Wide screens: rails down both sides, and a small square wherever the
+   dashed rule meets a rail. */
+@media (min-width: 1024px) {
+  .frame {
+    grid-template-columns: var(--rail) minmax(0, 1fr) var(--rail);
+  }
+
+  .band:not(.noRule) .frame::before,
+  .band:not(.noRule) .frame::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    width: 7px;
+    height: 7px;
+    box-sizing: border-box;
+    border: 1px solid var(--dots);
+    background: var(--bg);
+  }
+
+  .frame::before {
+    left: calc(var(--rail) - 4px);
+  }
+
+  .frame::after {
+    right: calc(var(--rail) - 4px);
+  }
+
+  .rail {
+    display: block;
+    padding: 24px 14px;
+    border-right: 1px solid var(--border-subtle);
+    background-image: radial-gradient(var(--rail-dot) 1px, transparent 1.3px);
+    background-size: 10px 10px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .railRight {
+    border-right: 0;
+    border-left: 1px solid var(--border-subtle);
+    text-align: right;
+  }
+
+  .content {
+    padding: 64px 56px 72px;
+  }
+}
+
+/* A solid chip behind the label so the dots never run through the text. */
+.label {
+  padding: 2px 4px;
+  background: var(--bg);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.caret {
+  color: var(--accent);
+}
+
+@media print {
+  .band {
+    border-top: 0;
+  }
+
+  .frame {
+    display: block;
+    max-width: none;
+  }
+
+  .content {
+    padding: 0 0 28px;
+  }
+}

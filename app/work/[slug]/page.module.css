@@ -1,12 +1,9 @@
 /* work/[slug]/page.module.css — case-study page layout and prose styles. */
 
 .page {
-  max-width: var(--page-max);
-  margin: 0 auto;
-  padding: 48px var(--gutter) 24px;
+  padding-bottom: 24px;
   display: flex;
   flex-direction: column;
-  gap: 56px;
 }
 
 /* ---- Title block ---------------------------------------------------------- */
@@ -49,17 +46,21 @@
   margin: 8px 0 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1px;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  background: var(--border);
+  background: var(--surface);
   font-size: var(--fs-small);
 }
 
+/* Dashed lines between the facts. Each cell draws its left and top edge
+   and sits 1px up and left, so the edges along the outside are hidden
+   under the box's solid border whichever way the grid wraps. */
 .fact {
+  margin: -1px 0 0 -1px;
   padding: 18px 20px;
-  background: var(--surface);
+  border-top: 1px dashed var(--border);
+  border-left: 1px dashed var(--border);
 }
 
 .factLabel {
@@ -76,6 +77,7 @@
 
 /* ---- Hero screenshot ---------------------------------------------------- */
 .hero {
+  margin-top: 48px;
   display: flex;
   min-height: 520px;
 }
@@ -85,15 +87,8 @@
   min-height: 0;
 }
 
-/* ---- Table of contents + prose ------------------------------------------ */
-.body {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 48px;
-}
-
+/* ---- Table of contents ------------------------------------------------- */
 .toc {
-  flex: 1 1 220px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -101,12 +96,10 @@
   font-size: var(--fs-label);
 }
 
-/* On wide screens the contents stay in view while you read. */
-@media (min-width: 1000px) {
-  .toc {
-    position: sticky;
-    top: 24px;
-    align-self: flex-start;
+/* Wide screens show the command in the right rail instead. */
+@media (min-width: 1024px) {
+  .tocPrompt {
+    display: none;
   }
 }
 
@@ -114,6 +107,9 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  column-gap: 32px;
 }
 
 .tocLink {
@@ -128,42 +124,44 @@
   color: var(--muted);
 }
 
-.prose {
-  flex: 999 1 640px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
+/* ---- Sections (each one a band, from CaseSection) ------------------------ */
+.sections {
+  border-bottom: 1px dashed var(--border);
   font-size: var(--fs-body);
   line-height: 1.7;
   color: var(--text-body);
 }
 
-.prose p,
-.prose ul,
-.prose ol {
+.sections p,
+.sections ul,
+.sections ol {
   margin: 0;
 }
 
-.prose ul,
-.prose ol {
+.sections ul,
+.sections ol {
   padding-left: 22px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.prose strong {
+.sections strong {
   color: var(--text);
 }
 
-.prose code {
+.sections code {
   font-size: 0.9em;
   color: var(--value);
 }
 
 /* ---- Previous / next ---------------------------------------------------- */
 .pager {
+  width: 100%;
+  max-width: var(--page-max);
+  box-sizing: border-box;
+  margin: 48px auto 0;
+  padding: 0 var(--gutter);
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -203,22 +201,13 @@
 }
 
 @media (max-width: 720px) {
-  .page {
-    padding-top: 24px;
-    gap: 36px;
-  }
-
   .summary {
     font-size: 18px;
   }
 
   .hero {
+    margin-top: 32px;
     min-height: 220px;
-  }
-
-  .body,
-  .prose {
-    gap: 36px;
   }
 }
 
@@ -228,10 +217,10 @@
 @media print {
   .page {
     padding: 0;
-    gap: 28px;
   }
 
   .hero {
+    margin-top: 28px;
     min-height: 0;
   }
 
@@ -240,7 +229,7 @@
     display: none;
   }
 
-  .prose {
-    gap: 28px;
+  .sections {
+    border-bottom: 0;
   }
 }
