@@ -1,0 +1,85 @@
+/* Blocks.module.css — decision cards, code excerpt, placeholders, asides. */
+
+.decisions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 16px;
+  margin: 4px 0;
+}
+
+.decision {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.decisionTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.decisionBody {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+.decisionBody p {
+  margin: 0;
+}
+
+.code {
+  margin: 4px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--band);
+  overflow: hidden;
+}
+
+.codeTitle {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+}
+
+.codeBody {
+  margin: 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.todo {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  border-left: 2px dashed var(--dots);
+  padding-left: 12px;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  font-size: var(--fs-small);
+}
+
+.asideTitle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  color: var(--key);
+}
+
+.aside p {
+  margin: 0;
+}

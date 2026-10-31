@@ -65,11 +65,23 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 | `content/field-notes.ts` | Field notes cards |
 | `content/home.ts` | Section commands, headings, intro lines and card labels |
 | `content/nav.ts` | Tab bar tabs, résumé button, phone menu labels |
+| `content/case-studies.ts` | Case-study summaries, facts grids, hero screenshots and the 8-section template |
+| `content/case-studies/*.mdx` | Case-study prose |
 | `content/ascii-*.txt` | The ASCII portrait (generated — see below) |
 
 Use curly quotes (’ “ ”) and real dashes (– —). Every number should match the résumé.
 
 The **Uptime** row on the winfetch card is counted from `codingSince` in `content/profile.ts` (`lib/uptime.ts`, tested in `lib/uptime.test.ts`). It's cached for a day at a time, so the live site updates itself roughly daily without a redeploy.
+
+## Adding a case study
+
+Case studies live at `/work/<slug>` and are built as static pages.
+
+1. **The card.** In `content/projects.ts`, find (or add) the deployment and set `caseStudy: true`. Its `slug` becomes the URL and its `title` the page heading.
+2. **The facts.** In `content/case-studies.ts`, add an entry with the same `slug`: a one-sentence `summary`, the four `facts` (Role, Status, Stack, How it’s built) and the `heroShot` placeholder.
+3. **The prose.** Copy `content/case-studies/cash-drawer.mdx` to `content/case-studies/<slug>.mdx` and fill in each section. Every case study uses the same eight sections, in this order: Customer and context · Discovery · Constraints · What I shipped · Rollout and training · Results · What broke and what I changed · What’s next. Wrap each in `<CaseSection id="…">`; the number and heading are added for you.
+4. Components you can use inside the `.mdx` without importing anything: `<Diagram>`, `<Decisions>` / `<Decision>`, `<CodeExcerpt>`, `<Aside>`, `<Todo>` (see `mdx-components.tsx`). Plain markdown works for everything else.
+5. Run `npm run build`. The page, the table of contents, the previous/next links, the project tab in the header, and the card-to-page animation are all automatic.
 
 ## Regenerating the ASCII portrait
 
@@ -106,7 +118,7 @@ The card sizes the font to fit whatever width the art comes out at, so no code c
 2. ✅ Terminal building blocks (`Prompt`, `KeyValue`, `TerminalWindow`, `Cursor`)
 3. ✅ Content files, uptime math, ASCII portrait and the `winfetch` card
 4. ✅ Home page: tab-bar navigation, hero, winfetch, impact strip, Deployments, timeline, skills/education, How I work, field notes, contact footer with copy-to-clipboard email
-5. Case studies (MDX) and View Transitions
+5. ✅ Case studies (MDX) and View Transitions
 6. Command palette and light/dark theme
 7. 404, metadata, Open Graph image, sitemap, final docs and audits
 
@@ -130,3 +142,23 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 - [ ] **Royal Service Cleaning card**: a result (inquiries delivered, response time…)
 - [ ] **How I work artifacts** (`content/how-i-work.ts`): links for discovery note, prototype, rollout plan, training notes, results write-up, field note
 - [ ] **Field notes** (`content/field-notes.ts`): summaries and links for the duplicate-customer/webhook note, the Trellis migration, receptionist evals
+- [ ] **Trellis case study** (`content/case-studies/trellis.mdx`):
+  - [ ] Hero screenshot: Trellis admin, member list with next charge dates
+  - [ ] Who on staff runs club billing day to day, and how often charges run
+  - [ ] What happened with the old vendor, and what staff did by hand in the meantime
+  - [ ] Budget, and how comfortable admin users are with new software
+  - [ ] A real code excerpt (e.g. the idempotency-key charge call) for `charge.ts — excerpt`
+  - [ ] After go-live: migration/cutover/rollback plan and staff training; results (charges run, failures caught, time saved)
+  - [ ] Something that broke during the build and what you changed
+- [ ] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
+  - [ ] Your role (facts grid); hero screenshot of the dashboard
+  - [ ] How the owner and GM use it; the real problem behind the request
+  - [ ] Budget, timeline, Clover data quirks; 2–3 key decisions
+  - [ ] How it went live; what changed for the owner/GM (before/after)
+  - [ ] How the duplicates were found and how the webhook redesign changes the sync
+- [ ] **Cash drawer case study** (`content/case-studies/cash-drawer.mdx` + `content/case-studies.ts`):
+  - [ ] Your role (facts grid); screenshot of the count screen
+  - [ ] When counts happen and who checks them; asked-for vs. real problem
+  - [ ] Devices, timeline, what the prototype got wrong; 2–3 key decisions
+  - [ ] How the switch from paper went; in-app vs. paper counts and before/after accuracy
+  - [ ] Something that broke or confused staff and what you changed

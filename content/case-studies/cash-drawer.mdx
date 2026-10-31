@@ -1,0 +1,88 @@
+{/*
+  content/case-studies/cash-drawer.mdx — the cash drawer counts case study.
+
+  HOW TO EDIT: write plain markdown inside each <CaseSection>. Keep the
+  eight sections and their order (they come from content/case-studies.ts).
+  <Todo> marks text still to be written; replace the whole <Todo> line.
+  Every fact must match the résumé.
+*/}
+
+<CaseSection id="customer">
+
+The tasting room staff at 14 Acres Vineyard & Winery — **8–10 people** — who count the cash drawer, and the managers who rely on those counts. Cash sales are rung up in the **Clover POS**.
+
+<Todo>[Add: when counts happen (open, close, shift change) and who checks them]</Todo>
+
+</CaseSection>
+
+<CaseSection id="discovery">
+
+**What they had:** paper cash counts that weren’t accurate, and a buggy prototype meant to replace them.
+
+<Todo>[Add: what they asked for vs. the real problem — e.g. what went wrong with the paper counts and the prototype]</Todo>
+
+</CaseSection>
+
+<CaseSection id="constraints">
+
+- **Existing systems:** the source of truth for cash sales is Clover, so every count is checked against Clover cash sales.
+- **Users:** 8–10 staff use it, so it has to be quick to learn and quick to use during a shift.
+
+<Todo>[Add: devices it runs on, timeline, and anything the prototype got wrong that the rebuild had to avoid]</Todo>
+
+</CaseSection>
+
+<CaseSection id="shipped">
+
+<Diagram
+  label="Architecture: staff enter a drawer count in the Next.js app, it is saved to Supabase, and each count is compared with Clover cash sales so any mismatch is flagged."
+  nodes={[
+    { title: "Next.js app", note: "staff enter the count" },
+    { title: "Supabase", note: "counts stored", accent: true },
+    { title: "Clover API", note: "cash sales for the shift" },
+    { title: "Check", note: "mismatches flagged" },
+  ]}
+  links={["→", "⇄", "→"]}
+/>
+
+I rebuilt the prototype in Next.js and Supabase. Staff enter the drawer count in the app, and every count is checked against Clover cash sales so any mismatch is flagged.
+
+<Todo>[Add: 2–3 key decisions from the rebuild, and a screenshot of the count screen]</Todo>
+
+<Aside title="Working with AI">
+
+The cash drawer app is AI-assisted. I review and test every change before it ships.
+
+</Aside>
+
+</CaseSection>
+
+<CaseSection id="rollout">
+
+I train staff on each system myself.
+
+<Todo>[Add: how the switch from paper to the app went, and how long it took staff to get comfortable]</Todo>
+
+</CaseSection>
+
+<CaseSection id="results">
+
+- **8–10 staff** check their counts against Clover cash sales in the app.
+- **Every flagged mismatch has been under $1.**
+
+<Todo>[Add: how many counts are now done in the app vs. on paper, and the before/after accuracy]</Todo>
+
+</CaseSection>
+
+<CaseSection id="broke">
+
+<Todo>[Add: something that broke or confused staff after launch, and what you changed]</Todo>
+
+</CaseSection>
+
+<CaseSection id="next">
+
+- A simple report of mismatches over time, and of counts done in the app vs. on paper, as proof of adoption
+- A public demo with seeded fake data and a “demo” banner, so anyone can click through it
+
+</CaseSection>

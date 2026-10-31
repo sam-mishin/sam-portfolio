@@ -265,3 +265,14 @@ button {
     animation: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * View Transitions: a project card's title and screenshot morph into the
+ * case study's heading and hero (see components/DeploymentCard.tsx). The
+ * "morph" class comes from <ViewTransition share="morph">. Disabled for
+ * reduced motion by the rule above.
+ * ------------------------------------------------------------------------- */
+::view-transition-group(.morph) {
+  animation-duration: 350ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}

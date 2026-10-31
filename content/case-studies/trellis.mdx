@@ -1,0 +1,106 @@
+{/*
+  content/case-studies/trellis.mdx — the Trellis case study.
+
+  HOW TO EDIT: write plain markdown inside each <CaseSection>. Keep the
+  eight sections and their order (they come from content/case-studies.ts).
+  <Todo> marks text still to be written; replace the whole <Todo> line.
+  Every fact must match the résumé.
+*/}
+
+<CaseSection id="customer">
+
+14 Acres Vineyard & Winery is a working winery and tasting room in Ridgefield, Washington. Its wine club has about **800 members** who are charged on a schedule, and every charge goes through the **Clover POS** the tasting room already uses.
+
+Staff manage members in Trellis’s admin; members get their own pages.
+
+<Todo>[Add: who on staff runs club billing day to day, and how often charges run]</Todo>
+
+</CaseSection>
+
+<CaseSection id="discovery">
+
+**What they asked for:** a replacement for the winery’s club billing vendor, which was discontinued.
+
+**The real problem:** whatever replaced it had to be trustworthy with money from day one, charge through the Clover account the winery already runs on, and not need a rewrite to serve other wineries later.
+
+<Todo>[Add: what happened with the old vendor, and what staff were doing by hand in the meantime]</Todo>
+
+</CaseSection>
+
+<CaseSection id="constraints">
+
+- **Existing systems:** every charge has to go through Clover, the POS the tasting room already uses.
+- **Money:** about 800 members are billed on a schedule, so a retried job can never charge someone twice.
+- **Timeline:** first live member charges are planned for January 2027.
+- **How it’s built:** I design and direct an AI-assisted build, and review and test every change.
+
+<Todo>[Add: budget, and how comfortable the staff who will use the admin are with new software]</Todo>
+
+</CaseSection>
+
+<CaseSection id="shipped">
+
+<Diagram
+  label="Architecture: the Next.js app and Render workers share a PostgreSQL database; the workers charge cards through the Clover API with an idempotency key."
+  nodes={[
+    { title: "Next.js app", note: "staff admin + member pages" },
+    { title: "PostgreSQL", note: "tenant_id on every table · RLS", accent: true },
+    { title: "Render workers", note: "scheduled club charges" },
+    { title: "Clover API", note: "charge + idempotency key" },
+  ]}
+  links={["⇄", "⇄", "→"]}
+/>
+
+Staff manage members in the Next.js app. Workers on Render run the charge schedule and call Clover. Every table carries a winery ID, and Postgres row-level security means one winery can never read another’s data.
+
+<Decisions>
+  <Decision title="No double charges">
+    Each Clover payment carries an idempotency key, so a retried job can’t bill a member twice.
+  </Decision>
+  <Decision title="Multi-tenant from day one">
+    Tenant IDs and row-level security now, so selling to other wineries doesn’t mean a rewrite.
+  </Decision>
+  <Decision title="CI on every push">
+    GitHub Actions runs lint, tests and a secret scan before anything merges.
+  </Decision>
+</Decisions>
+
+<CodeExcerpt title="charge.ts — excerpt">[Paste a short, real excerpt here, e.g. the idempotency-key charge call]</CodeExcerpt>
+
+<Aside title="Working with AI">
+
+Trellis is AI-assisted. I own the design and the decisions above, and I read, review and test every change before it ships. My hand-written projects, like the chess variant and the Telegram bot, are listed separately so you can see both.
+
+</Aside>
+
+</CaseSection>
+
+<CaseSection id="rollout">
+
+Trellis isn’t live yet. First live member charges are planned for January 2027.
+
+<Todo>[Add after go-live: the plan for moving about 800 members off the old vendor (validation, cutover, rollback), and how staff learned the admin]</Todo>
+
+</CaseSection>
+
+<CaseSection id="results">
+
+<Todo>[Add after January 2027: charges run, failed charges caught, and time saved compared with the old vendor]</Todo>
+
+</CaseSection>
+
+<CaseSection id="broke">
+
+<Todo>[Add: something that broke or didn’t fit during the build, and what you changed because of it]</Todo>
+
+</CaseSection>
+
+<CaseSection id="next">
+
+- First live member charges, January 2027
+- Monitoring and alerts for failed charges, an admin audit log of who changed what, and a short runbook for when billing fails
+- A member self-service page once the MVP is stable
+- An Android app once the MVP is done
+- Offering it to other wineries
+
+</CaseSection>

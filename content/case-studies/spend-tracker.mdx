@@ -1,0 +1,87 @@
+{/*
+  content/case-studies/spend-tracker.mdx — the customer spend tracker case study.
+
+  HOW TO EDIT: write plain markdown inside each <CaseSection>. Keep the
+  eight sections and their order (they come from content/case-studies.ts).
+  <Todo> marks text still to be written; replace the whole <Todo> line.
+  Every fact must match the résumé.
+*/}
+
+<CaseSection id="customer">
+
+The owner and general manager of 14 Acres Vineyard & Winery, a working winery and tasting room in Ridgefield, Washington. Every sale goes through the **Clover POS**, but there was no single view of revenue and the top-selling food and wine.
+
+<Todo>[Add: how the owner and GM use the dashboard, and how often]</Todo>
+
+</CaseSection>
+
+<CaseSection id="discovery">
+
+**What they asked for:** one view of revenue and the top food and wine.
+
+<Todo>[Add: the real problem behind the request — what decisions they couldn’t make, or what they were piecing together by hand before]</Todo>
+
+</CaseSection>
+
+<CaseSection id="constraints">
+
+- **Existing systems:** the data lives in Clover, so the tracker reads orders from the Clover API rather than asking staff to enter anything.
+- **Volume:** the sync now holds 50,000+ orders, so it has to keep up night after night.
+
+<Todo>[Add: budget, timeline, and anything about Clover’s data that made this harder]</Todo>
+
+</CaseSection>
+
+<CaseSection id="shipped">
+
+<Diagram
+  label="Architecture: every night a Vercel Cron job runs a Supabase function that pulls new orders from the Clover API into Postgres, which feeds the owner's dashboard."
+  nodes={[
+    { title: "Vercel Cron", note: "runs nightly" },
+    { title: "Supabase function", note: "pulls new Clover orders" },
+    { title: "Postgres", note: "50,000+ orders", accent: true },
+    { title: "Dashboard", note: "revenue + top food & wine" },
+  ]}
+  links={["→", "→", "→"]}
+/>
+
+A nightly sync copies Clover POS orders into Postgres (a Supabase function on a Vercel Cron), and one dashboard on top of it shows the owner and GM revenue and the top food and wine.
+
+<Todo>[Add: 2–3 key decisions, e.g. why a nightly sync instead of live queries, and how the data is modeled]</Todo>
+
+<Aside title="Working with AI">
+
+The spend tracker is AI-assisted. I review and test every change before it ships.
+
+</Aside>
+
+</CaseSection>
+
+<CaseSection id="rollout">
+
+<Todo>[Add: how it went live and how the owner and GM learned to use it]</Todo>
+
+</CaseSection>
+
+<CaseSection id="results">
+
+- **50,000+ orders** synced from Clover into Postgres so far.
+
+<Todo>[Add: what the owner or GM now does differently, and any before/after number]</Todo>
+
+</CaseSection>
+
+<CaseSection id="broke">
+
+Duplicate Clover customer records — the same person saved more than once — split one customer’s spend across several records. To fix it I’m building a hand-written name-similarity matcher, tested with Vitest, and redesigning the sync around webhooks.
+
+<Todo>[Add: how the duplicates were found, and how the webhook redesign changes the sync]</Todo>
+
+</CaseSection>
+
+<CaseSection id="next">
+
+- Measure the identity matcher on a hand-labeled sample of real duplicates: how many it catches versus how many it wrongly merges
+- Package the matcher as a small open-source library with its Vitest tests
+
+</CaseSection>

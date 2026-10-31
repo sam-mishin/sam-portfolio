@@ -1,0 +1,24 @@
+/* CaseSection.module.css — numbered case-study section. */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-margin-top: 24px;
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--key);
+}
+
+.heading {
+  font-size: 30px;
+}
+
+@media (max-width: 720px) {
+  .heading {
+    font-size: 24px;
+  }
+}
