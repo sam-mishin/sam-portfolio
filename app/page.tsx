@@ -7,6 +7,7 @@
 import { FieldNotes } from "@/components/FieldNotes";
 import { Hero } from "@/components/Hero";
 import { PageTransition } from "@/components/PageTransition";
+import { HowBuilt } from "@/components/HowBuilt";
 import { HowIWork } from "@/components/HowIWork";
 import { ImpactStrip } from "@/components/ImpactStrip";
 import { SkillsEducation } from "@/components/SkillsEducation";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <Timeline />
       <SkillsEducation />
       <HowIWork />
+      <HowBuilt />
       <FieldNotes />
     </PageTransition>
   );

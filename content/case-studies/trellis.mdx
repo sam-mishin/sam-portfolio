@@ -78,11 +78,15 @@ Trellis is AI-assisted. I own the design and the decisions above, and I read, re
 
 Trellis isn’t live yet. First live member charges are planned for January 2027.
 
+The plan for moving about 800 members off the old software, and how staff learned the admin, will be written up here after the January 2027 go-live.
+
 <Todo>[Add after go-live: the plan for moving about 800 members off the old vendor (validation, cutover, rollback), and how staff learned the admin]</Todo>
 
 </CaseSection>
 
 <CaseSection id="results">
+
+Results are coming after the January 2027 go-live: charges run, failed charges caught, and time saved compared with the old software.
 
 <Todo>[Add after January 2027: charges run, failed charges caught, and time saved compared with the old vendor]</Todo>
 
@@ -90,7 +94,9 @@ Trellis isn’t live yet. First live member charges are planned for January 2027
 
 <CaseSection id="broke">
 
-<Todo>[Add: something that broke or didn’t fit during the build, and what you changed because of it]</Todo>
+Trellis isn’t live yet, so nothing has broken in production. One thing I changed from the original build plan: the admin now listens for changes in the database and updates on its own.
+
+For example, staff can email a member a secure link to update their card on file without logging in. As that email moves from queued to delivered to opened, the database records each status, and the admin shows it right away, without a reload.
 
 </CaseSection>
 

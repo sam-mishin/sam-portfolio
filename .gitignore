@@ -46,5 +46,9 @@ next-env.d.ts
 # files the Claude desktop app drops into this folder
 /Claude outputs/
 
+# private notes kept outside the repo (see README, Public repo check)
+/docs/career/
+/docs/resume/
+
 # python
 __pycache__/

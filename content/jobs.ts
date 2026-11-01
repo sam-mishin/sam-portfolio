@@ -56,7 +56,7 @@ export const jobs: Job[] = [
     dates: "Oct 2023 – now",
     role: "Freelance Web Developer",
     org: "Self-employed",
-    desc: "About 12 client sites in Webflow and Next.js, from design through launch, plus Python image tooling and Make.com automations.",
+    desc: "About 12 client sites in Webflow and Next.js, from design through launch, plus Python image tooling and Make.com automations. I handle accessibility on client sites: ARIA labels, visible focus states, alt text and color contrast.",
     dot: "side",
   },
 ];

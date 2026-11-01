@@ -1,7 +1,7 @@
 /**
  * components/FieldNotes.tsx — "Field notes": short write-ups of real
- * problems from the deployments. Each card shows its status until the
- * note is written and linked. Data comes from content/field-notes.ts.
+ * problems from the deployments. Data comes from content/field-notes.ts.
+ * Drafts are left out, and with no finished notes the section isn't shown.
  */
 import { sections } from "@/content/home";
 import { fieldNotes } from "@/content/field-notes";
@@ -12,10 +12,12 @@ import styles from "./FieldNotes.module.css";
 /** Grid of field-note cards. */
 export function FieldNotes() {
   const s = sections.fieldNotes;
+  const notes = fieldNotes.filter((note) => !note.draft);
+  if (notes.length === 0) return null;
   return (
     <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro} source="components/FieldNotes.tsx">
       <ul className={styles.grid}>
-        {fieldNotes.map((note) => (
+        {notes.map((note) => (
           <li key={note.title} className={`${styles.card} reveal`} data-spotlight>
             <p className={styles.status}>{note.status}</p>
             <h3 className={styles.title}>

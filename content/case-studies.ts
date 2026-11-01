@@ -11,7 +11,11 @@
  *   the same order with the same headings.
  * - To add a case study: add an entry to `caseStudies`, create the .mdx
  *   file, and set `caseStudy: true` on the card in content/projects.ts.
- * - [Bracketed] values are placeholders and show on the page as-is.
+ * - [Bracketed] values are placeholders: they stay here as a to-do list
+ *   but are left off the live site (a placeholder fact or hero image
+ *   simply isn't shown).
+ * - `hiddenSections` leaves whole sections off a case study (and out of
+ *   its table of contents) until they're written; the rest renumber.
  */
 
 import type { ShotValue } from "@/components/Placeholder";
@@ -40,6 +44,8 @@ export interface CaseStudy {
   facts: { label: string; value: string }[];
   /** Screenshot text until a real image exists, then the image ({ src, alt, width, height }). */
   heroShot: ShotValue;
+  /** Sections not written yet, left off the page, e.g. ["broke"]. */
+  hiddenSections?: SectionId[];
 }
 
 /** Labels used on every case-study page. */

@@ -10,6 +10,7 @@
 import type { ReactNode } from "react";
 import styles from "./Blocks.module.css";
 import { findFencedCode } from "@/lib/mdx-code";
+import { isPlaceholder } from "../Placeholder";
 import { CodeBlock } from "./CodeBlock";
 
 /** Props for {@link Decisions}. */
@@ -53,6 +54,8 @@ export interface CodeExcerptProps {
 export function CodeExcerpt({ title, children }: CodeExcerptProps) {
   const fenced = findFencedCode(children);
   if (fenced) return <CodeBlock code={fenced.code} lang={fenced.lang} title={title} />;
+  // Still a [placeholder]: leave the excerpt off the page.
+  if (typeof children === "string" && isPlaceholder(children)) return null;
   return (
     <figure className={styles.code}>
       <figcaption className={styles.codeTitle}>{title}</figcaption>
@@ -70,9 +73,13 @@ export interface TodoProps {
   children: ReactNode;
 }
 
-/** A placeholder paragraph for content still to be written. */
+/**
+ * Content still to be written. It stays in the .mdx file as a reminder
+ * but renders nothing, so a placeholder never reaches the live site.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Todo({ children }: TodoProps) {
-  return <p className={styles.todo}>{children}</p>;
+  return null;
 }
 
 /** Props for {@link Aside}. */

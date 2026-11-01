@@ -40,7 +40,7 @@ export const plainText = {
   llms: {
     /** One paragraph after the summary line: who this is and what to read first. */
     about:
-      "Sam is a full-stack web developer who embeds with businesses and ships the software they run on. Most of that work is at 14 Acres Vineyard & Winery, where he started as a dishwasher in 2024 and now builds and maintains the winery’s software. He is looking for full-stack and forward-deployed engineering roles.",
+      "Sam is a full-stack web developer who embeds with businesses and ships the software they run on. Most of that work is at 14 Acres Vineyard & Winery, where he started as a dishwasher in 2024 and now builds and maintains the winery’s software. He is looking for frontend, design systems, full-stack and forward-deployed engineering roles.",
     caseStudiesHeading: "Case studies",
     projectsHeading: "Other projects",
     resumeHeading: "Résumé and contact",

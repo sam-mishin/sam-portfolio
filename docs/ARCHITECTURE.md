@@ -44,7 +44,7 @@ flowchart LR
 | Folder | Role | Rule of thumb |
 |---|---|---|
 | `content/` | Every word on the site, every number, every command | Edit text here, never in components. Each file starts with a "HOW TO EDIT" comment. |
-| `lib/` | Small, pure functions: palette filtering, shell matching, typing timings, uptime math, theme and intro switches, site URL, share-image drawing | Anything with logic worth testing lives here, next to its `*.test.ts`. |
+| `lib/` | Small, pure functions: palette filtering, shell matching, typing timings, uptime math, theme and intro switches, site URL, share-image drawing, the design-token excerpt read from `globals.css` | Anything with logic worth testing lives here, next to its `*.test.ts`. |
 | `components/` | React components, one `.module.css` each | Colors come only from the tokens in `app/globals.css`. |
 | `app/` | Routes and the root layout | `globals.css` is the only file with raw color values (plus `lib/literal-colors.ts`, below). |
 | `assets/og/` | Subset Cascadia Code TTFs for the share images | Not served to visitors; read at build time. |
@@ -125,7 +125,7 @@ sequenceDiagram
 
 | Layer | Tool | What |
 |---|---|---|
-| Unit | Vitest (`npm test`) | Palette ranking and keyboard index, shell matching and completion, typing timings, uptime math, page-transition direction, literal-color drift |
+| Unit | Vitest (`npm test`) | Palette ranking and keyboard index, shell matching and completion, typing timings, uptime math, page-transition direction, literal-color drift, the design-token excerpt |
 | Types and lint | `tsc`, ESLint | `npm run typecheck`, `npm run lint` |
 | Build | `next build` | Prerenders every page; fails on missing content entries |
 | Accessibility and performance | axe-core and Lighthouse, run against a production build | Results are in the README |

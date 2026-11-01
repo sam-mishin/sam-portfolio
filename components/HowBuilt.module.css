@@ -1,0 +1,24 @@
+/* HowBuilt.module.css — "How this site is built": cards, then the token excerpt. */
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Three across on wide screens, like "How I work". */
+.cards > div {
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+.more {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+}
+
+.more a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+}

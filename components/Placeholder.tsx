@@ -3,10 +3,11 @@
  * and the screenshot slots that hold real images once they exist.
  *
  * Any string in content/ that starts with "[" (e.g. "[Add: a result]") is a
- * placeholder. `Text` shows it in a dashed, muted style so it's obvious on
- * the page and impossible to mistake for a real claim. `Shot` is a
- * screenshot slot: a dashed box with a description until there's an image,
- * then the image itself.
+ * placeholder. Placeholders stay in the content files as a to-do list but
+ * never reach the live site: components check `isPlaceholder` and leave
+ * that field out. `Text` is the last line of defence (it shows a stray
+ * placeholder in a dashed, muted style so it's easy to spot). `Shot` is a
+ * screenshot slot: nothing until there's an image, then the image itself.
  */
 import Image from "next/image";
 import styles from "./Placeholder.module.css";
@@ -55,16 +56,14 @@ export interface ShotProps {
   preload?: boolean;
 }
 
-/** A screenshot slot: dashed placeholder box, or the real image. */
+/** True when a screenshot slot holds a real image rather than placeholder text. */
+export function hasImage(shot: ShotValue): shot is ShotImage {
+  return typeof shot !== "string";
+}
+
+/** A screenshot slot: the real image, or nothing while it's still placeholder text. */
 export function Shot({ shot, size = "card", preload = false }: ShotProps) {
-  if (typeof shot === "string") {
-    // An empty box is just wasted paper, so placeholders are left out of print.
-    return (
-      <div className={`${styles.shot} ${styles[size]}`} data-no-print>
-        {shot}
-      </div>
-    );
-  }
+  if (!hasImage(shot)) return null;
   const sizes = size === "feature" ? "(max-width: 720px) 100vw, 1136px" : "(max-width: 720px) 100vw, 400px";
   return (
     <figure className={`${styles.image} ${size === "card" ? styles.imageCard : styles.imageFeature}`}>

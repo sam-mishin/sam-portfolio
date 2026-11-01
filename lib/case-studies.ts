@@ -3,7 +3,7 @@
  * with its card (content/projects.ts) and works out the previous and next
  * case studies for the links at the bottom of each page.
  */
-import { caseStudies, type CaseStudy } from "@/content/case-studies";
+import { caseStudies, template, type CaseStudy } from "@/content/case-studies";
 import { deployments, type Deployment } from "@/content/projects";
 
 /** Everything a case-study page needs about one project. */
@@ -33,6 +33,11 @@ function ordered(): CaseStudyPage[] {
 }
 
 /** All case-study slugs, for generateStaticParams. */
+/** The template sections a case study shows, in order (its hidden ones left out). */
+export function visibleSections(study: Pick<CaseStudy, "hiddenSections">) {
+  return template.filter((section) => !study.hiddenSections?.includes(section.id));
+}
+
 export function caseStudySlugs(): string[] {
   return ordered().map((page) => page.slug);
 }

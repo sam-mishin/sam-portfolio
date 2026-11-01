@@ -14,12 +14,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Band } from "@/components/case-study/Band";
 import { PageTransition } from "@/components/PageTransition";
-import { Shot, Text } from "@/components/Placeholder";
+import { CaseSection, type CaseSectionProps } from "@/components/case-study/CaseSection";
+import { hasImage, isPlaceholder, Shot, Text } from "@/components/Placeholder";
 import { Prompt } from "@/components/Prompt";
 import { SourceRow } from "@/components/SourceLink";
-import { caseStudyLabels as labels, template } from "@/content/case-studies";
+import { caseStudyLabels as labels } from "@/content/case-studies";
 import { site } from "@/content/site";
-import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies";
+import { caseStudySlugs, getCaseStudy, visibleSections } from "@/lib/case-studies";
 import { absoluteUrl } from "@/lib/site-url";
 import { NAV_BACK, NAV_FORWARD } from "@/lib/transitions";
 import styles from "./page.module.css";
@@ -60,6 +61,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
   if (!study) notFound();
 
   const { default: Body } = await import(`@/content/case-studies/${slug}.mdx`);
+  // Sections not written yet are left out of both the contents and the page.
+  const sections = visibleSections(study);
+  const mdxComponents = {
+    CaseSection: (props: CaseSectionProps) => <CaseSection {...props} sections={sections} />,
+  };
+  // Facts still holding [placeholder] text aren't shown.
+  const facts = study.facts.filter((fact) => !isPlaceholder(fact.value));
 
   return (
     <PageTransition>
@@ -84,7 +92,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             {/* Printed copies say where the live page is. */}
             <p className="print-only print-url">{absoluteUrl(`/work/${slug}`)}</p>
             <dl className={styles.facts}>
-              {study.facts.map((fact) => (
+              {facts.map((fact) => (
                 <div key={fact.label} className={styles.fact}>
                   <dt className={styles.factLabel}>{fact.label}</dt>
                   <dd className={styles.factValue}>
@@ -94,9 +102,12 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
               ))}
             </dl>
           </div>
-          <div className={styles.hero}>
-            <Shot shot={study.heroShot} size="feature" preload />
-          </div>
+          {/* No hero until there's a real image. */}
+          {hasImage(study.heroShot) && (
+            <div className={styles.hero}>
+              <Shot shot={study.heroShot} size="feature" preload />
+            </div>
+          )}
         </Band>
 
         <Band as="div" command={labels.tocCommand} printHidden>
@@ -104,7 +115,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
             {/* The right rail shows the command on wide screens. */}
             <Prompt className={styles.tocPrompt}>{labels.tocCommand}</Prompt>
             <ol className={styles.tocList}>
-              {template.map((section, i) => (
+              {sections.map((section, i) => (
                 <li key={section.id}>
                   <a href={`#${section.id}`} className={styles.tocLink}>
                     <span className="num">{String(i + 1).padStart(2, "0")}</span> {section.title}
@@ -116,7 +127,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </Band>
 
         <div className={styles.sections}>
-          <Body />
+          <Body components={mdxComponents} />
         </div>
 
         <nav aria-label={labels.moreLabel} className={styles.pager} data-no-print>

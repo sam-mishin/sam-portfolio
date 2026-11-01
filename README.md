@@ -53,7 +53,7 @@ proxy.ts        sends mistyped /work/<slug> URLs to a real 404 (see docs/ARCHITE
 assets/og/      subset Cascadia Code .ttf files used only to draw the share images
 public/fonts/   Cascadia Code .woff2 files + OFL license
 scripts/        make_ascii.py (photo → ASCII portrait)
-docs/           ARCHITECTURE.md, design spec, mockups, résumé, build notes, photo for the ASCII portrait
+docs/           ARCHITECTURE.md, design spec, mockups, build notes, photo for the ASCII portrait
 ```
 
 ## Editing content
@@ -68,7 +68,8 @@ All text and data live in `content/`. Each file starts with a "HOW TO EDIT" comm
 | `content/jobs.ts` | Career timeline (`git log --career`) |
 | `content/skills.ts` | Skills (`skills.json`) and education |
 | `content/how-i-work.ts` | The six "How I work" steps and their artifact links |
-| `content/field-notes.ts` | Field notes cards |
+| `content/how-built.ts` | "How this site is built": the six design-system notes and which tokens the `globals.css` excerpt shows |
+| `content/field-notes.ts` | Field notes cards (`draft: true` keeps one off the site; all drafts hides the section) |
 | `content/home.ts` | Section commands, headings, intro lines and card labels |
 | `content/nav.ts` | Tab bar tabs, résumé button, phone menu and theme-button labels |
 | `content/commands.ts` | Command palette commands, hints and messages |
@@ -255,7 +256,7 @@ The site is styled after Windows Terminal and PowerShell, but every visual is dr
 
 ## Placeholder TODO
 
-Everything Sam still needs to supply. Each item shows up on the site as visible `[bracketed]` text until it's filled in.
+Everything Sam still needs to supply. Placeholders stay in `content/` as `[bracketed]` text (or `<Todo>` in the .mdx files) but never reach the live site: unfinished card fields, facts, screenshots, code excerpts and `<Todo>` paragraphs are left out automatically, field notes use `draft: true`, and whole case-study sections use `hiddenSections` in `content/case-studies.ts`.
 
 Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 
@@ -265,7 +266,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 - [ ] **Share the link:** put sammishin.dev on the résumé, LinkedIn and the GitHub profile README.
 - [ ] **Analytics (optional):** the build guide suggests Vercel Web Analytics (cookie-free). It needs the `@vercel/analytics` package, which hasn't been added; say the word and it's a two-line change.
 - [ ] **Screen-reader pass** with NVDA and VoiceOver (see [Accessibility](#accessibility)).
-- [ ] **Public repo check:** the repo is public, so everything in `docs/` (résumé, career notes, design files, photo) and its git history is visible. Move anything private out, and know that removing a file now doesn't remove it from history.
+- [x] **Public repo check:** the résumé source and career notes (`docs/resume/`, `docs/career/`) now live outside the repo and are in `.gitignore`. They're still in git history until it's rewritten (that needs a force push).
 
 **Content**
 
@@ -277,10 +278,10 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] AI receptionist call flow
   - [ ] New Adventure Homes booking site
   - [ ] Royal Service Cleaning inquiry automation
-  - [ ] Chess Variant GIF (a square sliding mid-game)
+  - [x] Chess Variant animation (`public/shots/chess-variant.webp`, recorded from the game's own code)
   - [ ] Crypto Telegram bot alert message
-- [ ] **New Adventure Homes card** (`content/projects.ts`): the problem they needed solved; hand-written or AI-assisted
-- [ ] **Royal Service Cleaning card**: a result (inquiries delivered, response time…)
+- [x] **New Adventure Homes card** (`content/projects.ts`): the problem, launch month, AI-assisted
+- [x] **Royal Service Cleaning card**: auto-reply within a minute; add real numbers after launch
 - [x] **How I work artifacts** (`content/how-i-work.ts`): a real example for all six steps
 - [ ] **Field notes** (`content/field-notes.ts`): summaries and links for the duplicate-customer/deduper note, the Trellis migration, receptionist evals
 - [ ] **Trellis case study** (`content/case-studies/trellis.mdx`):
@@ -288,7 +289,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [x] Who runs club billing and how often; what went wrong with the old software; budget
   - [ ] A real code excerpt (e.g. the idempotency-key charge call) for `charge.ts — excerpt`
   - [ ] After go-live: migration/cutover/rollback plan and staff training; results (charges run, failures caught, time saved)
-  - [ ] Something that broke during the build and what you changed
+  - [x] What changed from the build plan (database listeners for live status); add what broke after launch
 - [ ] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
   - [x] Your role, how the GM uses it, the real problem, constraints, key decisions, rollout, results, what broke
   - [ ] Hero screenshot of the dashboard

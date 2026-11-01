@@ -16,7 +16,14 @@ export const skills: { key: string; items: string[] }[] = [
   { key: "tools", items: ["Git", "GitHub Actions", "Vercel", "Render", "Webflow", "Make.com"] },
   {
     key: "practices",
-    items: ["requirements gathering", "multi-tenant data design", "AI-assisted development with review and tests", "UI/UX"],
+    items: [
+      "design tokens",
+      "accessibility (WCAG 2.2 AA)",
+      "requirements gathering",
+      "multi-tenant data design",
+      "AI-assisted development with review and tests",
+      "UI/UX",
+    ],
   },
 ];
 

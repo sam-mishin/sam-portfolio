@@ -20,12 +20,20 @@ export interface CaseSectionProps {
   id: SectionId;
   /** The section's prose and components. */
   children: ReactNode;
+  /**
+   * The sections this case study shows, in order. The page passes its own
+   * list so hidden sections render nothing and the rest number 01, 02…
+   * without gaps. Defaults to the full template.
+   */
+  sections?: readonly { id: string; title: string }[];
 }
 
 /** A numbered case-study section with its heading. */
-export function CaseSection({ id, children }: CaseSectionProps) {
-  const index = template.findIndex((s) => s.id === id);
-  if (index === -1) throw new Error(`Unknown case-study section "${id}"`);
+export function CaseSection({ id, children, sections = template }: CaseSectionProps) {
+  if (!template.some((s) => s.id === id)) throw new Error(`Unknown case-study section "${id}"`);
+  const index = sections.findIndex((s) => s.id === id);
+  // A hidden section (see `hiddenSections` in content/case-studies.ts).
+  if (index === -1) return null;
   const number = String(index + 1).padStart(2, "0");
   return (
     <Band id={id} aria-labelledby={`${id}-heading`} number={number} command={caseStudyLabels.sectionCommand.replace("{id}", id)}>
@@ -34,7 +42,7 @@ export function CaseSection({ id, children }: CaseSectionProps) {
           {number}
         </p>
         <h2 id={`${id}-heading`} className={styles.heading}>
-          {template[index].title}
+          {sections[index].title}
         </h2>
         {children}
       </div>

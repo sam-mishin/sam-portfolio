@@ -14,7 +14,7 @@ import Link from "next/link";
 import { deploymentLabels, sections } from "@/content/home";
 import type { Deployment } from "@/content/projects";
 import { NAV_FORWARD } from "@/lib/transitions";
-import { Shot, Text } from "./Placeholder";
+import { hasImage, isPlaceholder, Shot, Text } from "./Placeholder";
 import styles from "./DeploymentCard.module.css";
 
 /** Props for {@link DeploymentCard}. */
@@ -26,12 +26,13 @@ export interface DeploymentCardProps {
 /** A customer deployment: who, problem, what shipped, result, how built. */
 export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
 
+  // Fields still holding [placeholder] text are left off the card.
   const fields = [
     { label: deploymentLabels.problem, value: d.problem },
     { label: deploymentLabels.shipped, value: d.shipped },
     { label: deploymentLabels.result, value: d.result },
     { label: deploymentLabels.build, value: d.build },
-  ];
+  ].filter((field) => !isPlaceholder(field.value));
 
   return (
     <article
@@ -80,7 +81,7 @@ export function DeploymentCard({ deployment: d }: DeploymentCardProps) {
         )}
       </div>
 
-      {d.featured && (
+      {d.featured && hasImage(d.shot) && (
         <div className={styles.featureShot}>
           <Shot shot={d.shot} size="feature" />
         </div>
