@@ -110,7 +110,7 @@ export const profile = {
 
   footer: {
     copyright: "© 2026 Sam Mishin · Ridgefield, WA",
-    credit: "Designed by Sam Mishin · built with AI assistance, reviewed by me · Next.js on Vercel",
+    credit: "Designed by Sam Mishin · Next.js on Vercel",
     searchHint: "press / to search",
     /** Follows the theme toggle. */
     themeNote: {
