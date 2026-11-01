@@ -277,7 +277,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [x] Cash drawer count screen
   - [x] AI receptionist call flow (Make.com scenario)
   - [ ] New Adventure Homes booking site
-  - [ ] Royal Service Cleaning inquiry automation
+  - [x] Royal Service Cleaning inquiry automation (Make.com scenario)
   - [x] Chess Variant animation (`public/shots/chess-variant.webp`, recorded from the game's own code)
   - [ ] Crypto Telegram bot alert message
 - [x] **New Adventure Homes card** (`content/projects.ts`): the problem, launch month, AI-assisted
