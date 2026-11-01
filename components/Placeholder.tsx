@@ -38,6 +38,12 @@ export interface ShotImage {
   alt: string;
   width: number;
   height: number;
+  /**
+   * How a card strip shows it: "cover" (default) crops to fill the strip;
+   * "contain" shows the whole image in a taller strip, with bars at the
+   * sides if needed. Use "contain" when cropping would hide what matters.
+   */
+  fit?: "cover" | "contain";
 }
 
 /** What a content file puts in a screenshot slot: placeholder text, or an image. */
@@ -66,9 +72,20 @@ export function Shot({ shot, size = "card", preload = false }: ShotProps) {
   if (!hasImage(shot)) return null;
   const sizes = size === "feature" ? "(max-width: 720px) 100vw, 1136px" : "(max-width: 720px) 100vw, 400px";
   return (
-    <figure className={`${styles.image} ${size === "card" ? styles.imageCard : styles.imageFeature}`}>
+    <figure
+      className={`${styles.image} ${size === "card" ? styles.imageCard : styles.imageFeature} ${
+        size === "card" && shot.fit === "contain" ? styles.imageContain : ""
+      }`}
+    >
       {size === "card" ? (
-        <Image src={shot.src} alt={shot.alt} fill sizes={sizes} preload={preload} className={styles.cover} />
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          fill
+          sizes={sizes}
+          preload={preload}
+          className={shot.fit === "contain" ? styles.contain : styles.cover}
+        />
       ) : (
         <Image
           src={shot.src}

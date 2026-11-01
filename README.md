@@ -273,9 +273,9 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 - [ ] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there).
 - [ ] **Screenshots** (WebP, ≤1920px long edge, <400 KB, in `public/shots/`), then swap the `shot` text in `content/projects.ts` for the image:
   - [ ] Trellis member billing dashboard
-  - [ ] Spend tracker dashboard
-  - [ ] Cash drawer count screen
-  - [ ] AI receptionist call flow
+  - [x] Spend tracker dashboard
+  - [x] Cash drawer count screen
+  - [x] AI receptionist call flow (Make.com scenario)
   - [ ] New Adventure Homes booking site
   - [ ] Royal Service Cleaning inquiry automation
   - [x] Chess Variant animation (`public/shots/chess-variant.webp`, recorded from the game's own code)
@@ -292,7 +292,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [x] What changed from the build plan (database listeners for live status); add what broke after launch
 - [ ] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
   - [x] Your role, how the GM uses it, the real problem, constraints, key decisions, rollout, results, what broke
-  - [ ] Hero screenshot of the dashboard
+  - [x] Hero screenshot of the dashboard
 - [ ] **Cash drawer case study** (`content/case-studies/cash-drawer.mdx` + `content/case-studies.ts`):
   - [x] Your role, when counts happen, the real problem, constraints, key decisions, rollout, results, what broke
-  - [ ] Screenshot of the count screen
+  - [x] Screenshot of the count screen

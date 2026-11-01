@@ -26,6 +26,21 @@ import type { ShotValue } from "@/components/Placeholder";
  * The Trellis logo, used in its screenshot slots until there's a product
  * screenshot. Lives in public/shots/; width and height are the file's size.
  */
+/** Screenshots used both on a card and at the top of its case study. */
+export const spendTrackerShot = {
+  src: "/shots/spend-tracker-dashboard.webp",
+  alt: "The spend tracker dashboard: top red and white wine, top food, top customer, top wine club member and profit margin, with Today, Last 7 Days, This Month and This Year tabs.",
+  width: 1897,
+  height: 977,
+};
+
+export const cashDrawerShot = {
+  src: "/shots/cash-drawer-count.webp",
+  alt: "The cash drawer app’s count screen: a row for each bill and coin with minus and plus buttons, a running total, and a Check my count button.",
+  width: 640,
+  height: 971,
+};
+
 export const trellisLogo = {
   src: "/shots/trellis-logo.webp",
   alt: "Trellis logo: a trellis post with a vine and a leaf, and the tagline “Built by wineries, for wineries.”",
@@ -81,7 +96,7 @@ export const deployments: Deployment[] = [
     result: "50,000+ orders synced so far.",
     build: "AI-assisted · reviewed and tested by me",
     stack: ["Supabase functions", "Vercel Cron", "Postgres", "Clover API"],
-    shot: "[Screenshot: spend dashboard]",
+    shot: spendTrackerShot,
     caseStudy: true,
   },
   {
@@ -93,7 +108,7 @@ export const deployments: Deployment[] = [
     result: "Used by 8–10 staff; every flagged mismatch has been under $1.",
     build: "AI-assisted · reviewed and tested by me",
     stack: ["Next.js", "Supabase", "Clover API"],
-    shot: "[Screenshot: cash drawer count screen]",
+    shot: cashDrawerShot,
     caseStudy: true,
   },
   {
@@ -105,7 +120,12 @@ export const deployments: Deployment[] = [
     result: "Answers about 50 calls a day.",
     build: "No-code + API (Synthflow, Make.com, Twilio)",
     stack: ["Synthflow", "Make.com", "Twilio"],
-    shot: "[Screenshot: receptionist call flow]",
+    shot: {
+      src: "/shots/ai-receptionist-make.webp",
+      alt: "The AI receptionist’s Make.com scenario: a central router branching out to email and other modules.",
+      width: 635,
+      height: 580,
+    },
     caseStudy: false,
   },
   {
@@ -155,6 +175,7 @@ export const handWritten: HandWrittenProject[] = [
     body: "A browser chess variant where the squares move as well as the pieces. Live WebSocket matches coming by January 2027.",
     stack: ["JavaScript", "HTML", "CSS", "WebSockets"],
     shot: {
+      fit: "contain",
       src: "/shots/chess-variant.webp",
       alt: "The chess variant mid-game: each turn, a piece moves and one board square slides to a new spot on the edge, changing the board’s shape.",
       width: 480,

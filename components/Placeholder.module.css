@@ -59,6 +59,16 @@
   object-fit: cover;
 }
 
+/* "contain": the whole image in a taller strip, bars at the sides. */
+.imageContain {
+  height: 240px;
+  background: var(--band);
+}
+
+.contain {
+  object-fit: contain;
+}
+
 /* Feature slots show the whole image at its own proportions, centered in
    the space the column gives it. */
 .imageFeature {
@@ -68,12 +78,20 @@
 
 .natural {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  /* A tall screenshot (a phone-width app) stays a sensible size. */
+  max-height: 640px;
+  margin-inline: auto;
 }
 
 @media (max-width: 720px) {
   .imageCard {
     height: 150px;
+  }
+
+  .imageContain {
+    height: 220px;
   }
 }

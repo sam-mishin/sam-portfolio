@@ -19,7 +19,7 @@
  */
 
 import type { ShotValue } from "@/components/Placeholder";
-import { trellisLogo } from "./projects";
+import { cashDrawerShot, spendTrackerShot, trellisLogo } from "./projects";
 
 /** The eight sections, in order, used by every case study. */
 export const template = [
@@ -90,7 +90,7 @@ export const caseStudies: CaseStudy[] = [
       { label: "Stack", value: "Supabase functions, Vercel Cron, Postgres, Clover API" },
       { label: "How it’s built", value: "AI-assisted; I review and test every change" },
     ],
-    heroShot: "[Screenshot: spend dashboard — a member’s favorite wines, spend and comped tastings]",
+    heroShot: spendTrackerShot,
   },
   {
     slug: "cash-drawer",
@@ -102,6 +102,6 @@ export const caseStudies: CaseStudy[] = [
       { label: "Stack", value: "Next.js, Supabase, Clover API" },
       { label: "How it’s built", value: "AI-assisted; I review and test every change" },
     ],
-    heroShot: "[Screenshot: cash drawer count screen]",
+    heroShot: cashDrawerShot,
   },
 ];

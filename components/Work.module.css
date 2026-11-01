@@ -50,6 +50,9 @@
 }
 
 .moreDesc {
+  /* Stays beside the name and wraps within its own column when it's long. */
+  flex: 1 1 320px;
+  min-width: 0;
   color: var(--muted);
 }
 
