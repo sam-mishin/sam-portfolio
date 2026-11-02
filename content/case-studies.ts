@@ -19,7 +19,7 @@
  */
 
 import type { ShotValue } from "@/components/Placeholder";
-import { cashDrawerShot, spendTrackerShot, trellisLogo } from "./projects";
+import { acresSiteShot, cashDrawerShot, spendTrackerShot, trellisLogo } from "./projects";
 
 /** The eight sections, in order, used by every case study. */
 export const template = [
@@ -90,7 +90,7 @@ export const caseStudies: CaseStudy[] = [
       { label: "Stack", value: "Webflow CMS, JavaScript, Google Tag Manager, GA4, Cloudflare R2" },
       { label: "How it’s built", value: "Webflow + custom JS, AI-assisted; I review and test every change" },
     ],
-    heroShot: "[Screenshot: 14acres.com home page]",
+    heroShot: acresSiteShot,
   },
   {
     slug: "spend-tracker",

@@ -1,6 +1,7 @@
-/* HowIWork.module.css — the six-step process grid. */
+/* NumberedCards.module.css — the numbered card grid shared by "How I work"
+   and "How this site is built". */
 
-.steps {
+.grid {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -9,7 +10,7 @@
   gap: var(--space-4);
 }
 
-.step {
+.card {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -41,12 +42,12 @@
   color: var(--text-body);
 }
 
-.artifact {
+.footer {
   font-size: var(--fs-label);
 }
 
 @media (max-width: 720px) {
-  .step {
+  .card {
     padding: var(--space-4);
   }
 }

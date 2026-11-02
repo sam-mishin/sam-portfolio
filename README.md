@@ -279,7 +279,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] New Adventure Homes booking site
   - [x] Royal Service Cleaning inquiry automation (Make.com scenario)
   - [x] Chess Variant animation (`public/shots/chess-variant.webp`, recorded from the game's own code)
-  - [ ] Crypto Telegram bot alert message
+  - [x] Crypto Telegram bot alert message (`public/shots/telegram-bot-alert.webp`)
 - [x] **New Adventure Homes card** (`content/projects.ts`): the problem, launch month, AI-assisted
 - [x] **Royal Service Cleaning card**: auto-reply within a minute; add real numbers after launch
 - [x] **How I work artifacts** (`content/how-i-work.ts`): a real example for all six steps
@@ -291,7 +291,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] After go-live: migration/cutover/rollback plan and staff training; results (charges run, failures caught, time saved)
   - [x] What changed from the build plan (database listeners for live status); add what broke after launch
 - [ ] **14acres.com website case study** (`content/case-studies/14acres-website.mdx` + `content/case-studies.ts`):
-  - [ ] Hero/card screenshot of the 14acres.com home page (also swap the `shot` text in `content/projects.ts`)
+  - [x] Hero/card screenshot of the 14acres.com home page (`public/shots/14acres-home.webp`)
   - [ ] How the TV slideshow reads the CMS and what runs it on the Optiplex
   - [ ] Who adds events and wines now, and how long the CMS took them to learn
   - [ ] PageSpeed Insights before/after (WordPress vs. Webflow) and home-page image weight

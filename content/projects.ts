@@ -41,6 +41,13 @@ export const cashDrawerShot = {
   height: 971,
 };
 
+export const acresSiteShot = {
+  src: "/shots/14acres-home.webp",
+  alt: "The 14acres.com home page: a sunset photo of the vineyard rows under the tagline “Keep Dreaming.”, with an Explore our wines button and the site navigation.",
+  width: 1920,
+  height: 956,
+};
+
 export const trellisLogo = {
   src: "/shots/trellis-logo.webp",
   alt: "Trellis logo: a trellis post with a vine and a leaf, and the tagline “Built by wineries, for wineries.”",
@@ -97,7 +104,7 @@ export const deployments: Deployment[] = [
     result: "Live since September 2026 with 100–300 daily users; the TVs update themselves when an event is published.",
     build: "Webflow + custom JS · AI-assisted, reviewed and tested by me",
     stack: ["Webflow CMS", "JavaScript", "Google Tag Manager", "GA4", "Cloudflare R2"],
-    shot: "[Screenshot: 14acres.com home page]",
+    shot: acresSiteShot,
     caseStudy: true,
   },
   {
@@ -207,7 +214,13 @@ export const handWritten: HandWrittenProject[] = [
     meta: "Personal · hand-written · 2022",
     body: "Replaced hours of scanning crypto Telegram chats. Sends DexScreener data when a coin is called repeatedly.",
     stack: ["Python", "SQLite", "Telegram API", "DexScreener API"],
-    shot: "[Screenshot: alert message]",
+    shot: {
+      fit: "contain",
+      src: "/shots/telegram-bot-alert.webp",
+      alt: "A Telegram message from the bot: a Solana coin call with its name, market cap, 24-hour volume, contract address, the time it was called and a DexScreener link.",
+      width: 621,
+      height: 312,
+    },
     href: "https://github.com/sam-mishin/Crypto-Telegram-Bot",
     cta: "View on GitHub",
   },

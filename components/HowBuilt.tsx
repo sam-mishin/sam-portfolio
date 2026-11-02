@@ -5,15 +5,16 @@
  *
  * Copy comes from content/how-built.ts. The excerpt is read from the
  * stylesheet at build time (lib/token-excerpt.ts), so it always matches
- * the code that styles the page. The cards and code block are the same
- * components the case studies use.
+ * the code that styles the page. The cards are the same numbered cards as
+ * "How I work" (components/NumberedCards.tsx); the code block is the one
+ * the case studies use.
  */
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { howBuilt as s } from "@/content/how-built";
 import { tokenExcerpt } from "@/lib/token-excerpt";
-import { Decision, Decisions } from "./case-study/Blocks";
 import { CodeBlock } from "./case-study/CodeBlock";
+import { NumberedCards } from "./NumberedCards";
 import { Section } from "./Section";
 import styles from "./HowBuilt.module.css";
 
@@ -24,15 +25,7 @@ export function HowBuilt() {
   return (
     <Section id={s.id} command={s.command} heading={s.heading} intro={s.intro} source="components/HowBuilt.tsx">
       <div className={styles.body}>
-        <div className={styles.cards}>
-          <Decisions>
-            {s.items.map((item) => (
-              <Decision key={item.title} title={item.title}>
-                {item.body}
-              </Decision>
-            ))}
-          </Decisions>
-        </div>
+        <NumberedCards items={[...s.items]} />
         <CodeBlock code={code} lang="css" title={s.excerpt.title} />
         <p className={styles.more}>
           <a href={s.link.href} target="_blank" rel="noopener noreferrer">
