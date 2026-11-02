@@ -3,10 +3,10 @@
 .page {
   max-width: 920px;
   margin: 0 auto;
-  padding: 80px var(--gutter) 96px;
+  padding: var(--space-11) var(--gutter) var(--space-12);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .heading {
@@ -20,39 +20,39 @@
 }
 
 .window {
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }
 
 .body {
-  padding: 22px 32px 8px;
+  padding: var(--space-6) var(--space-7) var(--space-2);
 }
 
 .try {
-  padding: 12px 32px 0;
+  padding: var(--space-3) var(--space-7) 0;
   font-size: var(--fs-label);
   color: var(--muted);
 }
 
 .prompt {
-  padding: 4px 32px 26px;
+  padding: var(--space-1) var(--space-7) var(--space-6);
 }
 
 .links {
   list-style: none;
-  margin: 8px 0 0;
+  margin: var(--space-2) 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 /* Each link is a 48px-tall "command" chip: the command, then what it does. */
 .link {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   min-height: 48px;
-  padding: 0 16px;
+  padding: 0 var(--space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius-button);
   color: var(--text);
@@ -77,23 +77,23 @@
 
 @media (max-width: 720px) {
   .page {
-    padding-top: 48px;
+    padding-top: var(--space-9);
   }
 
   .heading {
-    font-size: 28px;
+    font-size: var(--fs-2xl);
   }
 
   .body {
-    padding: 16px 16px 4px;
+    padding: var(--space-4) var(--space-4) var(--space-1);
   }
 
   .try {
-    padding: 10px 16px 0;
+    padding: var(--space-2) var(--space-4) 0;
   }
 
   .prompt {
-    padding: 4px 16px 18px;
+    padding: var(--space-1) var(--space-4) var(--space-4);
   }
 
   .links,

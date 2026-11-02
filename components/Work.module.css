@@ -4,25 +4,25 @@
   display: grid;
   /* min() keeps a single column from overflowing on very narrow screens. */
   grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 .subhead {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 24px;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
 }
 
 .subheading {
-  font-size: 26px;
+  font-size: var(--fs-xl);
 }
 
 .more {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 24px 28px;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-7);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   font-family: var(--font-mono);
@@ -35,13 +35,13 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .moreItem {
   display: flex;
   flex-wrap: wrap;
-  gap: 2px 16px;
+  gap: 2px var(--space-4);
 }
 
 .moreName {
@@ -58,8 +58,8 @@
 
 @media (max-width: 720px) {
   .more {
-    padding: 18px;
-    font-size: 13px;
+    padding: var(--space-4);
+    font-size: var(--fs-sm);
   }
 
   .moreName {
@@ -68,6 +68,6 @@
   }
 
   .subheading {
-    font-size: 22px;
+    font-size: var(--fs-xl);
   }
 }

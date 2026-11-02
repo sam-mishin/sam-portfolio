@@ -133,20 +133,51 @@
   --font-sans: "Segoe UI Variable Text", "Segoe UI", var(--font-plex), system-ui, sans-serif;
   --font-mono: var(--font-cascadia), Consolas, "JetBrains Mono", ui-monospace, monospace;
 
+  /* Type scale. Headings and lead shrink on phones (see the media query
+     below); the rest stay fixed. --fs-code is relative, for inline code. */
+  --fs-display: 40px;
   --fs-h1: 56px;
   --fs-h2: 36px;
+  --fs-2xl: 30px;
+  --fs-xl: 24px;
   --fs-h3: 21px;
   --fs-lead: 20px;
+  --fs-lg: 19px;
   --fs-body: 17px;
+  --fs-md: 16px;
   --fs-small: 15px;
   --fs-label: 14px;
+  --fs-sm: 13px;
   --fs-mono-sm: 12px;
+  --fs-xs: 11px;
+  --fs-code: 0.9em;
+  /* Largest sizes for the ASCII portrait; Winfetch shrinks it to fit. */
+  --fs-ascii: 12.5px;
+  --fs-ascii-sm: 9px;
 
+  /* Spacing scale for padding, margin and gap. Only 1–3px hairline
+     nudges are written as raw values. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-tag: 6px;
   --radius-window: 8px;
+  --radius-button: 8px;
   --radius-card: 12px;
   --radius-card-lg: 14px;
-  --radius-button: 8px;
-  --radius-tag: 6px;
+  --radius-pill: 999px;
 
   --page-max: 1200px;
   --gutter: 32px;
@@ -253,7 +284,7 @@ button {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 
 /* ---------------------------------------------------------------------------
@@ -282,7 +313,7 @@ button {
   display: inline-flex;
   align-items: center;
   min-height: var(--touch);
-  padding: 0 16px;
+  padding: 0 var(--space-4);
   border-radius: var(--radius-button);
   background: var(--accent);
   color: var(--on-accent);
@@ -632,8 +663,8 @@ html.theme-transition::view-transition-new(root) {
   }
 
   .print-header {
-    margin: 0 0 18px;
-    padding-bottom: 8px;
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-2);
     border-bottom: 1px solid var(--border);
     font-family: var(--font-mono);
     font-size: var(--fs-label);
@@ -683,7 +714,7 @@ html.theme-transition::view-transition-new(root) {
   main a[href^="http"]::after,
   footer a[href^="http"]::after {
     content: " (" attr(href) ")";
-    font-size: 0.85em;
+    font-size: var(--fs-code);
     font-weight: 400;
     color: var(--muted);
     overflow-wrap: anywhere;

@@ -3,7 +3,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 /* Three across on wide screens, like "How I work". */

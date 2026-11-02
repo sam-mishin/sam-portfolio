@@ -1,16 +1,16 @@
 /* Diagram.module.css — reflowing boxes-and-arrows diagram. */
 
 .figure {
-  margin: 4px 0;
-  padding: 28px;
+  margin: var(--space-1) 0;
+  padding: var(--space-7);
   display: flex;
   align-items: stretch;
-  gap: 12px;
+  gap: var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   background: var(--surface);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   line-height: 1.5;
 }
 
@@ -19,7 +19,7 @@
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .node {
@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 14px;
+  padding: var(--space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius-button);
   background: var(--bg);
@@ -52,7 +52,7 @@
 
 .link {
   flex: none;
-  font-size: 20px;
+  font-size: var(--fs-lg);
   color: var(--dots);
 }
 
@@ -60,13 +60,13 @@
 @media (max-width: 860px) {
   .figure {
     flex-direction: column;
-    padding: 18px;
+    padding: var(--space-4);
   }
 
   .cell {
     flex-direction: column;
     align-items: stretch;
-    gap: 6px;
+    gap: var(--space-2);
   }
 
   .link {

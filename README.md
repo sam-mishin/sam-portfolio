@@ -290,6 +290,12 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] A real code excerpt (e.g. the idempotency-key charge call) for `charge.ts — excerpt`
   - [ ] After go-live: migration/cutover/rollback plan and staff training; results (charges run, failures caught, time saved)
   - [x] What changed from the build plan (database listeners for live status); add what broke after launch
+- [ ] **14acres.com website case study** (`content/case-studies/14acres-website.mdx` + `content/case-studies.ts`):
+  - [ ] Hero/card screenshot of the 14acres.com home page (also swap the `shot` text in `content/projects.ts`)
+  - [ ] How the TV slideshow reads the CMS and what runs it on the Optiplex
+  - [ ] Who adds events and wines now, and how long the CMS took them to learn
+  - [ ] PageSpeed Insights before/after (WordPress vs. Webflow) and home-page image weight
+  - [ ] Confirm the past-event sweep status (listed under What's next) and that /hub is published
 - [ ] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
   - [x] Your role, how the GM uses it, the real problem, constraints, key decisions, rollout, results, what broke
   - [x] Hero screenshot of the dashboard

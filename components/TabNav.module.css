@@ -7,10 +7,10 @@
 .nav {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 8px var(--gutter);
+  padding: var(--space-2) var(--gutter);
   display: flex;
   align-items: center;
-  gap: 8px 16px;
+  gap: var(--space-2) var(--space-4);
 }
 
 .tabs {
@@ -25,11 +25,11 @@
   gap: 2px;
   /* Pull the tabs down over the strip's bottom padding so the active tab
      meets the page edge and looks attached to it. */
-  margin: 0 0 -8px;
+  margin: 0 0 calc(-1 * var(--space-2));
   padding: 0;
   list-style: none;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 
 .tabItem {
@@ -40,11 +40,11 @@
 .tab {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   min-width: 0;
   min-height: var(--touch);
-  padding: 0 14px;
-  border-radius: 8px 8px 0 0;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-window) var(--radius-window) 0 0;
   color: var(--text-body);
   text-decoration: none;
 }
@@ -97,7 +97,7 @@
    that widens letter and word spacing (WCAG 1.4.12). The active tab keeps
    the icon and ✕, which also helps it stand out. */
 .tab:not(.current) {
-  padding: 0 12px;
+  padding: 0 var(--space-3);
 }
 
 .tab:not(.current) > svg {
@@ -121,7 +121,7 @@
   overflow: hidden;
   align-items: center;
   min-height: var(--touch);
-  padding: 0 10px;
+  padding: 0 var(--space-2);
   color: var(--text-body);
 }
 
@@ -129,7 +129,7 @@
   flex: none;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
 }
 
 /* Laptops: drop the decorative "+" so the tab labels have room. */
@@ -167,8 +167,8 @@
 /* ---- Phones: the active tab fills the bar; the rest move to the menu ---- */
 @media (max-width: 1000px) {
   .nav {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
   }
 
   .tabs {
@@ -192,9 +192,9 @@
   .current:hover {
     flex: 1;
     min-width: 0;
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 0 12px;
+    border-radius: var(--radius-window);
+    font-size: var(--fs-label);
+    padding: 0 var(--space-3);
   }
 
   .label {

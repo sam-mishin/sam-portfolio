@@ -22,7 +22,7 @@ export const howBuilt = {
   items: [
     {
       title: "Design tokens",
-      body: "Every color, font size, radius and layout size is a CSS custom property in app/globals.css. Components use only those tokens, so no other stylesheet holds a raw color.",
+      body: "Colors, font sizes, spacing and radii are CSS custom properties in app/globals.css, including a 12-step --space scale. Component stylesheets use only those tokens; the only raw values left are 1–3px hairlines and a few em-based nudges in the hero headline.",
     },
     {
       title: "Two themes, one token set",
@@ -50,7 +50,7 @@ export const howBuilt = {
     blocks: [
       { selector: ":root", tokens: ["bg", "surface", "text", "muted", "accent"] },
       { selector: '[data-theme="light"]', tokens: ["bg", "surface", "text", "muted", "accent"] },
-      { selector: ":root", occurrence: 2, tokens: ["fs-h1", "fs-body", "gutter", "touch"] },
+      { selector: ":root", occurrence: 2, tokens: ["fs-h1", "fs-body", "space-2", "space-4", "space-7", "gutter"] },
     ] satisfies ExcerptBlock[],
   },
   link: {

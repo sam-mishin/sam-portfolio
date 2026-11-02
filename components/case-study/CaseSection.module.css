@@ -4,7 +4,7 @@
   max-width: 880px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-4);
 }
 
 /* Text keeps a readable line length; diagrams and code can use the full 880px. */
@@ -16,12 +16,12 @@
 
 .number {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   color: var(--syn-const);
 }
 
 .heading {
-  font-size: 30px;
+  font-size: var(--fs-2xl);
 }
 
 /* The side rails show the number on wide screens. */
@@ -33,7 +33,7 @@
 
 @media (max-width: 720px) {
   .heading {
-    font-size: 24px;
+    font-size: var(--fs-xl);
   }
 }
 

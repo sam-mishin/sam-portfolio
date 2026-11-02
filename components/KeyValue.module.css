@@ -12,7 +12,7 @@
 .row {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: var(--space-2);
   min-width: 0;
   white-space: nowrap;
 }
@@ -50,7 +50,7 @@
 @container kv (max-width: 30rem) {
   /* (A container can't query itself, so spacing goes on the rows.) */
   .row + .row {
-    margin-top: 6px;
+    margin-top: var(--space-2);
   }
 
   .row {
@@ -74,9 +74,9 @@
    margin lets the highlight bleed slightly past the text. */
 @media (hover: hover) {
   .row {
-    margin-inline: -6px;
-    padding-inline: 6px;
-    border-radius: 4px;
+    margin-inline: calc(-1 * var(--space-2));
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-sm);
   }
 
   .row:hover {

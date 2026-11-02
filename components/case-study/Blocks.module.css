@@ -3,22 +3,22 @@
 .decisions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
-  gap: 16px;
-  margin: 4px 0;
+  gap: var(--space-4);
+  margin: var(--space-1) 0;
 }
 
 .decision {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 22px;
+  gap: var(--space-2);
+  padding: var(--space-6);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   background: var(--surface);
 }
 
 .decisionTitle {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   font-weight: 600;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .code {
-  margin: 4px 0;
+  margin: var(--space-1) 0;
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   background: var(--band);
@@ -43,8 +43,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 4px 8px 4px 16px;
+  gap: var(--space-3);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
   min-height: 44px;
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
@@ -54,9 +54,9 @@
 
 .codeBody {
   margin: 0;
-  padding: 18px 20px;
+  padding: var(--space-4) var(--space-5);
   overflow-x: auto;
-  font-size: 13.5px;
+  font-size: var(--fs-sm);
   line-height: 1.6;
   color: var(--text-body);
 }
@@ -75,14 +75,14 @@
 }
 
 .codeBody :global(pre) {
-  padding: 18px 20px;
+  padding: var(--space-4) var(--space-5);
   overflow-x: auto;
 }
 
 .copy {
   min-height: 36px;
   min-width: 44px;
-  padding: 0 10px;
+  padding: 0 var(--space-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-button);
   background: transparent;
@@ -101,14 +101,14 @@
   font-size: var(--fs-label);
   color: var(--muted);
   border-left: 2px dashed var(--dots);
-  padding-left: 12px;
+  padding-left: var(--space-3);
 }
 
 .aside {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 18px 20px;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-card);
   font-size: var(--fs-small);

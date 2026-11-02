@@ -88,6 +88,19 @@ export const deployments: Deployment[] = [
     featured: true,
   },
   {
+    slug: "14acres-website",
+    title: "14acres.com website",
+    customer: "14 Acres visitors and staff · 100–300 daily users",
+    problem: "A buggy WordPress site, and tasting room TVs that played the same looping video.",
+    shipped:
+      "A Webflow rebuild with CMS collections for events and wines, a 21+ age gate, a mobile QR hub and four lead forms, plus a TV slideshow built from the same events.",
+    result: "Live since September 2026 with 100–300 daily users; the TVs update themselves when an event is published.",
+    build: "Webflow + custom JS · AI-assisted, reviewed and tested by me",
+    stack: ["Webflow CMS", "JavaScript", "Google Tag Manager", "GA4", "Cloudflare R2"],
+    shot: "[Screenshot: 14acres.com home page]",
+    caseStudy: true,
+  },
+  {
     slug: "spend-tracker",
     title: "Customer spend tracker",
     customer: "14 Acres owner and general manager",
@@ -203,8 +216,6 @@ export const handWritten: HandWrittenProject[] = [
 /** The `ls .\work --more` list: smaller things, one line each. */
 export const moreWork: { name: string; desc: string }[] = [
   { name: "wine-inventory/", desc: "Tracks about 40 wines in one place for the winemaker" },
-  { name: "tv-events-display/", desc: "Turns the website’s events CMS into tasting room TV slides" },
-  { name: "14acres-webflow/", desc: "WordPress → Webflow rebuild, 100–300 daily users" },
   { name: "client-image-scripts/", desc: "Python scripts that cut image sizes 70–80% on 3 client sites" },
   { name: "identity-matcher/", desc: "Hand-written name matcher for duplicate Clover customers (Vitest)" },
   { name: "matsuzaki-site/", desc: "Personal site for Matthew Matsuzaki, Head of Brand at Ghost: a Figma-to-code handoff (not published)" },

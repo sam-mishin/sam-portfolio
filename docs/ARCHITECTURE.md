@@ -108,7 +108,7 @@ sequenceDiagram
 
 ## Styling and theming
 
-- **Tokens:** `app/globals.css` holds both palettes (Ayu Dark Unbordered by default, Ayu Light under `[data-theme="light"]`), the type scale and spacing. Components use `var(--token)` only.
+- **Tokens:** `app/globals.css` holds both palettes (Ayu Dark Unbordered by default, Ayu Light under `[data-theme="light"]`), the type scale (`--fs-*`), the spacing scale (`--space-1` to `--space-12`, 4px to 96px), radii and layout sizes. Component CSS uses `var(--token)` for every color, font size, padding, margin, gap and radius; only 1–3px hairline nudges and a few em-based optical tweaks in the hero headline are written raw. Off-scale values were snapped to the nearest step (ties go to the multiple of 8).
 - **The one exception:** share images (Satori) and the browser theme color in viewport metadata can't read CSS variables. They use `lib/literal-colors.ts`, and `lib/literal-colors.test.ts` fails the build's tests if those copies drift from `globals.css`.
 - **Motion:** CSS-first. Scroll-driven animations, View Transitions and the typing intro are all CSS, gated behind `prefers-reduced-motion: no-preference` and `@supports`, so browsers without them simply show the content.
 

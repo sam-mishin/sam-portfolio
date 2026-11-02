@@ -81,6 +81,18 @@ export const caseStudies: CaseStudy[] = [
     heroShot: trellisLogo,
   },
   {
+    slug: "14acres-website",
+    summary:
+      "The winery’s public website, rebuilt from WordPress in Webflow for 100–300 visitors a day, with an events CMS that also runs the tasting room TV slideshow.",
+    facts: [
+      { label: "Role", value: "Designer and developer" },
+      { label: "Status", value: "Live since Sept 2026 · 100–300 daily users" },
+      { label: "Stack", value: "Webflow CMS, JavaScript, Google Tag Manager, GA4, Cloudflare R2" },
+      { label: "How it’s built", value: "Webflow + custom JS, AI-assisted; I review and test every change" },
+    ],
+    heroShot: "[Screenshot: 14acres.com home page]",
+  },
+  {
     slug: "spend-tracker",
     summary:
       "Per-customer spend for the general manager — favorite wines, wine vs. food spend, comped tastings — built on a nightly sync of Clover POS orders that now holds 50,000+ orders.",

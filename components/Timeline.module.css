@@ -9,7 +9,7 @@
 .item {
   position: relative;
   display: flex;
-  gap: 20px;
+  gap: var(--space-5);
 }
 
 /* The dot plus the vertical line down to the next entry. */
@@ -57,15 +57,15 @@
 .entry {
   flex: 1;
   min-width: 0;
-  padding-bottom: 32px;
+  padding-bottom: var(--space-7);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2);
 }
 
 .meta {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   color: var(--muted);
 }
 
@@ -74,7 +74,7 @@
 }
 
 .role {
-  font-size: 20px;
+  font-size: var(--fs-lg);
   font-weight: 600;
 }
 
@@ -93,25 +93,25 @@
 /* Phones: role and org on separate lines, no description (as in the mockup). */
 @media (max-width: 720px) {
   .item {
-    gap: 12px;
+    gap: var(--space-3);
   }
 
   .entry {
-    padding-bottom: 20px;
+    padding-bottom: var(--space-5);
     gap: 3px;
   }
 
   .meta {
-    font-size: 11.5px;
+    font-size: var(--fs-xs);
   }
 
   .role {
-    font-size: 16px;
+    font-size: var(--fs-md);
   }
 
   .org {
     display: block;
-    font-size: 14px;
+    font-size: var(--fs-label);
   }
 
   .desc {

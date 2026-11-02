@@ -3,11 +3,11 @@
 .profile {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 0 var(--gutter) 64px;
+  padding: 0 var(--gutter) var(--space-10);
 }
 
 @media (max-width: 720px) {
   .profile {
-    padding-bottom: 32px;
+    padding-bottom: var(--space-7);
   }
 }

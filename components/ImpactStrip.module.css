@@ -7,22 +7,22 @@
 .list {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 36px var(--gutter);
+  padding: var(--space-8) var(--gutter);
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 28px;
+  gap: var(--space-7);
 }
 
 .item {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2);
 }
 
 .value {
   font-family: var(--font-mono);
-  font-size: 32px;
+  font-size: var(--fs-2xl);
   font-weight: 700;
   line-height: 1.2;
   /* Numbers are constants, so they get the theme's constant color. */
@@ -31,7 +31,7 @@
 
 .label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-style: italic;
   line-height: 1.5;
   color: var(--muted);
@@ -46,9 +46,9 @@
 /* Phones: a 2-column grid; an odd last item spans both columns. */
 @media (max-width: 720px) {
   .list {
-    padding: 24px var(--gutter);
+    padding: var(--space-6) var(--gutter);
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 16px;
+    gap: var(--space-5) var(--space-4);
   }
 
   .item:last-child:nth-child(odd) {
@@ -56,11 +56,11 @@
   }
 
   .value {
-    font-size: 24px;
+    font-size: var(--fs-xl);
   }
 
   .label {
-    font-size: 12px;
+    font-size: var(--fs-mono-sm);
     line-height: 1.45;
   }
 }

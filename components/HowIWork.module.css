@@ -6,14 +6,14 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .step {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 22px;
+  gap: var(--space-2);
+  padding: var(--space-6);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   background: var(--surface);
@@ -21,7 +21,7 @@
 
 .number {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   color: var(--syn-const);
 }
 
@@ -30,7 +30,7 @@
 }
 
 .title {
-  font-size: 19px;
+  font-size: var(--fs-lg);
   font-weight: 600;
 }
 
@@ -47,6 +47,6 @@
 
 @media (max-width: 720px) {
   .step {
-    padding: 18px;
+    padding: var(--space-4);
   }
 }

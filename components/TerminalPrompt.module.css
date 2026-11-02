@@ -12,7 +12,7 @@
 }
 
 .output {
-  margin-bottom: 6px;
+  margin-bottom: var(--space-2);
   font-family: var(--font-mono);
   line-height: 1.6;
 }
@@ -49,9 +49,9 @@
   /* The padding grows the click target past 24px (WCAG 2.5.8) and gives
      the focus outline room; the negative margin keeps the line where it
      was. */
-  margin: -3px -6px;
-  padding: 3px 6px;
-  border-radius: 4px;
+  margin: -3px calc(-1 * var(--space-2));
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   line-height: 1.6;
   cursor: text;
@@ -129,6 +129,6 @@
 /* iPhones zoom into inputs smaller than 16px; keep the input at 16px there. */
 @supports (-webkit-touch-callout: none) {
   .input {
-    font-size: max(16px, 1em);
+    font-size: max(var(--fs-md), 1em);
   }
 }

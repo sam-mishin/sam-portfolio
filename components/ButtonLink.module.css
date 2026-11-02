@@ -4,7 +4,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-2);
   border-radius: var(--radius-button);
   font-weight: 600;
   text-decoration: none;
@@ -39,20 +39,20 @@
 
 .md {
   min-height: 48px;
-  padding: 0 22px;
-  font-size: 16px;
+  padding: 0 var(--space-6);
+  font-size: var(--fs-md);
 }
 
 .sm {
   min-height: var(--touch);
-  padding: 0 16px;
-  font-size: 14px;
+  padding: 0 var(--space-4);
+  font-size: var(--fs-label);
 }
 
 .mono {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
-  padding: 0 18px;
+  padding: 0 var(--space-4);
 }
 
 /* On paper a button is just a link: plain text, its address printed after

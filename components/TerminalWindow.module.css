@@ -14,10 +14,10 @@
   display: flex;
   align-items: flex-end;
   gap: 2px;
-  padding: 8px 0 0 8px;
+  padding: var(--space-2) 0 0 var(--space-2);
   background: var(--chrome);
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: var(--fs-mono-sm);
   color: var(--text-body);
   user-select: none;
 }
@@ -26,13 +26,13 @@
 .tab {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   /* 200px like Windows Terminal, but allowed to shrink in narrow windows. */
   flex: 0 1 200px;
   min-width: 0;
   height: 34px;
-  padding: 0 12px;
-  border-radius: 8px 8px 0 0;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-window) var(--radius-window) 0 0;
   background: var(--bg);
   color: var(--text);
 }
@@ -63,7 +63,7 @@
   display: flex;
   align-items: center;
   height: 34px;
-  padding: 0 9px;
+  padding: 0 var(--space-2);
 }
 
 .spacer {
@@ -74,7 +74,7 @@
 .controls {
   display: flex;
   align-self: stretch;
-  margin-top: -8px;
+  margin-top: calc(-1 * var(--space-2));
 }
 
 .control {
@@ -92,16 +92,16 @@
 
 @media (max-width: 720px) {
   .titlebar {
-    padding: 6px 0 0 6px;
-    font-size: 11px;
+    padding: var(--space-2) 0 0 var(--space-2);
+    font-size: var(--fs-xs);
   }
 
   .tab {
-    gap: 6px;
+    gap: var(--space-2);
     flex-basis: auto;
     height: 28px;
-    padding: 0 10px;
-    border-radius: 6px 6px 0 0;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-tag) var(--radius-tag) 0 0;
   }
 
   .tabClose,
@@ -111,11 +111,11 @@
 
   .chromeButton {
     height: 28px;
-    padding: 0 8px;
+    padding: 0 var(--space-2);
   }
 
   .controls {
-    margin-top: -6px;
+    margin-top: calc(-1 * var(--space-2));
   }
 
   .control {

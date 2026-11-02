@@ -3,8 +3,8 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px;
+  gap: var(--space-4);
+  padding: var(--space-6);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   background: var(--surface);
@@ -14,7 +14,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 /* ---- Featured: wide, text left, screenshot right ------------------------- */
@@ -32,34 +32,34 @@
 .featured .body {
   flex: 999 1 480px;
   min-width: 0;
-  padding: 36px;
-  gap: 14px;
+  padding: var(--space-8);
+  gap: var(--space-4);
 }
 
 .featureShot {
   flex: 1 1 400px;
   display: flex;
-  padding: 24px;
+  padding: var(--space-6);
   background: var(--band);
 }
 
 .featured .title {
-  font-size: 30px;
+  font-size: var(--fs-2xl);
 }
 
 /* ---- Pieces -------------------------------------------------------------- */
 .pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--fs-mono-sm);
 }
 
 .pill,
 .pillAccent {
-  padding: 4px 10px;
-  border-radius: 999px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-pill);
 }
 
 .pill {
@@ -87,13 +87,13 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .field {
   display: grid;
   grid-template-columns: 72px 1fr;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
 .fieldLabel {
@@ -112,18 +112,18 @@
 }
 
 .stack {
-  margin: 4px 0 0;
+  margin: var(--space-1) 0 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--fs-mono-sm);
 }
 
 .tag {
-  padding: 3px 9px;
+  padding: 3px var(--space-2);
   border-radius: var(--radius-tag);
   background: var(--bg);
   color: var(--value);
@@ -133,7 +133,7 @@
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   min-height: var(--touch);
   margin-top: auto;
   font-size: var(--fs-small);
@@ -142,7 +142,7 @@
 
 @media (max-width: 720px) {
   .card {
-    padding: 18px;
+    padding: var(--space-4);
   }
 
   .featured {
@@ -150,7 +150,7 @@
   }
 
   .featured .body {
-    padding: 18px;
+    padding: var(--space-4);
     flex-basis: 100%;
   }
 
@@ -158,18 +158,18 @@
   .featureShot {
     order: -1;
     flex-basis: 100%;
-    padding: 18px 18px 0;
+    padding: var(--space-4) var(--space-4) 0;
     border-left: 0;
     background: transparent;
   }
 
   .featured .title {
-    font-size: 24px;
+    font-size: var(--fs-xl);
   }
 
   .field {
     grid-template-columns: 64px 1fr;
-    gap: 8px;
+    gap: var(--space-2);
   }
 }
 

@@ -1,0 +1,123 @@
+{/*
+  content/case-studies/14acres-website.mdx — the 14acres.com website case
+  study: the WordPress → Webflow rebuild, its CMS, and the TV slideshow
+  that runs off the same events.
+
+  HOW TO EDIT: write plain markdown inside each <CaseSection>. Keep the
+  eight sections and their order (they come from content/case-studies.ts).
+  <Todo> marks text still to be written; replace the whole <Todo> line.
+  Every fact must match the résumé.
+*/}
+
+<CaseSection id="customer">
+
+14 Acres Vineyard & Winery is a working winery, tasting room and event venue in Ridgefield, Washington, open Wednesday through Sunday. **14acres.com** gets **100–300 visitors a day**: people planning a visit, guests checking the event calendar, wine club members, and couples and companies asking about private events.
+
+Every piece of marketing there has the same goal: get people into the tasting room first, and into the wine club second. The website is where most of that lands.
+
+</CaseSection>
+
+<CaseSection id="discovery">
+
+**What they had:** a buggy WordPress site, and two tasting room TVs that played the same looping video from a USB media player.
+
+**What the site had to do:** keep the event calendar current without a developer, get every inquiry to the right inbox, check that visitors are 21 or older, and give the QR codes on the brochure and in the tasting room somewhere useful to land on a phone.
+
+**The real problem:** events change every week. If each one lives in a single CMS item, one update reaches the event pages, the TVs and the AI receptionist’s event info.
+
+</CaseSection>
+
+<CaseSection id="constraints">
+
+- **Speed:** keep custom scripts to a minimum. Tracking logic lives in Google Tag Manager, not in Webflow custom code.
+- **Compliance:** a 21+ age gate on every page, and separate yes/no consent for email and for SMS marketing on every form.
+- **Editors:** staff add events and wines in the Webflow CMS. Nothing they edit should need code.
+- **Review:** every change goes to the Webflow staging site first, then to the live domain.
+- **Hardware:** the TVs share one HDMI splitter, driven by a small Dell Optiplex that runs 24/7 and also runs karaoke night.
+
+</CaseSection>
+
+<CaseSection id="shipped">
+
+<Diagram
+  label="Architecture: staff add an event once in the Webflow CMS, and it appears on the website’s event pages and as a slide on the tasting room TVs."
+  nodes={[
+    { title: "Staff", note: "add an event once" },
+    { title: "Webflow CMS", note: "events, wines, promos", accent: true },
+    { title: "14acres.com", note: "event pages, wines, QR hub" },
+    { title: "Tasting room TVs", note: "slides with a QR code" },
+  ]}
+  links={["→", "→", "→"]}
+/>
+
+I rebuilt the site in Webflow and moved 14acres.com over to it in September 2026.
+
+<Decisions>
+  <Decision title="CMS collections, not pages">
+    Upcoming Events, Wines, Summer Concerts and TV Promos are collections. Weekly events are one item with a recurring switch (“every Wednesday”) instead of one item per date.
+  </Decision>
+  <Decision title="Empty fields disappear">
+    Event pages hide any row whose field is empty, and show “Reserve your seats” only when there’s a registration link, using Webflow’s own conditional visibility, not custom CSS.
+  </Decision>
+  <Decision title="One event, two images">
+    Each event has a 4:3 card image (1600×1200) and a wide hero (2400×1000), both WebP under 1 MB. A photo that doesn’t crop cleanly gets replaced, not squeezed.
+  </Decision>
+</Decisions>
+
+The rest of the build:
+
+- **21+ age gate:** a small script in the site’s head that remembers the answer in a cookie. It has to load before the scroll-reveal script, so it’s pinned above it.
+- **Wines:** an out-of-stock toggle that adds a badge and dims the card on the wine list, the wine page and the food menu pairings; member prices to the exact cent (20% off); homepage links that open the wine list already filtered by type (red, white and so on).
+- **QR hub (/hub):** one mobile page for the brochure and tasting room QR codes, with ten actions: events, registration, wine club, reservations (a tap-to-call link), private events, hours and directions, menu, social, newsletter and a Google review link. It’s built from the site’s existing Webflow classes, with any new ones named in Finsweet Client-First.
+- **Four lead forms:** contact, wine club, tours and event inquiries, every field required, with separate email and SMS consent.
+- **Tracking:** Google Tag Manager and GA4 site-wide, with the directions, phone and event buttons tagged as conversions.
+- **Events on the TVs:** the Optiplex runs a rolling slideshow of upcoming events from the CMS, each slide with a QR code back to the website, and a promo slide after every couple of events. Promo videos are stored on Cloudflare R2 and listed in the TV Promos collection.
+
+<Todo>[How the TV slideshow reads the CMS: Webflow API, published page, or something else — and what runs it on the Optiplex]</Todo>
+
+<Aside title="Working with AI">
+
+The custom code on this site (age gate, scroll reveal, TV slideshow) is AI-assisted. I review and test every change, on staging first.
+
+</Aside>
+
+</CaseSection>
+
+<CaseSection id="rollout">
+
+The new site went live the week of August 31, 2026, and 14acres.com switched to Webflow on Saturday, September 5, with the full September and October event calendar already on it. Changes still go to staging for review before they’re published to the live domain.
+
+I train staff on each system myself.
+
+<Todo>[Who adds events and wines now, and how long it took them to learn the CMS]</Todo>
+
+</CaseSection>
+
+<CaseSection id="results">
+
+- **100–300 visitors a day** on the new site.
+- **The TVs update themselves:** publish an event and it shows up on the website and on the tasting room screens, with no manual edits.
+- **Every inquiry is tracked:** four forms with required fields and consent, and GA4 conversions on directions, phone and event clicks.
+
+<Todo>[PageSpeed Insights before and after (WordPress vs. Webflow), and total image weight on the home page]</Todo>
+
+</CaseSection>
+
+<CaseSection id="broke">
+
+**What broke:** every event page showed the wrong date. Dates were saved at midnight UTC, which is the previous evening in Pacific time.
+
+**What I changed:** event dates are now stored at midday, so they show on the right day.
+
+**Also fixed:** repeat performers shared one page title in search results, so events now have their own SEO title field with the date in it (“Live Music: Sparrow Wren, Sept 19, 2026 | 14 Acres”), while the heading on the page stays undated.
+
+</CaseSection>
+
+<CaseSection id="next">
+
+- A daily sweep that unpublishes past events the morning after and emails marketing a list of what came down
+- Blog posts on 14acres.com, starting with the winter events season
+- Finish moving the domain and DNS from SiteGround to Cloudflare
+- Form notifications as one shared email thread per inquiry, instead of separate copies to each inbox
+
+</CaseSection>
