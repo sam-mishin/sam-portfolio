@@ -270,7 +270,7 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
 
 **Content**
 
-- [ ] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there).
+- [x] **Résumé PDF** — save it as `public/resume/Sam_Mishin_Resume.pdf` (the hero and palette link there).
 - [ ] **Screenshots** (WebP, ≤1920px long edge, <400 KB, in `public/shots/`), then swap the `shot` text in `content/projects.ts` for the image:
   - [ ] Trellis member billing dashboard
   - [x] Spend tracker dashboard
@@ -296,9 +296,9 @@ Find them all with `Select-String -Path content\* -Pattern '\['` (PowerShell).
   - [ ] Who adds events and wines now, and how long the CMS took them to learn
   - [ ] PageSpeed Insights before/after (WordPress vs. Webflow) and home-page image weight
   - [ ] Confirm the past-event sweep status (listed under What's next) and that /hub is published
-- [ ] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
+- [x] **Spend tracker case study** (`content/case-studies/spend-tracker.mdx` + `content/case-studies.ts`):
   - [x] Your role, how the GM uses it, the real problem, constraints, key decisions, rollout, results, what broke
   - [x] Hero screenshot of the dashboard
-- [ ] **Cash drawer case study** (`content/case-studies/cash-drawer.mdx` + `content/case-studies.ts`):
+- [x] **Cash drawer case study** (`content/case-studies/cash-drawer.mdx` + `content/case-studies.ts`):
   - [x] Your role, when counts happen, the real problem, constraints, key decisions, rollout, results, what broke
   - [x] Screenshot of the count screen

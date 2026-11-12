@@ -35,4 +35,4 @@ export const education: { title: string; detail: string }[] = [
 
 /** The note under the education list. */
 export const certsInProgress =
-  "In progress: AWS Developer – Associate, Linux Essentials, Java, Back-End and AI Optimization Developer certs.";
+  "In progress: AWS Developer – Associate, Linux Essentials, Java, Back-End, and AI Optimization Developer certs.";

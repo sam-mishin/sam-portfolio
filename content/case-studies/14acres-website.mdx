@@ -11,7 +11,7 @@
 
 <CaseSection id="customer">
 
-14 Acres Vineyard & Winery is a working winery, tasting room and event venue in Ridgefield, Washington, open Wednesday through Sunday. **14acres.com** gets **100–300 visitors a day**: people planning a visit, guests checking the event calendar, wine club members, and couples and companies asking about private events.
+14 Acres Vineyard & Winery is a working winery, tasting room, and event venue in Ridgefield, Washington, open Wednesday through Sunday. **14acres.com** gets **100–300 visitors a day**: people planning a visit, guests checking the event calendar, wine club members, and couples and companies asking about private events.
 
 Every piece of marketing there has the same goal: get people into the tasting room first, and into the wine club second. The website is where most of that lands.
 
@@ -21,19 +21,17 @@ Every piece of marketing there has the same goal: get people into the tasting ro
 
 **What they had:** a buggy WordPress site, and two tasting room TVs that played the same looping video from a USB media player.
 
-**What the site had to do:** keep the event calendar current without a developer, get every inquiry to the right inbox, check that visitors are 21 or older, and give the QR codes on the brochure and in the tasting room somewhere useful to land on a phone.
+**What the site had to do:** the big one was letting staff keep the event calendar up to date without a developer. Inquiries also had to reach the right inbox, the site had to check that visitors are 21 or older, and the QR codes on the brochure and in the tasting room had to open something useful on a phone.
 
-**The real problem:** events change every week. If each one lives in a single CMS item, one update reaches the event pages, the TVs and the AI receptionist’s event info.
+**The real problem:** events change every week. I wanted each event to live in one CMS item, so one update would reach the event pages, the TVs, and the AI receptionist’s event info all at once.
 
 </CaseSection>
 
 <CaseSection id="constraints">
 
-- **Speed:** keep custom scripts to a minimum. Tracking logic lives in Google Tag Manager, not in Webflow custom code.
-- **Compliance:** a 21+ age gate on every page, and separate yes/no consent for email and for SMS marketing on every form.
-- **Editors:** staff add events and wines in the Webflow CMS. Nothing they edit should need code.
-- **Review:** every change goes to the Webflow staging site first, then to the live domain.
-- **Hardware:** the TVs share one HDMI splitter, driven by a small Dell Optiplex that runs 24/7 and also runs karaoke night.
+I tried to keep custom scripts to a minimum so the site stays fast, which is why tracking goes through Google Tag Manager and not Webflow custom code. There’s also a 21+ age gate on every page, and each form asks for email and SMS marketing consent as two separate yes/no questions.
+
+Staff add events and wines themselves in the Webflow CMS, so nothing they edit should ever need code. Every change goes to the Webflow staging site before it goes to the live domain. On the hardware side, both TVs run off one HDMI splitter, driven by a small Dell OptiPlex that stays on 24/7. It also runs karaoke night.
 
 </CaseSection>
 
@@ -50,30 +48,31 @@ Every piece of marketing there has the same goal: get people into the tasting ro
   links={["→", "→", "→"]}
 />
 
-I rebuilt the site in Webflow and moved 14acres.com over to it in September 2026.
+I rebuilt the site in Webflow and launched it at the end of August 2026.
 
 <Decisions>
   <Decision title="CMS collections, not pages">
-    Upcoming Events, Wines, Summer Concerts and TV Promos are collections. Weekly events are one item with a recurring switch (“every Wednesday”) instead of one item per date.
+    Upcoming Events, Wines, Summer Concerts, and TV Promos are collections. Weekly events are a single item with a recurring switch (“every Wednesday”) rather than one item per date.
   </Decision>
   <Decision title="Empty fields disappear">
     Event pages hide any row whose field is empty, and show “Reserve your seats” only when there’s a registration link, using Webflow’s own conditional visibility, not custom CSS.
   </Decision>
   <Decision title="One event, two images">
-    Each event has a 4:3 card image (1600×1200) and a wide hero (2400×1000), both WebP under 1 MB. A photo that doesn’t crop cleanly gets replaced, not squeezed.
+    Every event has two images: a 4:3 card (1600×1200) and a wide hero (2400×1000), both WebP and under 1 MB. When a photo doesn’t crop cleanly, I swap it for a different one rather than squeezing it.
   </Decision>
 </Decisions>
 
-The rest of the build:
+A few other pieces went into the build. The 21+ age gate is a small script in the site’s head that remembers each visitor’s answer in a cookie. It has to load before the scroll-reveal script, so I pinned it above it.
 
-- **21+ age gate:** a small script in the site’s head that remembers the answer in a cookie. It has to load before the scroll-reveal script, so it’s pinned above it.
-- **Wines:** an out-of-stock toggle that adds a badge and dims the card on the wine list, the wine page and the food menu pairings; member prices to the exact cent (20% off); homepage links that open the wine list already filtered by type (red, white and so on).
-- **QR hub (/hub):** one mobile page for the brochure and tasting room QR codes, with ten actions: events, registration, wine club, reservations (a tap-to-call link), private events, hours and directions, menu, social, newsletter and a Google review link. It’s built from the site’s existing Webflow classes, with any new ones named in Finsweet Client-First.
-- **Four lead forms:** contact, wine club, tours and event inquiries, every field required, with separate email and SMS consent.
-- **Tracking:** Google Tag Manager and GA4 site-wide, with the directions, phone and event buttons tagged as conversions.
-- **Events on the TVs:** the Optiplex runs a rolling slideshow of upcoming events from the CMS, each slide with a QR code back to the website, and a promo slide after every couple of events. Promo videos are stored on Cloudflare R2 and listed in the TV Promos collection.
+For wines, there’s an out-of-stock toggle that adds a badge and dims the card on the wine list, the wine page, and the food menu pairings. Member prices are calculated to the exact cent (20% off), and the homepage links open the wine list already filtered by type, like red or white.
 
-<Todo>[How the TV slideshow reads the CMS: Webflow API, published page, or something else — and what runs it on the Optiplex]</Todo>
+The QR hub (/hub) is one mobile page for the brochure and tasting room QR codes, with ten actions: events, registration, wine club, reservations (a tap-to-call link), private events, hours and directions, menu, social, newsletter, and a Google review link. I built it from the site’s existing Webflow classes and named any new ones in Finsweet Client-First.
+
+The site has four lead forms (contact, wine club, tours, and event inquiries). Every field on them is required, and email and SMS consent are separate yes/no questions. For tracking, Google Tag Manager and GA4 run across the whole site, and clicks on the directions, phone, and event buttons count as conversions.
+
+For the TVs, the OptiPlex runs a rolling slideshow of upcoming events pulled from the CMS, and each slide has a QR code that goes back to the website. After every couple of events, a promo slide plays. The promo videos live on Cloudflare R2 and are listed in the TV Promos collection.
+
+<Todo>[How the TV slideshow reads the CMS: Webflow API, published page, or something else — and what runs it on the OptiPlex]</Todo>
 
 <Aside title="Working with AI">
 
@@ -95,9 +94,7 @@ I train staff on each system myself.
 
 <CaseSection id="results">
 
-- **100–300 visitors a day** on the new site.
-- **The TVs update themselves:** publish an event and it shows up on the website and on the tasting room screens, with no manual edits.
-- **Every inquiry is tracked:** four forms with required fields and consent, and GA4 conversions on directions, phone and event clicks.
+The new site gets **100–300 visitors a day**. The TVs don’t need anyone to update them anymore. Someone publishes an event, and it shows up on the website and on the tasting room screens on its own. Inquiries are tracked as well: all four forms have required fields and consent, and GA4 counts directions, phone, and event clicks as conversions.
 
 <Todo>[PageSpeed Insights before and after (WordPress vs. Webflow), and total image weight on the home page]</Todo>
 
@@ -105,7 +102,7 @@ I train staff on each system myself.
 
 <CaseSection id="broke">
 
-**What broke:** every event page showed the wrong date. Dates were saved at midnight UTC, which is the previous evening in Pacific time.
+**What broke:** every event page was showing the wrong date. It turned out dates were being saved at midnight UTC, and in Pacific time that’s still the evening before.
 
 **What I changed:** event dates are now stored at midday, so they show on the right day.
 
@@ -115,9 +112,6 @@ I train staff on each system myself.
 
 <CaseSection id="next">
 
-- A daily sweep that unpublishes past events the morning after and emails marketing a list of what came down
-- Blog posts on 14acres.com, starting with the winter events season
-- Finish moving the domain and DNS from SiteGround to Cloudflare
-- Form notifications as one shared email thread per inquiry, instead of separate copies to each inbox
+There are a few things left on my list. I want a daily sweep that unpublishes past events the morning after and emails marketing a list of what came down. I’d like to start blog posts on 14acres.com too, beginning with the winter events season. I also still need to finish moving the domain and DNS from SiteGround to Cloudflare. And instead of sending separate copies of form notifications to each inbox, I want them to come in as one shared email thread per inquiry.
 
 </CaseSection>

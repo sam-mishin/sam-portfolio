@@ -39,7 +39,7 @@ export const profile = {
       "Full-stack web developer. I built a wine club billing platform, Clover POS integrations and daily-use staff tools, and I’ve shipped about 12 client websites since 2023.",
     primaryCta: { label: "See my work", href: "#work" },
     secondaryCta: { label: "Download résumé", href: "/resume/Sam_Mishin_Resume.pdf" },
-    availability: "Open to frontend, design systems and full-stack roles",
+    availability: "Open to frontend, design systems, and full-stack roles",
     location: "Vancouver WA / Portland / remote",
   },
 
@@ -54,7 +54,7 @@ export const profile = {
           { label: "OS", value: "Windows, Webflow, Vercel" },
           { label: "Uptime", value: "{uptime}", phone: true },
           { label: "Host", value: "14 Acres Vineyard & Winery", phone: true },
-          { label: "Kernel", value: "Marketing & Technology Lead", phone: true },
+          { label: "Kernel", value: "Marketing and Technology Lead", phone: true },
           { label: "IDE", value: "VS Code" },
           { label: "Theme", value: { dark: "Ayu Dark Unbordered", light: "Ayu Light" } },
         ],
@@ -93,7 +93,7 @@ export const profile = {
   contact: {
     command: "contact --sam",
     heading: "Let’s talk.",
-    intro: "Looking for frontend, design systems, full-stack, forward-deployed, solutions or implementation engineering roles.",
+    intro: "Looking for frontend, design systems, full-stack, forward-deployed, solutions, or implementation engineering roles.",
     email: "sammishin2@gmail.com",
     /** Shown after the email is copied. */
     copied: "✓ copied to clipboard",

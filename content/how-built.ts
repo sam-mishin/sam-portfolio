@@ -22,7 +22,7 @@ export const howBuilt = {
   items: [
     {
       title: "Design tokens",
-      body: "Colors, font sizes, spacing and radii are CSS custom properties in app/globals.css, including a 12-step --space scale. Component stylesheets use only those tokens; the only raw values left are 1–3px hairlines and a few em-based nudges in the hero headline.",
+      body: "Colors, font sizes, spacing, and radii all live as CSS custom properties in app/globals.css, and spacing follows a 12-step --space scale. Component stylesheets stick to those tokens. The only raw values I left in are 1–3px hairlines and a few em-based nudges in the hero headline.",
     },
     {
       title: "Two themes, one token set",
@@ -42,7 +42,7 @@ export const howBuilt = {
     },
     {
       title: "Motion that respects settings",
-      body: "Reduced motion turns off the boot screen, typing intro, scroll effects and page slides. Anything that blinks on its own stops within five seconds.",
+      body: "Reduced motion turns off the boot screen, typing intro, scroll effects, and page slides. Anything that blinks on its own stops within five seconds.",
     },
   ],
   excerpt: {

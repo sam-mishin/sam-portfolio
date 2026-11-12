@@ -12,7 +12,7 @@ export const sections = {
     command: "ls .\\work --deployed",
     heading: "Deployments",
     intro:
-      "Who it was for, what they needed, what I shipped and how it was built: hand-written, or AI-assisted with me reviewing and testing every change.",
+      "Who it was for, what they needed, what I shipped, and how it was built: either hand-written or AI-assisted, with me reviewing and testing every change.",
     handWrittenCommand: "ls .\\work --hand-written",
     handWrittenHeading: "Hand-written projects",
     moreCommand: "ls .\\work --more",

@@ -9,9 +9,9 @@
 
 <CaseSection id="customer">
 
-The tasting room staff at 14 Acres Vineyard & Winery — **8–10 people** — who count the cash drawer, and the managers who rely on those counts. Cash sales are rung up in the **Clover POS**.
+The app is for the tasting room staff at 14 Acres Vineyard & Winery (**8–10 people**) who count the cash drawer, and for the managers who rely on those counts. Cash sales are rung up in the **Clover POS**.
 
-Counts happen at closing. The staff working up front count the cash, and the app works out the expected amount, verifies their count and tells them how much to move into overage.
+Counts happen at closing. The staff working up front count the cash, and the app works out the expected amount, verifies their count, and tells them how much to move into overage.
 
 </CaseSection>
 
@@ -19,7 +19,7 @@ Counts happen at closing. The staff working up front count the cash, and the app
 
 **What they had:** paper cash counts that weren’t accurate, and a buggy prototype meant to replace them.
 
-**The real problem:** a staff member had built the first version with AI. It was constantly buggy, and the staff who used it complained about how it worked. So I asked each of them what their biggest pain points were, and rebuilt the app in Next.js around their answers.
+**The real problem:** a staff member had built the first version with AI. It was constantly buggy, and the staff who used it complained about how it worked. So I asked each of them what their biggest pain points were, and rebuilt the app in Next.js based on their answers.
 
 </CaseSection>
 
@@ -46,16 +46,15 @@ Counts happen at closing. The staff working up front count the cash, and the app
   links={["→", "⇄", "→"]}
 />
 
-I rebuilt the prototype in Next.js and Supabase. Staff enter the drawer count in the app, and every count is checked against Clover cash sales so any mismatch is flagged.
+I rebuilt the prototype in Next.js and Supabase. Staff enter the drawer count in the app, and every count is checked against Clover cash sales, so any mismatch is flagged.
 
-Two decisions shaped the rebuild:
+I also changed how starting cash works. Instead of just carrying over the previous day’s ending cash, the app works it out from the last time the register was actually closed.
 
-- **Starting cash comes from the last close.** The app calculates the starting cash from the last time the register was closed, not just from the previous day’s ending cash.
-- **Overage is handled in the app.** When the drawer is over, the app tells staff how much to put into overage. When they confirm they’ve moved it, the app deducts that amount from the drawer, so the next day’s count starts out accurate.
+Overage is handled in the app now, too. If the drawer is over, the app tells staff how much to put into overage. Once they confirm they’ve moved it, the app takes that amount out of the drawer, so the next day’s count starts accurate.
 
 <Aside title="Working with AI">
 
-The cash drawer app is AI-assisted. I review and test every change before it ships.
+AI helped write a lot of the code here, too. I still go through every change and test it myself before staff ever see it.
 
 </Aside>
 
@@ -79,15 +78,12 @@ Switching from paper brought more accountability: every count is checked, so cas
 
 <CaseSection id="broke">
 
-**What broke:** after launch, the Clover cash total was sometimes wrong. The value was cached, so staff saw an out-of-date number.
-
-**What I changed:** the app now loads the Clover total fresh every time the page loads.
+After launch, staff sometimes saw the wrong Clover cash total. The number was being cached, so they were looking at an out-of-date value. I changed the app to pull a fresh Clover total every time the page loads.
 
 </CaseSection>
 
 <CaseSection id="next">
 
-- A simple report of mismatches over time, and of counts done in the app vs. on paper, as proof of adoption
-- A public demo with seeded fake data and a “demo” banner, so anyone can click through it
+Next up is a simple report of mismatches over time, along with how many counts happen in the app versus on paper, so I can show it’s actually being used. I’d also like to put up a public demo with fake seeded data and a “demo” banner so that anyone can click through it.
 
 </CaseSection>

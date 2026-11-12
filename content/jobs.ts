@@ -22,9 +22,9 @@ export const jobs: Job[] = [
   {
     hash: "a7f3e21",
     dates: "Jul 2026 – now",
-    role: "Marketing & Technology Lead",
+    role: "Marketing and Technology Lead",
     org: "14 Acres Vineyard & Winery",
-    desc: "Build and maintain the winery’s software, POS integrations and website (about two-thirds of the role); also run marketing.",
+    desc: "Build and maintain the winery’s software, POS integrations, and website (about two-thirds of the role); also run marketing.",
     dot: "current",
   },
   {
@@ -56,7 +56,7 @@ export const jobs: Job[] = [
     dates: "Oct 2023 – now",
     role: "Freelance Web Developer",
     org: "Self-employed",
-    desc: "About 12 client sites in Webflow and Next.js, from design through launch, plus Python image tooling and Make.com automations. I handle accessibility on client sites: ARIA labels, visible focus states, alt text and color contrast.",
+    desc: "About 12 client sites in Webflow and Next.js, from design through launch, plus Python image tooling and Make.com automations. I handle accessibility on client sites: ARIA labels, visible focus states, alt text, and color contrast.",
     dot: "side",
   },
 ];

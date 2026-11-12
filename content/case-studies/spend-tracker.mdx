@@ -9,7 +9,7 @@
 
 <CaseSection id="customer">
 
-The owner and general manager of 14 Acres Vineyard & Winery, a working winery and tasting room in Ridgefield, Washington. Every sale goes through the **Clover POS**, but there was no single view of revenue and the top-selling food and wine.
+I built this for the owner and general manager of 14 Acres Vineyard & Winery, a working winery and tasting room in Ridgefield, Washington. Every sale goes through the **Clover POS**, but there was no single view of revenue or the top-selling food and wine.
 
 The GM uses the dashboard once or twice a week to see a breakdown of each member: their favorite wines, how much they’ve spent on wine vs. food, their favorite day, how many comped tastings they’ve been given, and more.
 
@@ -25,8 +25,8 @@ The GM uses the dashboard once or twice a week to see a breakdown of each member
 
 <CaseSection id="constraints">
 
-- **Existing systems:** the data lives in Clover, so the tracker reads orders from the Clover API rather than asking staff to enter anything.
-- **Volume:** the sync now holds 50,000+ orders, so it has to keep up night after night.
+- **Existing systems:** all the data was already in Clover, so I pull orders straight from the Clover API. Staff don’t have to enter anything.
+- **Volume:** there are 50,000+ orders in the sync now, and it has to keep up every night.
 - **Duplicate customers:** Clover has lots of duplicate customer records, so I had to design a way for several Clover customers to link to the same profile.
 - **Orders with no customer:** plenty of orders have no customer attached, and they can’t be thrown out.
 
@@ -45,17 +45,17 @@ The GM uses the dashboard once or twice a week to see a breakdown of each member
   links={["→", "→", "→"]}
 />
 
-A nightly sync copies Clover POS orders into Postgres (a Supabase function on a Vercel Cron), and on top of it sit a filter-and-search page and dashboards showing different totals and trends.
+Every night, a Vercel Cron job kicks off a Supabase function that grabs any new Clover orders and saves them to Postgres. The GM works from a filter-and-search page and a few dashboards built on that data.
 
-Three decisions shaped it:
+I went with a nightly sync instead of live data because the GM only checks it once or twice a week. Live numbers wouldn’t change anything for them, and syncing once a night is more efficient.
 
-- **A nightly sync, not live data.** The GM doesn’t need live numbers, and a nightly sync is more efficient.
-- **Several Clover customers, one profile.** Duplicate customer records link to a single profile, so one person’s spend isn’t split across records.
-- **Every order counts.** Orders with no customer attached are kept, so revenue totals stay complete.
+Duplicates were the bigger design problem. Clover often has the same person saved more than once, so I let several Clover customers point to one profile. Otherwise, one person’s spend gets split across several records.
+
+I also keep every order, even the ones with no customer attached. If I dropped those, the revenue totals would be wrong.
 
 <Aside title="Working with AI">
 
-The spend tracker is AI-assisted. I review and test every change before it ships.
+AI helped me write a lot of the code for the spend tracker, but I review every change and test it before it goes live.
 
 </Aside>
 
@@ -63,7 +63,7 @@ The spend tracker is AI-assisted. I review and test every change before it ships
 
 <CaseSection id="rollout">
 
-Training was simple: the whole site is one filter-and-search page plus dashboards showing different totals and trends.
+Training didn’t take long. The whole site is one filter-and-search page and a set of dashboards, so there wasn’t much to learn.
 
 </CaseSection>
 
@@ -77,7 +77,7 @@ Training was simple: the whole site is one filter-and-search page plus dashboard
 
 <CaseSection id="broke">
 
-**Duplicate customers.** Duplicate Clover customer records — the same person saved more than once — split one customer’s spend across several records. The fix was letting several Clover customers link to the same account. I’m also building a deduper package: a hand-written name-similarity matcher, tested with Vitest.
+**Duplicate customers.** Duplicate Clover customer records — the same person saved more than once — split one customer’s spend across several records. I fixed it by letting several Clover customers link to the same account. I’m also building a deduper package: a hand-written name-similarity matcher, tested with Vitest.
 
 **Orders with no customer.** I built the tracker assuming every order had a customer attached, so at first the code ignored orders without one. That made total revenue for different food items wrong, so I changed it to keep every order.
 
@@ -85,8 +85,6 @@ Training was simple: the whole site is one filter-and-search page plus dashboard
 
 <CaseSection id="next">
 
-- Measure the identity matcher on a hand-labeled sample of real duplicates: how many it catches versus how many it wrongly merges
-- Package the matcher as a small open-source library with its Vitest tests
-- Once the deduper package is finished, extend it to a webhook-based sync
+There’s still more I want to do. First, I want to see how good the identity matcher actually is by running it on a sample of real duplicates I’ve labeled by hand, and counting how many it catches versus how many it merges by mistake. Then I’ll publish it as a small open-source library with its Vitest tests. Once that’s done, I’ll extend it to a webhook-based sync.
 
 </CaseSection>

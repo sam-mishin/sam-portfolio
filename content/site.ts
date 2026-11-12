@@ -13,7 +13,7 @@ export const site = {
   title: "Sam Mishin — Full-Stack Web Developer",
   /** Used for search results and link previews. */
   description:
-    "Sam Mishin embeds with businesses and ships the software they run on: a wine club billing platform, Clover POS integrations, daily-use staff tools and about 12 client websites.",
+    "Sam Mishin embeds with businesses and ships the software they run on: a wine club billing platform, Clover POS integrations, daily-use staff tools, and about 12 client websites.",
   /** Alt text for the share image of the terminal card (app/opengraph-image.tsx). {stats} becomes the impact rows from content/profile.ts. */
   shareImageAlt: "Sam Mishin’s terminal card: Full-Stack Web Developer. {stats}.",
   /** Alt text for a case study's share image; {title} is replaced with the project name. */
